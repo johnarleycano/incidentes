@@ -1501,77 +1501,89 @@ else
 </table>
 	
 
-	<div id="demo">
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="demo">
 	<table border="0" align="center" cellspacing="0" class="display" id="ptablas">
-	<thead>
-		<tr>
-			<th>Codigo</th>
-			<th>Fecha</th>
-			<th>Via</th>
-			<th>Referencia</th>
-			<th>Tipo Atencion</th>
-			<th>Usuario</th>
-			<th>Estado</th>
-			<th>Ver</th>
-			<th>Descargar</th>
-		</tr> 
-	</thead>
-	<tbody>	
-	<?php
-	$i=0;
-	while(!$rs->EOF)
-	{
-	if($i%2==0)
-			echo "<tr bgcolor='#CCCCCC'>";
-		else
-			echo "<tr bgcolor='#FFFFFF'>";
-	echo "
-	<td>".$rs->fields[1].".".str_pad($rs->fields[2],5,"0",STR_PAD_LEFT)."</td>
-	<td>".$rs->fields[10]."</td>
-	<td>".$rs->fields[7]."</td>
-	<td>".$rs->fields[8]."</td>
-	<td>".$rs->fields[9]."</td>
-	<td>".$rs->fields[11]." ".$rs->fields[12]."</td>
-	<td>";
-	echo '<table>
+		<thead>
 			<tr>
-				<td><img src="img/verde.png"  title="Registro Inicial Completo"/></td>
-				<td>';
-					if($rs->fields[4]==1)
-						echo '<img src="img/verde.png" title="Finalizado por SOS"/>';
-					else
-					if($rs->fields[3]==1)
-					echo '<img src="img/amarillo.png" title="Guardado por SOS"/>';
-					else
-					echo '<img src="img/gris.png" title="Pendiente por SOS"/>';
-					echo '
-				</td>
-				<td>
-				';
-					if($rs->fields[6]==1)
-						echo '<img src="img/verde.png" title="Finalizado por Adm Vial"/>';
-					else
-					if($rs->fields[5]==1)
-						echo '<img src="img/amarillo.png" title="Guardado por Adm Vial"/>';
-					else
-						echo '<img src="img/gris.png" title="Pendiente por Adm Vial"/>';
-		echo '</td>
-			</tr>
-		</table>';
-	echo "</td>
-	
-	<td><input type='button' class='vbotones' value='Ver' onClick='ver_incidente(".$rs->fields[0].")'></td>
-	
-	<td align='center'>".
-	'<img src="img/popup.png"style="cursor:pointer" title="REPORTE ACCIDENTE" alt="REPORTE ACCIDENTE" onclick="window.open('."'reporte_1.php?id_buscar=".$rs->fields[0]."','_blank'".')" />
-	<img src="img/popup.png"style="cursor:pointer" title="INFORME ADMINISTRADOR VIAL DE  EVENTUALIDADES SOBRE LA VÍA" alt="INFORME ADMINISTRADOR VIAL DE  EVENTUALIDADES SOBRE LA VÍA" onclick="window.open('."'reporte_2.php?id_buscar=".$rs->fields[0]."','_blank'".')" />'.
-	"</td>
-	</tr>";
-	$rs->MoveNext();
-	$i++;
-	}
-	?>
-	</tbody>
+				<th>Codigo</th>
+				<th>Fecha</th>
+				<th>Via</th>
+				<th>Referencia</th>
+				<th>Tipo Atencion</th>
+				<th>Usuario</th>
+				<th>Estado</th>
+				<th>Ver</th>
+				<th>Descargar</th>
+			</tr> 
+		</thead>
+		<tbody>	
+			<?php
+			$i=0;
+			while(!$rs->EOF) {
+				if($i%2==0)
+					echo "<tr bgcolor='#CCCCCC'>";
+				else
+					echo "<tr bgcolor='#FFFFFF'>";
+						echo "
+						<td>".$rs->fields[1].".".str_pad($rs->fields[2],5,"0",STR_PAD_LEFT)."</td>
+						<td>".$rs->fields[10]."</td>
+						<td>".$rs->fields[7]."</td>
+						<td>".$rs->fields[8]."</td>
+						<td>".$rs->fields[9]."</td>
+						<td>".$rs->fields[11]." ".$rs->fields[12]."</td>
+						<td>";
+							echo '<table>
+								<tr>
+									<td><img src="img/verde.png"  title="Registro Inicial Completo"/></td>
+									<td>';
+										if($rs->fields[4]==1)
+											echo '<img src="img/verde.png" title="Finalizado por SOS"/>';
+										else
+										if($rs->fields[3]==1)
+										echo '<img src="img/amarillo.png" title="Guardado por SOS"/>';
+										else
+										echo '<img src="img/gris.png" title="Pendiente por SOS"/>';
+										echo '
+									</td>
+									<td>';
+										if($rs->fields[6]==1)
+											echo '<img src="img/verde.png" title="Finalizado por Adm Vial"/>';
+										else
+										if($rs->fields[5]==1)
+											echo '<img src="img/amarillo.png" title="Guardado por Adm Vial"/>';
+										else
+											echo '<img src="img/gris.png" title="Pendiente por Adm Vial"/>';
+									echo '</td>
+								</tr>
+							</table>';
+						echo "</td>
+		
+						<td><input type='button' class='vbotones' value='Ver' onClick='ver_incidente(".$rs->fields[0].")'></td>
+		
+						<td align='center'>".
+							'<img src="img/popup.png"style="cursor:pointer" title="REPORTE ACCIDENTE" alt="REPORTE ACCIDENTE" onclick="window.open('."'reporte_1.php?id_buscar=".$rs->fields[0]."','_blank'".')" />
+							<img src="img/popup.png"style="cursor:pointer" title="INFORME ADMINISTRADOR VIAL DE  EVENTUALIDADES SOBRE LA VÍA" alt="INFORME ADMINISTRADOR VIAL DE  EVENTUALIDADES SOBRE LA VÍA" onclick="window.open('."'reporte_2.php?id_buscar=".$rs->fields[0]."','_blank'".')" />'.
+						"</td>
+					</tr>";
+				$rs->MoveNext();
+				$i++;
+			}
+		?>
+		</tbody>
 	</table>
 </div>
 
