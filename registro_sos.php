@@ -1,6 +1,7 @@
 <?php 
 //Cambio Septiembre 2011
 include_once "clases/capp.php";
+
 session_start();
 
 if (!isset($_SESSION[APL])  || $_SESSION[APL]->usuario->id == "" ){
@@ -71,14 +72,11 @@ if($_SESSION[APL]->usuario->id_perfil==3)
 else
 	echo $_SESSION[APL]->interfas->pestana(3);
 
-
-	$sql = "select valor from ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_constante WHERE id=3";
-	$cant_arc = $_SESSION[APL]->bd->dato($sql);
+$sql = "select valor from ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_constante WHERE id=3";
+$cant_arc = $_SESSION[APL]->bd->dato($sql);
 
 if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 {
-	
-	
 	if(isset($_POST['transito']))
 		$transito='SI';
 	else
@@ -95,51 +93,53 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 		$inspector='NO';
 	
 	if($_POST['accion']=='G')
-			$estado=2;
-		else
-			$estado=3;
+		$estado=2;
+	else
+		$estado=3;
 	
 	$abscisa_real="K".str_pad($_POST['absicsa_evento_p1'],2,'0',STR_PAD_LEFT)."+".str_pad($_POST['absicsa_evento_p2'],2,'0',STR_PAD_LEFT);
 
 	$refe=explode("|",$_POST['referencia']);
+
 	if($refe[0]=='')
 		$refe_in=null;
 	else
 		$refe_in=$refe[0];
-	$parametros=array(
-	'informado_por'=>$_POST['informado_por'],
-	'informado_por_nombre'=>$_POST['informado_por_nombre'],
-	'hora_salida_base'=>str_pad($_POST['hora_salida_base_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_salida_base_m'],2,'0',STR_PAD_LEFT),
-	'hora_llegada_sitio'=>str_pad($_POST['hora_llegada_sitio_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_llegada_sitio_m'],2,'0',STR_PAD_LEFT),
-	'hora_salida_sitio'=>str_pad($_POST['hora_salida_sitio_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_salida_sitio_m'],2,'0',STR_PAD_LEFT),
-	'hora_llegada_base'=>str_pad($_POST['hora_llegada_base_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_llegada_base_m'],2,'0',STR_PAD_LEFT),
-	'sentido'=>$_POST['sentido'],
-	'absicsa_salida'=>"K".$_POST['absicsa_salida_p1']."+".$_POST['absicsa_salida_p2'],
 
-	'nro_muertos'=>$_POST['nro_muertos']==''?0:$_POST['nro_muertos'],
-	'nro_heridos'=>$_POST['nro_heridos']==''?0:$_POST['nro_heridos'],
-	'transito'=>$transito,
-	'transito_placa'=>$_POST['transito_placa'],
-	'transito_apellido'=>$_POST['transito_apellido'],
-	'policia'=>$policia,
-	'policia_placa'=>$_POST['policia_placa'],
-	'policia_apellido'=>$_POST['policia_apellido'],
-	'inspector'=>$inspector,
-	'inspector_placa'=>$_POST['inspector_placa'],
-	'inspector_apellido'=>$_POST['inspector_apellido'],
-	'estado'=>$estado,
-	'visualizar_web'=>$_POST['visualizar_web'],
-	'tipo_incidente'=>$_POST['tipo_incidente'],
-	'referencia'=>$refe_in,
-	'via'=>$_POST['via'],
-	'tipo_atencion'=>$_POST['tipo_atencion'],
-	'observaciones'=>$_POST['observaciones'],
-	'tiempo_apertura'=>$_POST['tiempo_apertura'],
-	'abscisa_real'=>$abscisa_real
+	$parametros=array(
+		'informado_por'=>$_POST['informado_por'],
+		'informado_por_nombre'=>$_POST['informado_por_nombre'],
+		'hora_salida_base'=>str_pad($_POST['hora_salida_base_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_salida_base_m'],2,'0',STR_PAD_LEFT),
+		'hora_llegada_sitio'=>str_pad($_POST['hora_llegada_sitio_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_llegada_sitio_m'],2,'0',STR_PAD_LEFT),
+		'hora_salida_sitio'=>str_pad($_POST['hora_salida_sitio_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_salida_sitio_m'],2,'0',STR_PAD_LEFT),
+		'hora_llegada_base'=>str_pad($_POST['hora_llegada_base_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_llegada_base_m'],2,'0',STR_PAD_LEFT),
+		'sentido'=>$_POST['sentido'],
+		'absicsa_salida'=>"K".$_POST['absicsa_salida_p1']."+".$_POST['absicsa_salida_p2'],
+
+		'nro_muertos'=>$_POST['nro_muertos']==''?0:$_POST['nro_muertos'],
+		'nro_heridos'=>$_POST['nro_heridos']==''?0:$_POST['nro_heridos'],
+		'transito'=>$transito,
+		'transito_placa'=>$_POST['transito_placa'],
+		'transito_apellido'=>$_POST['transito_apellido'],
+		'policia'=>$policia,
+		'policia_placa'=>$_POST['policia_placa'],
+		'policia_apellido'=>$_POST['policia_apellido'],
+		'inspector'=>$inspector,
+		'inspector_placa'=>$_POST['inspector_placa'],
+		'inspector_apellido'=>$_POST['inspector_apellido'],
+		'estado'=>$estado,
+		'visualizar_web'=>$_POST['visualizar_web'],
+		'tipo_incidente'=>$_POST['tipo_incidente'],
+		'referencia'=>$refe_in,
+		'via'=>$_POST['via'],
+		'tipo_atencion'=>$_POST['tipo_atencion'],
+		'observaciones'=>$_POST['observaciones'],
+		'tiempo_apertura'=>$_POST['tiempo_apertura'],
+		'abscisa_real'=>$abscisa_real
 	);
 
-
-	$sql="SELECT codigo,periodo 
+	$sql = "
+	SELECT codigo,periodo 
 	FROM  ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_incidente 
 	WHERE id=".$_POST['id_buscar'];
 	$dat=$_SESSION[APL]->bd->getRs($sql);
@@ -147,31 +147,28 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 	$per_inc=$dat->fields[1];
 	$c_i=$per_inc."_".$cod_inc;
 
-
-	$sql="UPDATE ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_incidente
+	$sql=
+	"UPDATE ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_incidente
 	SET
-	informado_por=?,
-	informado_por_nombre=?,
-	hora_salida_base=?,
-	hora_llegada_sitio=?,
-	hora_salida_sitio=?,
-	hora_llegada_base=?,
-	sentido=?,
-	absicsa_salida=?,
-	nro_muertos=?,
-	nro_heridos=?,
-	transito=?,
-	transito_placa=?,
-	transito_apellido=?,
-	policia=?,
-	policia_placa=?,
-	policia_apellido=?,
-	inspector=?,
-	inspector_placa=?,
-	inspector_apellido=?,";
-	
-	
-	
+		informado_por=?,
+		informado_por_nombre=?,
+		hora_salida_base=?,
+		hora_llegada_sitio=?,
+		hora_salida_sitio=?,
+		hora_llegada_base=?,
+		sentido=?,
+		absicsa_salida=?,
+		nro_muertos=?,
+		nro_heridos=?,
+		transito=?,
+		transito_placa=?,
+		transito_apellido=?,
+		policia=?,
+		policia_placa=?,
+		policia_apellido=?,
+		inspector=?,
+		inspector_placa=?,
+		inspector_apellido=?,";
 	
 	if($_POST['accion']=='G')
 		$sql.="guardado_sos=1,";
@@ -179,25 +176,23 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 	if($_POST['accion']=='F')
 		$sql.="finalizado_sos=1,";
 	
-	
-	$sql.="
-	estado=?,
-	visualizar_web=?,
-	tipo_incidente=?,
-	referencia=?,
-	via=?,
-	tipo_atencion=?,
-	observaciones=?	,
-	tiempo_apertura=?,
-	abscisa_real=?
+	$sql.=
+		"estado=?,
+		visualizar_web=?,
+		tipo_incidente=?,
+		referencia=?,
+		via=?,
+		tipo_atencion=?,
+		observaciones=?	,
+		tiempo_apertura=?,
+		abscisa_real=?
 	WHERE
-	id=".$_POST['id_buscar']."";
+		id=".$_POST['id_buscar']."";
 	
 	if(!$_SESSION[APL]->bd->ejecutarO($sql,$parametros))
 		echo "<script>alert('Error al crear Incidente')</script>";
 	else
 	{
-	
 		for($l=1;$l<=10;$l++)
 		{
 			if($_POST['id_'.$l]=='' && $_POST['borrar_'.$l]==0 && $_POST['entidad_'.$l]!='')
@@ -212,26 +207,22 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 				$hlb=$_POST['hora_llegada_base_'.$l];
 				$mlb=$_POST['minu_llegada_base_'.$l];
 				
+				$parametros=array(
+					'id'=>$id_e,
+					'id_incidente'=>$_POST['id_buscar'],
+					'id_entidad'=>$_POST['entidad_'.$l],
+					'funcionario'=>$_POST['funcionario_entidad_'.$l],
+					'hora_salida_base'=>$hsb.$msb==''?'':str_pad($hsb,2,'0',STR_PAD_LEFT).":".str_pad($msb,2,'0',STR_PAD_LEFT),
+					'hora_llegada_sitio'=>$hls.$mls==''?'':str_pad($hls,2,'0',STR_PAD_LEFT).":".str_pad($mls,2,'0',STR_PAD_LEFT),
+					'hora_salida_sitio'=>$hss.$mss==''?'':str_pad($hss,2,'0',STR_PAD_LEFT).":".str_pad($mss,2,'0',STR_PAD_LEFT),
+					'hora_llegada_base'=>$hlb.$mlb==''?'':str_pad($hlb,2,'0',STR_PAD_LEFT).":".str_pad($mlb,2,'0',STR_PAD_LEFT)
+				);
 				
-				
-				
-				$parametros=array
-						(
-							'id'=>$id_e,
-							'id_incidente'=>$_POST['id_buscar'],
-							'id_entidad'=>$_POST['entidad_'.$l],
-							'funcionario'=>$_POST['funcionario_entidad_'.$l],
-							'hora_salida_base'=>$hsb.$msb==''?'':str_pad($hsb,2,'0',STR_PAD_LEFT).":".str_pad($msb,2,'0',STR_PAD_LEFT),
-							'hora_llegada_sitio'=>$hls.$mls==''?'':str_pad($hls,2,'0',STR_PAD_LEFT).":".str_pad($mls,2,'0',STR_PAD_LEFT),
-							'hora_salida_sitio'=>$hss.$mss==''?'':str_pad($hss,2,'0',STR_PAD_LEFT).":".str_pad($mss,2,'0',STR_PAD_LEFT),
-							'hora_llegada_base'=>$hlb.$mlb==''?'':str_pad($hlb,2,'0',STR_PAD_LEFT).":".str_pad($mlb,2,'0',STR_PAD_LEFT)
-							
-							);
-				
-				
-				$sql="INSERT INTO ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_apoyo_entidad (id,id_incidente,id_entidad,funcionario,hora_salida_base,hora_llegada_sitio,hora_salida_sitio,hora_llegada_base)
-				VALUEs
+				$sql=
+				"INSERT INTO ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_apoyo_entidad (id,id_incidente,id_entidad,funcionario,hora_salida_base,hora_llegada_sitio,hora_salida_sitio,hora_llegada_base)
+				VALUES
 				(?,?,?,?,?,?,?,?);";
+
 				if(!$_SESSION[APL]->bd->ejecutarO($sql,$parametros))
 					echo "<script>alert('Error al al Crear Apoyo Entidad')</script>";
 				
@@ -240,51 +231,44 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 			if($_POST['id_'.$l]!='' && $_POST['borrar_'.$l]==0 && $_POST['entidad_'.$l]!='')//nuevo lesionado
 			{
 				
-					$hsb=$_POST['hora_salida_base_'.$l];
-					$msb=$_POST['minu_salida_base_'.$l];
-					$hls=$_POST['hora_llegada_sitio_'.$l];
-					$mls=$_POST['minu_llegada_sitio_'.$l];
-					$hss=$_POST['hora_salida_sitio_'.$l];
-					$mss=$_POST['minu_salida_sitio_'.$l];
-					$hlb=$_POST['hora_llegada_base_'.$l];
-					$mlb=$_POST['minu_llegada_base_'.$l];
+				$hsb=$_POST['hora_salida_base_'.$l];
+				$msb=$_POST['minu_salida_base_'.$l];
+				$hls=$_POST['hora_llegada_sitio_'.$l];
+				$mls=$_POST['minu_llegada_sitio_'.$l];
+				$hss=$_POST['hora_salida_sitio_'.$l];
+				$mss=$_POST['minu_salida_sitio_'.$l];
+				$hlb=$_POST['hora_llegada_base_'.$l];
+				$mlb=$_POST['minu_llegada_base_'.$l];
 				
-				$parametros=array
-						(
-							'id_entidad'=>$_POST['entidad_'.$l],	
-							'funcionario'=>$_POST['funcionario_entidad_'.$l],
-							'hora_salida_base'=>$hsb.$msb==''?'':str_pad($hsb,2,'0',STR_PAD_LEFT).":".str_pad($msb,2,'0',STR_PAD_LEFT),
-							'hora_llegada_sitio'=>$hls.$mls==''?'':str_pad($hls,2,'0',STR_PAD_LEFT).":".str_pad($mls,2,'0',STR_PAD_LEFT),
-							'hora_salida_sitio'=>$hss.$mss==''?'':str_pad($hss,2,'0',STR_PAD_LEFT).":".str_pad($mss,2,'0',STR_PAD_LEFT),
-							'hora_llegada_base'=>$hlb.$mlb==''?'':str_pad($hlb,2,'0',STR_PAD_LEFT).":".str_pad($mlb,2,'0',STR_PAD_LEFT),
-							'id'=>$_POST['id_'.$l]
-							);
-				
+				$parametros=array(
+					'id_entidad'=>$_POST['entidad_'.$l],	
+					'funcionario'=>$_POST['funcionario_entidad_'.$l],
+					'hora_salida_base'=>$hsb.$msb==''?'':str_pad($hsb,2,'0',STR_PAD_LEFT).":".str_pad($msb,2,'0',STR_PAD_LEFT),
+					'hora_llegada_sitio'=>$hls.$mls==''?'':str_pad($hls,2,'0',STR_PAD_LEFT).":".str_pad($mls,2,'0',STR_PAD_LEFT),
+					'hora_salida_sitio'=>$hss.$mss==''?'':str_pad($hss,2,'0',STR_PAD_LEFT).":".str_pad($mss,2,'0',STR_PAD_LEFT),
+					'hora_llegada_base'=>$hlb.$mlb==''?'':str_pad($hlb,2,'0',STR_PAD_LEFT).":".str_pad($mlb,2,'0',STR_PAD_LEFT),
+					'id'=>$_POST['id_'.$l]
+				);
 				
 				$sql="UPDATE ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_apoyo_entidad 
 				SET 
-				id_entidad=?,
-				funcionario=?,
-				hora_salida_base=?,
-				hora_llegada_sitio=?,
-				hora_salida_sitio=?,
-				hora_llegada_base=?
+					id_entidad=?,
+					funcionario=?,
+					hora_salida_base=?,
+					hora_llegada_sitio=?,
+					hora_salida_sitio=?,
+					hora_llegada_base=?
 				WHERE
-				id=?";
+					id=?";
+
 				if(!$_SESSION[APL]->bd->ejecutarO($sql,$parametros))
 					echo "<script>alert('Error al Actulizar Apoyo Entidad')</script>";
-				
-				
 			}
 			else
 			if($_POST['id_'.$l]!='' && $_POST['borrar_'.$l]==1)
 			{
 				
-					$parametros=array
-						(
-							'id'=>$_POST['id_'.$l]
-							);
-				
+				$parametros=array( 'id'=>$_POST['id_'.$l] );
 				
 				$sql="DELETE FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_apoyo_entidad 
 				WHERE
@@ -293,29 +277,26 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 					echo "<script>alert('Error al Eliminar Apoyo Entidad')</script>";
 			}
 		}
-	
-		
 		
 		///Archivosss
 		$pos_r=1;
+
 		for($l=1;$l<=$cant_arc;$l++)
 		{
-
 			if($_POST['id_a_'.$l]=='' && $_POST['borrar_a_'.$l]==0 && $_FILES['archivo_'.$l]['name']!='')
 			{
 				$id_a=$_SESSION[APL]->getSecuencia('dvm_archivo','id');
 				
 				$ext=substr($_FILES['archivo_'.$l]['name'],-3);
+				
 				$name=$c_i."_archivo_id_".$id_a.".".$ext;
 				
-				$parametros=array
-						(
-							'id'=>$id_a,
-							'id_incidente'=>$_POST['id_buscar'],
-							'nombre'=>$name,
-							'tipo'=>'ARC'
-							);
-				
+				$parametros=array(
+					'id'=>$id_a,
+					'id_incidente'=>$_POST['id_buscar'],
+					'nombre'=>$name,
+					'tipo'=>'ARC'
+				);
 				
 				$sql="INSERT INTO ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_archivo (id,id_incidente,nombre,tipo)
 				VALUEs
@@ -391,52 +372,6 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 			}
 		}
 		
-		/////////////
-	
-	
-	
-	
-	/*
-	
-	
-	
-	
-		if($_FILES['archivo1']['name']!='')
-			{
-				$ext=substr($_FILES['archivo1']['name'],-3);
-				$name1=$c_i."_archivo_1.".$ext;
-			
-			
-			
-				if (!move_uploaded_file($_FILES['archivo1']['tmp_name'],'adjuntos/'.$name1))
-						echo "<script>alert('Error al Cargar Archivo 1')</script>";	
-			}
-		if($_FILES['archivo2']['name']!='')
-			{
-				$ext=substr($_FILES['archivo2']['name'],-3);
-				$name2=$c_i."_archivo_2.".$ext;
-				if (!move_uploaded_file($_FILES['archivo2']['tmp_name'],'adjuntos/'.$name2))
-						echo "<script>alert('Error al Cargar Archivo 2')</script>";	
-			}
-		if($_FILES['archivo3']['name']!='')
-			{
-				$ext=substr($_FILES['archivo3']['name'],-3);
-				$name3=$c_i."_archivo_3.".$ext;
-				if (!move_uploaded_file($_FILES['archivo3']['tmp_name'],'adjuntos/'.$name3))
-						echo "<script>alert('Error al Cargar Archivo 3')</script>";	
-			}
-		if($_FILES['archivo4']['name']!='')
-			{
-				$ext=substr($_FILES['archivo4']['name'],-3);
-				$name4=$c_i."_archivo_4.".$ext;
-				if (!move_uploaded_file($_FILES['archivo4']['tmp_name'],'adjuntos/'.$name4))
-						echo "<script>alert('Error al Cargar Archivo 4')</script>";	
-			}
-	*/
-	
-		
-	
-	
 		$parametros=array(
 		'id_incidente'=>$_POST['id_buscar'],
 		'estado'=>$estado,
@@ -457,11 +392,8 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 			if($_POST['accion']=='G')
 			echo "<script>alert('Se Actualizo el incidente ".$_POST['periodo'].".".str_pad($cod_inc,5,"0",STR_PAD_LEFT)."')</script>";
 			
-			
 		}
 	}
-	
-
 }
 ?>
 
@@ -659,6 +591,7 @@ if(document.incidente.referencia.value=='')
 	
 	
 }
+
 
 function ver_incidente(id)
 {
