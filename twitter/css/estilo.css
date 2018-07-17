@@ -1,0 +1,33 @@
+@charset "utf-8";
+.checkbox label, .radio label{
+
+min-height: 31px !important;
+padding-left: 17px;
+margin-bottom: 0px;
+font-weight: 401;
+cursor: pointer;
+font-size: 18px !important;
+
+}
+
+.container {
+    width: 1450px !important;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+    color: #fff;
+    background-color: #3fb733 !important;
+}
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px !important;
+    line-height: 1.42857143;
+    color: #333;
+}
+
+
+/****************/
+
+.modal-footer {   border-top: 0px; }
+

@@ -1,0 +1,24 @@
+
+.P_N{
+   font-weight: normal;     
+   font-family: Arial;
+   font-size: 12px;
+   color:#999999;
+   z-index: 30;
+}
+
+.P_NN{
+   font-weight: bold;     
+   font-family: Arial;
+   font-size: 12px;
+   color:#999999;
+   z-index: 30;
+}
+
+.P_T{
+   font-weight: normal;     
+   font-family: Arial;
+   font-size: 14px;
+   color:#999999;
+   z-index: 30;
+}

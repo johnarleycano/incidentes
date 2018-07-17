@@ -1,0 +1,220 @@
+/** Hoja de estilos en cascada**/
+
+table{
+	border-collapse:collapse;
+}	
+
+	th	
+	{
+	/*border-collapse:collapse;*/
+	border:none;
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 9px;
+	text-transform: uppercase;
+	alignment-adjust:central;
+	}
+	
+	td	
+	{
+	border-collapse:collapse;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	}
+	
+	tr
+	{
+	border-collapse:collapse;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	text-align:left;
+	}	
+	
+	b{  
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px; 
+	font-weight: bold; 
+	color: #000000;
+	}
+
+
+.tabla{
+	border-collapse:collapse;
+	border:0px solid #000000;
+}
+
+.tabla th{
+	border-collapse:collapse;
+	border:1px solid #999999;
+	background-color:#FFFFFF;
+	font-size: 9px;
+}
+
+.tabla td{
+	border-collapse:collapse;
+	border:1px solid #999999;
+	padding:1px;
+	font-size: 9px;
+}
+
+.cab_grid
+{
+	background-image: url(../img/cab_grid.gif);
+	font-family: "Verdana";
+	font-size: 10px;
+	font-weight: bold;
+	height: 15px;
+	color: white;
+	text-align: center;
+}
+
+.resaltar{
+	background-color:#DEFFC2;
+	/*text-align:center;*/
+}
+/*D5EDEF*/
+/*ESTILOS FIELDSET Y LEGEND */
+.FieldSt{
+	border: 1px solid  #336699;
+}
+
+.FieldStReport{
+    border:1px solid #000000;
+}
+
+.LegendStReport{
+	style= color: #000000;
+	border: 1px solid #000000;
+	padding: 2px 2px; 
+	height:8;
+}
+
+.legend{
+	color: #3487C6;
+	border: 1px solid #ABB9F1; 
+	padding: 2px 6px; 
+	height:8;
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 10px;
+}
+
+
+.LegendSt{
+	color: #FFFFFF;
+	background: #4CB877; 
+	border: 1px solid #781351; 
+	padding: 2px 6px; 
+	height:8;
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 10px;
+}
+
+/*#6699CC*/
+.tituloB2{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight: normal;
+    font-size: 10px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+/*ESTILO PARA LOS DIVS*/
+.venTitulo
+{
+	-moz-border-radius: 11px 11px 11px 11px;
+	border-radius: 11px;
+	border: 2px solid #4CB877;
+	background: #4CB877;
+	behavior: url(../css/border.htc); /* This lets IE know to call the script on all elements which get the 'box' class */
+	color:#FFFFFF
+}
+
+.venContenido
+{
+	-moz-border-radius: 11px 11px 11px 11px;
+	border-radius: 11px;
+	border: 2px solid #4CB877;
+	background: #FFFFFF;
+	padding: 6,6,6,6;
+	behavior: url(../css/border.htc); /* This lets IE know to call the script on all elements which get the 'box' class */
+}
+
+.venContenido1
+{
+	-moz-border-radius: 11px 11px 11px 11px;
+	border-radius: 11px;
+	border: 2px solid #4CB877;
+	background: #FFFFFF;
+	padding: 10,10,10,10;
+	/*behavior: url(../css/border.htc);  This lets IE know to call the script on all elements which get the 'box' class */
+}
+
+.ventana
+{
+	
+}
+
+.ventana th
+{
+	font-style:bold;
+	text-align:left;
+}
+
+.div_modal
+{
+	visibility:hidden;
+	position:absolute;
+    overflow:hidden;
+	top:5px;
+	left:3px;
+	background-color:#FFF;
+	border: #3487C6 1px solid;
+	z-index:999999;
+}
+
+.div_elemodal
+{
+	visibility:hidden;
+	position:absolute;
+    overflow:hidden;
+	top:5px;
+	left:3px;
+	background-color:#FFF;
+	border: #3487C6 1px solid;
+	z-index:999999;
+}
+
+.div_dragmodal
+{
+  position: absolute;
+  border: 1px solid #666666;
+  background-color:#DFDFDF;  
+  width: 900px;
+  height:700px;
+  left: 0;
+  top:0;
+  visibility:hidden;
+  overflow:hidden;
+  filter:alpha(opacity=50); -moz-opacity:0.1; opacity: 0.50;
+  z-index:999;
+}
+
+.div_dragmodal1
+{
+  position: absolute;
+  border: 1px solid #666666;
+  background-color:#DFDFDF;  
+  width: 900px;
+  height:700px;
+  left: 0;
+  top:0;
+  visibility:hidden;
+  overflow:hidden;
+  filter:alpha(opacity=50); -moz-opacity:0.1; opacity: 0.50;
+  z-index:999;
+}
+
+
+.Transparencia{
+	filter: alpha(opacity=60); 
+	opacity: .50;
+}

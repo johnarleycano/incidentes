@@ -1,0 +1,104 @@
+<center>
+¬manual¬
+
+
+  
+		  <table cellspacing='1' cellpadding='3' border='0' bgcolor='#444444' width="900px"  id="generados">
+			<thead>
+			<tr>
+			<td align="center" ¬css_h1¬ colspan="8">
+			
+				RADICADOS GENERADOS Y RECIBIDOS
+			</td>
+			</tr>
+			<tr>
+			  <th width="70" ¬css_th¬>Consecutivo</th>
+			  <th width="70" ¬css_th¬>Estado</th>
+			  <th width="60" ¬css_th¬>Fecha de Recepcion/ Generacion</th>
+			  <th ¬css_th¬>Remitente</th>
+			  <th width="90" ¬css_th¬>Asunto</th>
+			  <th width="100" ¬css_th¬>Recibido/ Generado</th>
+			   <th width="100" ¬css_th¬>Observacion Gerente</th>
+			  <th width="70" ¬css_th¬>&nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+			¬lista_generadas¬			
+			</tbody>
+			<tfoot>
+			<tr><th ¬css_th¬ colspan="8">¬generar_radicado¬</th>
+			</tfoot>
+		  </table>
+		  <script type="text/javascript">
+		  //var t = new ScrollableTable(document.getElementById('generados'), 300);
+		 </script>
+			
+			 
+	
+	<br /><br />
+  
+		  <table cellspacing='1' cellpadding='3' border='0' bgcolor='#444444' width="900px"  id="asignados" >
+			<thead>
+			<tr>
+			<td align="center" ¬css_h1¬ colspan="8">
+			
+				RADICADOS ASIGNADOS
+		</td>
+			</tr>
+			<tr>
+			  <th width="70" ¬css_th¬>Consecutivo</th>
+			  <th width="70" ¬css_th¬>Estado</th>
+			  <th width="60" ¬css_th¬>Fecha de Recepcion / Generacion</th>
+			  <th ¬css_th¬>Remitente</th>
+			  <th width="90" ¬css_th¬>Asunto</th>
+			  <th width="100" ¬css_th¬>Recibido/Generado</th>
+			  <th width="100" ¬css_th¬>Observacion Gerente</th>
+			  <th width="70" ¬css_th¬>&nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+			¬lista_asignadas¬			
+			</tbody>
+			<tfoot>
+			<tr><th ¬css_th¬ colspan="8">&nbsp;</th>
+			</tfoot>
+		  </table>
+		  <script type="text/javascript">
+		  //var t = new ScrollableTable(document.getElementById('asignados'), 300);
+			</script>
+	  <br /><br />
+		  <table cellspacing='1' cellpadding='3' border='0' bgcolor='#444444' width="900px" id="tecnicos" >
+			<thead>
+			<tr>
+			<td align="center" ¬css_h1¬ colspan="10">
+			
+				RADICADOS PENDIENTES DE ANALISIS TECNICO, JURIDICO Y FINANCIERO
+			</td>
+			</tr>
+			<tr>
+			  <th width="70" ¬css_th¬>Consecutivo</th>
+			  <th width="70" ¬css_th¬>Estado</th>
+			  <th width="60" ¬css_th¬>Fecha de Recepcion Radicado</th>
+			  <th width="60" ¬css_th¬>Fecha Solicitud Analisis Tecnico</th>
+			  <th width="60" ¬css_th¬>Usuario Solicitante</th>
+			  <th ¬css_th¬>Remitente</th>
+			  <th width="90" ¬css_th¬>Asunto</th>
+			  <th width="100" ¬css_th¬>Recibido/Generado</th>
+			  <th width="100" ¬css_th¬>Observacion Gerente</th>
+			  <th width="70" ¬css_th¬>&nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+			¬lista_tecnico¬			
+			</tbody>
+			<tfoot>
+			<tr>
+			<th ¬css_th¬ colspan="10">&nbsp;
+			
+			</th>
+			</tfoot>
+		  </table>
+		   <script type="text/javascript">
+		  //var t = new ScrollableTable(document.getElementById('tecnicos'), 300);
+			</script>
+</center>

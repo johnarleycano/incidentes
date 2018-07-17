@@ -1,0 +1,22 @@
+.tabEdi
+{
+	background-color: #DDFFDD;
+	border: #72B42D 1px solid;
+}
+.tabEdi td
+{
+	text-transform: uppercase !important;
+}
+.tabEdi th 
+{
+	background-color: #DDFFDD;
+}
+.cssBus input[type="text"], select
+{
+	width:200px;
+	border: 1px solid #72B42D;
+}
+.cssBus select
+{
+	width:280px;
+}

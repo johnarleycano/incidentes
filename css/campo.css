@@ -1,0 +1,210 @@
+/** Hoja de estilos en cascada**/
+
+/*Hoja de estilos para las versiones impresas.   Factura.. reportes, etc.*/
+
+
+.campos{
+	font-family:Verdana, Arial, Helvetica, sans-serif !important;
+   font-weight: normal !important;
+   font-size: 11px !important;
+   border: 1 solid #ABB9F1 !important;
+   background-color: #FFFFFF !important;
+}
+input
+{
+ z-index: 30;
+  height:19px;
+}
+.combos{
+   font-weight: normal;     
+   font-size: 9px;
+   border: 1 solid #ABB9F1;
+   z-index: 30;
+   background-color: #FFFFFF;
+   height:18px;
+}
+
+#campos numero{
+	text-align:right;
+}
+
+.normalAO{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight: normal;
+    font-size: 10px;
+    color: #0070B3;
+    text-decoration: none;
+}
+
+.normalN{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight: normal;
+    font-size: 10px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.normalR{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight: normal;
+    font-size: 10px;
+    color: #FF0000;
+    text-decoration: none;
+}
+
+
+.tituloAO{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight: normal;
+    font-size: 12px;
+    color: #0070B3;
+    text-decoration: none;
+}
+
+
+.tituloB{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight: normal;
+    font-size: 12px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+
+.tituloN{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+    font-size: 12px;
+    color: #000000;
+    text-decoration: none;
+}
+
+/*#0070B3;*/
+.botones{	
+	border: 1 solid #000000;	
+	color: #ffffff;
+	background-color:#1AA671; 
+	FONT-SIZE: 10px;
+	font-weight: bold;  
+}
+
+.vbotones
+{
+	border: 0 solid;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size:10px;
+	width:64px;
+	height:18px;
+	margin-top:1;
+	background-image: url(../img/vbutton.png);
+	background-repeat: repeat-x;
+	cursor:hand;
+	vertical-align:top;	
+	color:#1AA671;
+}
+
+.btnred
+{
+	border: 0 solid;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size:10px;
+	width:25px;
+	height:18px;
+	margin-top:1;
+	background-image: url(../img/redbtn.png);
+	background-repeat: repeat-x;
+	cursor:hand;
+	vertical-align:top;	
+	color:#1AA671;
+}
+
+.del
+{
+	border: 0 solid;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size:10px;
+	width:21px;
+	height:21px;
+	margin-top:1;
+	background-image: url(../img/del.png);
+	background-repeat: repeat-x;
+	cursor:hand;
+	vertical-align:top;	
+	color:#1AA671;
+}
+
+.btnusers
+{
+	border: 0 solid;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size:10px;
+	width:21px;
+	height:21px;
+	margin-top:1;
+	background-image: url(../img/users.png);
+	background-repeat: repeat-x;
+	cursor:hand;
+	vertical-align:top;	
+	color:#1AA671;
+}
+
+.middle
+{
+	border: 0 solid;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size:10px;
+	height:18px;
+	margin-top:0;
+	/*margin-bottom:1px;*/
+	background-image: url(../img/middle.png);
+	background-repeat: repeat-x;
+	cursor:hand;
+	vertical-align:top;	
+	color:#1AA671;
+}
+/*3487C6*/
+.middlered
+{
+	border: 0 solid;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size:10px;
+	height:18px;
+	margin-top:0;
+	/*margin-bottom:1px;*/
+	background-image: url(../img/middle.png);
+	background-repeat: repeat-x;
+	cursor:hand;
+	vertical-align:top;	
+	color:#F00;
+}
+
+
+body {color: black; background: white;}
+
+   
+h1, h2, h3 {background: white; color: black; padding-bottom: 1px;
+   border-bottom: 1px solid gray;
+   }
+
+font	
+	{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	}
+	
+.excepcion{
+	color:#F00;
+	font-size:xx-small;
+}
+
+.txtlabel{
+	border:none;
+	font-size:14px;
+	font-family:Verdana, Geneva, sans-serif;
+}

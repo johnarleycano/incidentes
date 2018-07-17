@@ -1,0 +1,433 @@
+
+.bentrar {
+	background-color: #ffffff;
+	background-image: url(../img/baceptar.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+
+.badministrador{
+	background-color: #ffffff;
+	background-image: url(../img/administrador.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+.bcerrarsession{
+	background-color: #ffffff;
+	background-image: url(../img/ceses.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+.bregresar{
+	background-color: #ffffff;
+	background-image: url(../img/regresar.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+.bborrar{
+	background-color: #ffffff;
+	background-image: url(../img/borrar2.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+.baceptar{
+	background-color: #ffffff;
+	background-image: url(../img/baceptar.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+.bguardar{
+	background-color: #ffffff;
+	background-image: url(../img/bguardar.png);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+.bbuscar{
+	background-color: #ffffff;
+	background-image: url(../img/find.png);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+.bexcel{
+	background-color: #ffffff;
+	background-image: url(../img/excel.png);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+.bword{
+	background-color: #ffffff;
+	background-image: url(../img/word.png);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+.bpdf{
+	background-color: #ffffff;
+	background-image: url(../img/pdf.png);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+.bcancelar{
+	background-color: #ffffff;
+	background-image: url(../img/bcancelar.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	width:80;
+	height:21;
+}
+
+.bnuevo{
+	background-color: #ffffff;
+	background-image: url(../img/bnuevo.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+
+.bnuevo2{
+	background-color: #ffffff;
+	background-image: url(../img/bnuevo.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+.beditar2{
+	background-color: #ffffff;
+	background-image: url(../img/beditar.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	width:80;
+	height:21;
+}
+
+
+.beditar{
+	background-color: #ffffff;
+	background-image: url(../img/beditar.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+
+.bevaluar{
+	background-color: #ffffff;
+	background-image: url(../img/edit.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: bold;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:24;
+}
+
+.beliminar{
+	background-color: #ffffff;
+	background-image: url(../img/beliminar.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+.bpasardatos{
+	background-color: #ffffff;
+	background-image: url(../img/edit.png);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	width:80;
+	height:21;
+}
+
+
+.bregresar{
+	background-color: #ffffff;
+	background-image: url(../img/bregresar.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	width:80;
+	height:21;
+}
+
+.bborrar{
+	background-color: #ffffff;
+	background-image: url(../img/borrar_campo.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	width:15;
+	height:15;
+}
+
+.paneles{
+   font-weight: normal;     
+   font-family: Verdana;
+   font-size: 12px;
+   border: 0;
+   z-index: 30;
+   background-color: #FFFFFF;	
+   width:350;
+}
+
+
+.campos_adm{
+   font-weight: normal;     
+   font-family: Verdana;
+   font-size: 12px;
+   border: 1 solid;
+   z-index: 30;
+   background-color: #FFFFFF;	
+}
+
+
+.bder {
+	background-color: #ffffff;
+	background-image: url(../img/der.png);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+.bizq {
+	background-color: #ffffff;
+	background-image: url(../img/izq.png);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+
+.ver_det{
+	background-color: #ffffff;
+	background-image: url(../img/ver_det.png);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+
+.bcorreo{
+	background-color: #ffffff;
+	background-image: url(../img/correo.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+.bdistri{
+	background-color: #ffffff;
+	background-image: url(../img/distri.png);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+	width:90;
+}
+
+
+.bclonar{
+	background-color: #ffffff;
+	background-image: url(../img/clonar.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	height:21;
+}
+
+
+.cc{
+   font-weight: normal;     
+   font-family: Arial;
+   font-size: 12px;
+   border: 1 solid #000000;
+   z-index: 30;
+   background-color: #FFFFFF;	
+}
+
+
+.ce{
+	font-weight: normal;
+    font-family: Arial;
+    font-size: 12px;
+    color: #000000;
+    text-decoration: none;
+}
+
+
+.cr{
+	font-weight: normal;
+    font-family: Arial;
+    font-size: 12px;
+    color: #FF0000;
+    text-decoration: none;
+}
+
+.ct{
+	font-weight: normal;
+    font-family: Arial;
+    font-size: 14px;
+    color: #0070B3;
+    text-decoration: none;
+}
+
+
+.P_N{
+	font-weight: normal;
+    font-family: Verdana;
+    font-size: 12px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.P_NN{
+	font-weight: bold;
+    font-family: Verdana;
+    font-size: 12px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.P_T{
+	font-weight: bold;
+    font-family: Verdana;
+    font-size: 14px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.es{
+	background-color: #ffffff;
+	background-image: url(../img/beditar.gif);
+	background-repeat: no-repeat;
+	FONT-WEIGHT: normal;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    COLOR: #000099;  
+	border: 1px ridge #000000;
+	width:80;
+	height:21;
+}

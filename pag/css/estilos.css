@@ -1,0 +1,33 @@
+body{	font: 97% 'Calibri',Arial,sans-serif; 
+		background-color:#F8F8F8; 
+		color:#555555;
+		}
+
+
+	h1{font-size: 140%;color:#666666;letter-spacing: 1px}
+	h2{font-size: 240%;line-height:1;color:#333333 }
+	
+	input {  font:95% 'Calibri',Arial,sans-serif}
+	
+	input[type="button"] {
+	background-image:url(../img/fondo_tabla.png);
+	color:#FFFFFF;
+	 height:20px; 
+	 border:0;
+}
+
+select{font:85% 'Calibri',Arial,sans-serif}
+
+
+th{font-size: 95%;
+		background-image:url(../img/fondo_tabla.png);
+			color:#FFFFFF;
+			height:20px;
+			vertical-align:middle;
+			}
+
+td{
+	font-size: 95%; 
+}
+
+

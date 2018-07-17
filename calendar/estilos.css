@@ -1,0 +1,195 @@
+.textoblancobold {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.desplegables {
+	FONT-SIZE: 7pt; COLOR: #000000; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.botonesblancos {
+	FONT-SIZE: 7pt; COLOR: #000000; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #ffffff
+}
+.titnoticia {
+	FONT-SIZE: 9pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.linknoticia {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.linknoticia:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #ff6331; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.textnoticia {
+	FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify
+}
+.textgris {
+	FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; COLOR: #6a6a6a; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.textgris:hover {
+	FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.textitinerario {
+	FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.linksazules {
+	FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: underline
+}
+.textazul {
+	FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.textazulbold {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.textazulboldtotales {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.titablas {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #002e6c
+}
+.subtitablastotal {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #b1cde5
+}
+.subtitablas {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #b1cde5
+}
+.linksnaranja {
+	FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; COLOR: #ff6331; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: underline
+}
+.textazuljustify {
+	FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify
+}
+.textazulmensajes {
+	FONT-WEIGHT: normal; FONT-SIZE: 7pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.titablasgrande {
+	FONT-WEIGHT: bold; FONT-SIZE: 9pt; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #002e6c
+}
+.textrojomensajes {
+	FONT-WEIGHT: normal; FONT-SIZE: 8pt; COLOR: #cc0000; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: center
+}
+.textrojomensajesbold {
+	FONT-WEIGHT: bold; FONT-SIZE: 8.5pt; COLOR: #cc0000; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: center
+}
+.linkazulsinraya {
+	FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.linkazulsinraya:hover {
+	FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; COLOR: #ff6331; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.datosregistro {
+	FONT-SIZE: 7.5pt; COLOR: #666666; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.botonesblancoscontenido {
+	BORDER-RIGHT: #002e6c 3px outset; BORDER-TOP: #002e6c 1px outset; FONT-WEIGHT: bold; FONT-SIZE: 8pt; BORDER-LEFT: #002e6c 1px outset; COLOR: #002e6c; BORDER-BOTTOM: #002e6c 3px outset; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #ffffff
+}
+.textgrisoscuro {
+	FONT-WEIGHT: bold; FONT-SIZE: 7pt; COLOR: #666666; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.franjabotones {
+	BACKGROUND-COLOR: #00539a; TEXT-ALIGN: center
+}
+.datosregistrobold {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #666666; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.textblanco {
+	FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.desplegablesllenos {
+	FONT-SIZE: 7pt; COLOR: #000000; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #e2e2d8
+}
+.titablasgris {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #b1b1b1
+}
+.subtitablasgris {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #d6d6d6
+}
+.titlealtadgris {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #e8e8e4
+}
+.linkazulsinrayabold {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.linkazulsinrayabold:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.subtitablasclaro {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #d5e3f0
+}
+.titulonoticia {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #e8e8e4
+}
+.linksnaranjasinraya {
+	FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; COLOR: #ff6331; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.linksnaranjasinraya:hover {
+	FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; COLOR: #7c7c7c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.titasociados {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: #ff6331; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #efefef; TEXT-DECORATION: none
+}
+.textnaranja {
+	FONT-WEIGHT: normal; FONT-SIZE: 8pt; COLOR: #ff6331; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.titconferencias {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: #ff6331; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #efefef; TEXT-DECORATION: none
+}
+.linksazulesbold {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: underline
+}
+.textazulmensajesbold {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: #00539a; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: center
+}
+.textnaranjapeque {
+	FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; COLOR: #ff6331; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.texnombre {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.textonombre {
+	FONT-WEIGHT: normal; FONT-SIZE: 18pt; COLOR: #000000; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.subtituloscontenido {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.subtituloscontenido1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.vineta {
+	FONT-WEIGHT: normal; LIST-STYLE-POSITION: outside; FONT-SIZE: 7.5pt; LIST-STYLE-IMAGE: url(../../Copy of pruebas/imagenes/esp/ico_vineta.gif); FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify
+}
+.vineta1 {
+	LIST-STYLE: none url(../../Copy of pruebas/imagenes/esp/ico_vineta1.gif) outside; FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify
+}
+.linksnaranjapeque {
+	FONT-WEIGHT: normal; FONT-SIZE: 7pt; COLOR: #ff6331; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.linksnaranjapeque:hover {
+	FONT-WEIGHT: normal; FONT-SIZE: 7pt; COLOR: #2e4088; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.textazulitalica {
+	FONT-WEIGHT: normal; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-STYLE: italic; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nolinknoticia {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #002e6c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.textnegro {
+	FONT-WEIGHT: normal; FONT-SIZE: 7pt; COLOR: #000000; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.linknaranjasinrayabold {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #ff6331; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.linknaranjasinrayabold:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.linksnaranjabold {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: #ff6331; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: underline
+}
+.linkazulsinrayaboldrees {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #0000ff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.linkazulsinrayaboldrees:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; COLOR: #009900; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.linkblancomenu {
+	FONT-SIZE: 7.5pt; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.linkblancomenu:hover {
+	FONT-SIZE: 7.5pt; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: underline
+}
