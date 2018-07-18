@@ -13,7 +13,7 @@ if(isset($_GET["msg"]))
 
 echo $_SESSION[APL]->cabeceras();
 $_SESSION[APL]->pagina_menu='parametrizacion.php';
-echo $_SESSION[APL]->interfas->pestana(6);
+echo $_SESSION[APL]->interfas->pestana(7);
 ?>
 <script type="text/javascript" src="libs/jq/jquery.min.js"></script>
 <script type="text/javascript" src="libs/jq/ui/js/jquery-ui-1.10.3.custom.min.js"></script>

@@ -22,7 +22,7 @@ if(isset($_GET["msg"]))
 	<link type="text/css" rel="stylesheet" media="screen" href="../libs/jq/jqGrid/src/css/ui.jqgrid.css">
 	<link type="text/css" rel="stylesheet" media="screen" href="../libs/jq/jqGrid/src/css/ui.multiselect.css">
 	<script type="text/javascript" src="../libs/jq/jqGrid/js/jquery.jqGrid.min.js"></script>
-	<script type="text/javascript" src="../libs/jq/jqGrid/js/jquery-1.11.0.min"></script>
+	<!-- <script type="text/javascript" src="../libs/jq/jqGrid/js/jquery-1.11.0.min"></script> -->
 	<script type="text/javascript" src="../libs/jq/jqGrid/js/i18n/grid.locale-es.js"></script>
 	<script type="text/javascript" src="../libs/jq/jqGrid/plugins/ui.multiselect.js"></script>
 	<script type="text/javascript" src="../libs/jq/jqGrid/plugins/jquery.tablednd.js"></script>
@@ -59,6 +59,7 @@ if(isset($_GET["msg"]))
 		echo $_SESSION[APL]->interfas->pestana(2);
 	else
 		echo $_SESSION[APL]->interfas->pestana(3);
+		echo $_SESSION[APL]->interfas->pestana(4);
 	?>
 	<center>
 		<select id="finalizado" name="finalizado" class="campos" onchange="filtrar()">
