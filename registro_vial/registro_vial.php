@@ -58,7 +58,7 @@ if(isset($_GET["msg"]))
 	if($_SESSION[APL]->usuario->id_perfil==3)
 		echo $_SESSION[APL]->interfas->pestana(3);
 	else
-		echo $_SESSION[APL]->interfas->pestana(4);
+		echo $_SESSION[APL]->interfas->pestana(5);
 	?>
 	<center>
 		<select id="finalizado" name="finalizado" class="campos" onchange="filtrar()">

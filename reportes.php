@@ -16,7 +16,7 @@ $_SESSION[APL]->pagina_menu='reportes.php';
 if($_SESSION[APL]->usuario->id_perfil==3)
 	echo $_SESSION[APL]->interfas->pestana(3);
 else
-	echo $_SESSION[APL]->interfas->pestana(5);
+	echo $_SESSION[APL]->interfas->pestana(6);
 
 ?>
 
