@@ -55,7 +55,7 @@ if(isset($_GET["msg"]))
 		</div>
 		
 		<?php
-		print_r($_SESSION[APL]);
+		// print_r($_SESSION[APL]);
 		$_SESSION[APL]->pagina_menu='registro_sos.php';
 		if($_SESSION[APL]->usuario->id_perfil==3)
 			echo $_SESSION[APL]->interfas->pestana(2);
