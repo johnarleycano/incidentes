@@ -8,7 +8,6 @@ if (!isset($_SESSION[APL])  || $_SESSION[APL]->usuario->id == "" ){
 	header("location:entrada_usuario.php");
 }
 
-
 if(isset($_GET["msg"]))
 	echo $_SESSION[APL]->msg($_GET["msg"]);
 
@@ -52,38 +51,39 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 		$sentidoVia = "NULL";
 
 	$parametros=array(
-	'informado_por'=>$_POST['informado_por'],
-	'informado_por_nombre'=>$_POST['informado_por_nombre'],
-	'hora_salida_base'=>str_pad($_POST['hora_salida_base_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_salida_base_m'],2,'0',STR_PAD_LEFT),
-	'hora_llegada_sitio'=>str_pad($_POST['hora_llegada_sitio_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_llegada_sitio_m'],2,'0',STR_PAD_LEFT),
-	'hora_salida_sitio'=>str_pad($_POST['hora_salida_sitio_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_salida_sitio_m'],2,'0',STR_PAD_LEFT),
-	'hora_llegada_base'=>str_pad($_POST['hora_llegada_base_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_llegada_base_m'],2,'0',STR_PAD_LEFT),
-	//'sentido'=>$_POST['sentido'],
-	'absicsa_salida'=>"K".$_POST['absicsa_salida_p1']."+".$_POST['absicsa_salida_p2'],
-
-	'nro_muertos'=>$_POST['nro_muertos']==''?0:$_POST['nro_muertos'],
-	'nro_heridos'=>$_POST['nro_heridos']==''?0:$_POST['nro_heridos'],
-	'transito'=>$transito,
-	'transito_placa'=>$_POST['transito_placa'],
-	'transito_apellido'=>$_POST['transito_apellido'],
-	'policia'=>$policia,
-	'policia_placa'=>$_POST['policia_placa'],
-	'policia_apellido'=>$_POST['policia_apellido'],
-	'inspector'=>$inspector,
-	'inspector_placa'=>$_POST['inspector_placa'],
-	'inspector_apellido'=>$_POST['inspector_apellido'],
-	'estado'=>$estado,
-	'visualizar_web'=>$_POST['visualizar_web'],
-	'tipo_incidente'=>$_POST['tipo_incidente'],
-	'referencia'=>$refe_in,
-	'via'=>$_POST['via'],
-	'tipo_atencion'=>$_POST['tipo_atencion'],
-	'observaciones'=>$_POST['observaciones'],
-	'condiciones_climaticas'=>$_POST['condiciones'],
-	'tiempo_apertura'=>$_POST['tiempo_apertura'],
-	'abscisa_real'=>$abscisa_real
+		'informado_por'=>$_POST['informado_por'],
+		'informado_por_nombre'=>$_POST['informado_por_nombre'],
+		'hora_salida_base'=>str_pad($_POST['hora_salida_base_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_salida_base_m'],2,'0',STR_PAD_LEFT),
+		'hora_llegada_sitio'=>str_pad($_POST['hora_llegada_sitio_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_llegada_sitio_m'],2,'0',STR_PAD_LEFT),
+		'hora_salida_sitio'=>str_pad($_POST['hora_salida_sitio_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_salida_sitio_m'],2,'0',STR_PAD_LEFT),
+		'hora_llegada_base'=>str_pad($_POST['hora_llegada_base_h'],2,'0',STR_PAD_LEFT).":".str_pad($_POST['hora_llegada_base_m'],2,'0',STR_PAD_LEFT),
+		//'sentido'=>$_POST['sentido'],
+		'absicsa_salida'=>"K".$_POST['absicsa_salida_p1']."+".$_POST['absicsa_salida_p2'],
+		'nro_muertos'=>$_POST['nro_muertos']==''?0:$_POST['nro_muertos'],
+		'nro_heridos'=>$_POST['nro_heridos']==''?0:$_POST['nro_heridos'],
+		'transito'=>$transito,
+		'transito_placa'=>$_POST['transito_placa'],
+		'transito_apellido'=>$_POST['transito_apellido'],
+		'policia'=>$policia,
+		'policia_placa'=>$_POST['policia_placa'],
+		'policia_apellido'=>$_POST['policia_apellido'],
+		'inspector'=>$inspector,
+		'inspector_placa'=>$_POST['inspector_placa'],
+		'inspector_apellido'=>$_POST['inspector_apellido'],
+		'estado'=>$estado,
+		'visualizar_web'=>$_POST['visualizar_web'],
+		'tipo_incidente'=>$_POST['tipo_incidente'],
+		'referencia'=>$refe_in,
+		'via'=>$_POST['via'],
+		'tipo_atencion'=>$_POST['tipo_atencion'],
+		'observaciones'=>$_POST['observaciones'],
+		'condiciones_climaticas'=>$_POST['condiciones'],
+		'tiempo_apertura'=>$_POST['tiempo_apertura'],
+		'abscisa_real'=>$abscisa_real,
+		'municipio1'=>$_POST['municipio1'],
+		'municipio2'=>$_POST['municipio2'],
+		'municipio_ocurrencia'=>$_POST['municipio_ocurrencia'],
 	);
-
 
 	$sql="SELECT codigo,periodo
 	FROM  ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_incidente
@@ -105,7 +105,7 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 			$updFecRep = ",fechaincidente='".$_POST['fecha_reporte']."'";
 
 		if( isset($_POST['hora_rep']) and $_POST['hora_rep']!='' )
-			$updHorRep = ",horaincidente='".$_POST['hora_rep'].":".$_POST['minu_rep']."'";
+			$updHorRep = ",horaincidente='".$_POST['hora_rep'].":".$_POST['minu_rep']."',";
 	}
 
 	$sql="UPDATE ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_incidente
@@ -148,12 +148,15 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 	tipo_atencion=?,
 	observaciones=?	,
 	condiciones_climaticas=?,
-	tiempo_apertura=?,
 	abscisa_real=?,
+	tiempo_apertura=?,
 	sentido_via=$sentidoVia,
 	fintipate='$finTipAte'
 	$updFecRep
 	$updHorRep
+	municipio1=?,
+	municipio2=?,
+	municipio_ocurrencia=?
 	WHERE
 	id=".$_POST['id_buscar']."";
 
@@ -352,57 +355,11 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 			}
 		}
 
-		/////////////
-
-
-
-
-	/*
-
-
-
-
-		if($_FILES['archivo1']['name']!='')
-			{
-				$ext=substr($_FILES['archivo1']['name'],-3);
-				$name1=$c_i."_archivo_1.".$ext;
-
-
-
-				if (!move_uploaded_file($_FILES['archivo1']['tmp_name'],'adjuntos/'.$name1))
-						echo "<script>alert('Error al Cargar Archivo 1')</script>";
-			}
-		if($_FILES['archivo2']['name']!='')
-			{
-				$ext=substr($_FILES['archivo2']['name'],-3);
-				$name2=$c_i."_archivo_2.".$ext;
-				if (!move_uploaded_file($_FILES['archivo2']['tmp_name'],'adjuntos/'.$name2))
-						echo "<script>alert('Error al Cargar Archivo 2')</script>";
-			}
-		if($_FILES['archivo3']['name']!='')
-			{
-				$ext=substr($_FILES['archivo3']['name'],-3);
-				$name3=$c_i."_archivo_3.".$ext;
-				if (!move_uploaded_file($_FILES['archivo3']['tmp_name'],'adjuntos/'.$name3))
-						echo "<script>alert('Error al Cargar Archivo 3')</script>";
-			}
-		if($_FILES['archivo4']['name']!='')
-			{
-				$ext=substr($_FILES['archivo4']['name'],-3);
-				$name4=$c_i."_archivo_4.".$ext;
-				if (!move_uploaded_file($_FILES['archivo4']['tmp_name'],'adjuntos/'.$name4))
-						echo "<script>alert('Error al Cargar Archivo 4')</script>";
-			}
-	*/
-
-
-
-
 		$parametros=array(
-		'id_incidente'=>$_POST['id_buscar'],
-		'estado'=>$estado,
-		'observaciones'=>'Generado por el Sistema',
-		'usuario'=>$_SESSION[APL]->usuario->id
+			'id_incidente'=>$_POST['id_buscar'],
+			'estado'=>$estado,
+			'observaciones'=>'Generado por el Sistema',
+			'usuario'=>$_SESSION[APL]->usuario->id
 		);
 
 		$sql="INSERT INTO ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_historial_incidente
@@ -621,6 +578,21 @@ function guardar(tipo)
 	{
 		alert('Ingrese el nombre de quien ingreso el evento')
 		document.incidente.informado_por_nombre.focus();
+	}
+	else if(document.incidente.municipio1.value=='')
+	{
+		alert('Seleccione el municipio 1')
+		document.incidente.municipio1.focus();
+	}
+	else if(document.incidente.municipio2.value=='')
+	{
+		alert('Seleccione el municipio 2')
+		document.incidente.municipio2.focus();
+	}
+	else if(document.incidente.municipio_ocurrencia.value=='')
+	{
+		alert('Seleccione el municipio de ocurrencia')
+		document.incidente.municipio_ocurrencia.focus();
 	}
 	else if(document.incidente.tipo_atencion.value=='')
 	{
@@ -1109,62 +1081,65 @@ else
 
 	$parametro=array('id'=>$id_buscar);
 	$sql="SELECT
-	i.id,
-	fecha,
-	hora_reporte,
-	i.referencia,
-	via,
-	tipo_atencion,
-	estado,
-	r.abscisa,
-	r.tramo_ruta,
-	i.periodo,
-	nombre_usuario,
-	identificacion_usuario,
-	r.referencia,
-	informado_por,
-	informado_por_nombre,
-	hora_salida_base,
-	hora_llegada_sitio,
-	hora_salida_sitio,
-	hora_llegada_base,
-	sentido,
-	absicsa_salida,
-	nro_muertos,
-	nro_heridos,
-	transito,
-	transito_placa,
-	transito_apellido,
-	policia,
-	policia_placa,
-	policia_apellido,
-	inspector,
-	inspector_placa,
-	inspector_apellido,
-	visualizar_web,
-	'',
-	'',
-	'',
-	'',
-	tipo_incidente,
-	guardado_sos,
-	finalizado_sos,
-	guardado_adm_vial,
-	finalizado_adm_vial,
-	nro_heridos,
-	periodo,
-	observaciones,
-	tiempo_apertura,
-	abscisa_real,
-	sentido_via,
-	fechaincidente,
-	horaincidente,
-	condiciones_climaticas,
-	fintipate
+		i.id,
+		fecha,
+		hora_reporte,
+		i.referencia,
+		via,
+		tipo_atencion,
+		estado,
+		r.abscisa,
+		r.tramo_ruta,
+		i.periodo,
+		nombre_usuario,
+		identificacion_usuario,
+		r.referencia,
+		informado_por,
+		informado_por_nombre,
+		hora_salida_base,
+		hora_llegada_sitio,
+		hora_salida_sitio,
+		hora_llegada_base,
+		sentido,
+		absicsa_salida,
+		nro_muertos,
+		nro_heridos,
+		transito,
+		transito_placa,
+		transito_apellido,
+		policia,
+		policia_placa,
+		policia_apellido,
+		inspector,
+		inspector_placa,
+		inspector_apellido,
+		visualizar_web,
+		'' a,
+		'' b,
+		'' c,
+		'' d,
+		tipo_incidente,
+		guardado_sos,
+		finalizado_sos,
+		guardado_adm_vial,
+		finalizado_adm_vial,
+		nro_heridos,
+		periodo,
+		observaciones,
+		tiempo_apertura,
+		abscisa_real,
+		sentido_via,
+		fechaincidente,
+		horaincidente,
+		condiciones_climaticas,
+		fintipate,
+		municipio1,
+		municipio2,
+		municipio_ocurrencia
 	FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_incidente as i
-	left outer join ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_referencia  as r on (i.referencia=r.id)
+		left outer join ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_referencia  as r on (i.referencia=r.id)
 	WHERE
-	i.id=?";
+		i.id=?";
 
 	$inci=$_SESSION[APL]->bd->getRsO($sql,$parametro);
 	$id_buscar=$inci->fields[0];
@@ -1328,6 +1303,9 @@ else
 	$tiempo_apertura=$inci->fields[45];
 	$sentido_via =$inci->fields[47];
 	$finTipAte =$inci->fields[50];
+	$municipio1 =$inci->fields[52];
+	$municipio2 =$inci->fields[53];
+	$municipio_ocurrencia =$inci->fields[54];
 
 
 }// fin si hay busqueda
@@ -1427,8 +1405,8 @@ if( isset($id_buscar) )
 						<th class="resaltar">Tipo Incidente</th>
 						<td align="left" colspan="5">
 							<select  name="tipo_incidente" class="campos">
-								<option value="v" <?php if(isset($id_buscar) && $tipo_incidente=='NO') echo "selected"?>>Via sin ning�n tipo de problema en su recorrido</option>
-								<option value="a" <?php if(isset($id_buscar) && $tipo_incidente=='SI') echo "selected"?>>Via con alguna restricci�n en su recorrido</option>
+								<option value="v" <?php if(isset($id_buscar) && $tipo_incidente=='NO') echo "selected"?>>Via sin ning&uacute;n tipo de problema en su recorrido</option>
+								<option value="a" <?php if(isset($id_buscar) && $tipo_incidente=='SI') echo "selected"?>>Via con alguna restricci&oacute;n en su recorrido</option>
 								<option value="r" <?php if(isset($id_buscar) && $tipo_incidente=='SI') echo "selected"?>>Via que presenta problemas en su recorrido</option>
 							</select>
 						</td>
@@ -1437,7 +1415,7 @@ if( isset($id_buscar) )
 			</td>
 		</tr>
 		<tr><th style="height:2px"></th></tr>
-		<tr><th class="LegendSt" style="background-color:#4CB877">INFORMACION BASICA</th></tr>
+		<tr><th class="LegendSt" style="background-color:#4CB877">INFORMACI&Oacute;N B&Aacute;SICA</th></tr>
 		<tr>
 			<td>
 				<table width="100%" cellpadding="3">
@@ -1463,7 +1441,7 @@ if( isset($id_buscar) )
 							else
 							{
 							?>
-								<span class="style1"><b>A�o</b> <?php if(isset($id_buscar)) echo $ano_rep?></span>
+								<span class="style1"><b>A&ntilde;o</b> <?php if(isset($id_buscar)) echo $ano_rep?></span>
 								<span class="style1"><b>Mes</b> <?php if(isset($id_buscar)) echo $mes_rep?></span>
 								<span class="style1"><b>Dia</b> <?php if(isset($id_buscar)) echo $dia_rep?></span>
 							<?php
@@ -1755,8 +1733,72 @@ if( isset($id_buscar) )
 								?>
 							</select>
 						</td>
-						<!--<td class="style1"><input type="text" name="sentido" size="20" value="<?php if(isset($id_buscar)) echo $sentido?>" class="campos" maxlength="20"/></td>-->
 					</tr>
+
+
+
+					<tr>
+						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Municipio 1</span></th>
+						<td class="style1">
+							<select name="municipio1" class="campos">
+								<option value=""></option>
+								<?php
+									$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_municipio ORDER BY nombre";
+									$rs=$_SESSION[APL]->bd->getRs($sql);
+
+									while (!$rs->EOF) {
+										echo "<option value='".$rs->fields[0]."' ";
+										if(isset($id_buscar) && $municipio1==$rs->fields[0])
+												echo "selected";
+										echo ">".$rs->fields[1]."</option>";
+										$rs->MoveNext();
+									}
+									$rs->close();
+								?>
+							</select>
+						</td>
+						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Municipio 2</span></th>
+						<td class="style1">
+							<select name="municipio2" class="campos">
+								<option value=""></option>
+								<?php
+									$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_municipio ORDER BY nombre";
+									$rs=$_SESSION[APL]->bd->getRs($sql);
+
+									while (!$rs->EOF) {
+										echo "<option value='".$rs->fields[0]."' ";
+										if(isset($id_buscar) && $municipio2==$rs->fields[0])
+												echo "selected";
+										echo ">".$rs->fields[1]."</option>";
+										$rs->MoveNext();
+									}
+									$rs->close();
+								?>
+							</select>
+						</td>
+						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Municipio de ocurrencia</span></th>
+						<td class="style1">
+							<select name="municipio_ocurrencia" class="campos">
+								<option value=""></option>
+								<?php
+									$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_municipio ORDER BY nombre";
+									$rs=$_SESSION[APL]->bd->getRs($sql);
+
+									while (!$rs->EOF) {
+										echo "<option value='".$rs->fields[0]."' ";
+										if(isset($id_buscar) && $municipio_ocurrencia==$rs->fields[0])
+												echo "selected";
+										echo ">".$rs->fields[1]."</option>";
+										$rs->MoveNext();
+									}
+									$rs->close();
+								?>
+							</select>
+						</td>
+					</tr>
+					
+
+
 					<tr>
 						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Tipo de Atencion (Comentario)</span></th>
 						<td class="style1">
