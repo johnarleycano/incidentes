@@ -78,8 +78,8 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 		'tipo_atencion'=>$_POST['tipo_atencion'],
 		'observaciones'=>$_POST['observaciones'],
 		'condiciones_climaticas'=>$_POST['condiciones'],
-		'tiempo_apertura'=>$_POST['tiempo_apertura'],
 		'abscisa_real'=>$abscisa_real,
+		'tiempo_apertura'=>$_POST['tiempo_apertura'],
 		'municipio1'=>$_POST['municipio1'],
 		'municipio2'=>$_POST['municipio2'],
 		'municipio_ocurrencia'=>$_POST['municipio_ocurrencia'],
@@ -1114,10 +1114,10 @@ else
 		inspector_placa,
 		inspector_apellido,
 		visualizar_web,
-		'' a,
-		'' b,
-		'' c,
-		'' d,
+		'',
+		'',
+		'',
+		'',
 		tipo_incidente,
 		guardado_sos,
 		finalizado_sos,
@@ -1133,9 +1133,13 @@ else
 		horaincidente,
 		condiciones_climaticas,
 		fintipate,
-		municipio1,
-		municipio2,
-		municipio_ocurrencia
+		i.municipio1 m1,
+		i.municipio2 m2,
+		i.municipio_ocurrencia m3,
+		i.municipio1 m4,
+		i.municipio1,
+		i.municipio2,
+		i.municipio_ocurrencia
 	FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_incidente as i
 		left outer join ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_referencia  as r on (i.referencia=r.id)
 	WHERE
@@ -1303,9 +1307,9 @@ else
 	$tiempo_apertura=$inci->fields[45];
 	$sentido_via =$inci->fields[47];
 	$finTipAte =$inci->fields[50];
-	$municipio1 =$inci->fields[52];
-	$municipio2 =$inci->fields[53];
-	$municipio_ocurrencia =$inci->fields[54];
+	$municipio1 =$inci->fields[56];
+	$municipio2 =$inci->fields[57];
+	$municipio_ocurrencia =$inci->fields[58];
 
 
 }// fin si hay busqueda
