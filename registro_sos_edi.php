@@ -151,7 +151,7 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 	abscisa_real=?,
 	tiempo_apertura=?,
 	sentido_via=$sentidoVia,
-	fintipate='$finTipAte'
+	fintipate='$finTipAte',
 	$updFecRep
 	$updHorRep
 	municipio1=?,
