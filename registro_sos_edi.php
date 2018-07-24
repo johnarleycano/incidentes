@@ -102,10 +102,10 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 	if( $_SESSION[APL]->usuario->id_perfil==0 )
 	{
 		if( isset($_POST['fecha_reporte']) and $_POST['fecha_reporte']!='' )
-			$updFecRep = ",fechaincidente='".$_POST['fecha_reporte']."'";
+			$updFecRep = ", fechaincidente='".$_POST['fecha_reporte']."'";
 
 		if( isset($_POST['hora_rep']) and $_POST['hora_rep']!='' )
-			$updHorRep = ",horaincidente='".$_POST['hora_rep'].":".$_POST['minu_rep']."',";
+			$updHorRep = ", horaincidente='".$_POST['hora_rep'].":".$_POST['minu_rep']."',";
 	}
 
 	$sql="UPDATE ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_incidente
@@ -151,7 +151,7 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 	abscisa_real=?,
 	tiempo_apertura=?,
 	sentido_via=$sentidoVia,
-	fintipate='$finTipAte',
+	fintipate='$finTipAte'
 	$updFecRep
 	$updHorRep
 	municipio1=?,
