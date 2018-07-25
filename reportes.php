@@ -43,6 +43,17 @@ else
 		document.incidente.action='reportes_excel_3.php';
 		document.incidente.submit();
 	}
+
+	function generar_sectores_criticos(){
+		// if(document.incidente.fecha_inicio.value=='' || document.incidente.fecha_final.value==''){
+		// 	alert('Seleccione el Periodo')
+
+		// 	return false
+		// }		
+		
+		document.incidente.action='reportes_sectores_criticos.php';
+		document.incidente.submit();
+	}
 </script>
 
 <script type="text/javascript" src="libs/jq/jquery.min.js"></script>
@@ -188,6 +199,7 @@ else
 			$amb=$_SESSION[APL]->bd->getRs($sql);
 
 			echo $_SESSION[APL]->getButtom('.','Generar Reporte Global', '200', 'onclick="generar()"');
+			echo $_SESSION[APL]->getButtom('.','Generar Reporte Sectores Cr&iacute;ticos', '200', 'onclick="generar_sectores_criticos()"');
 			?>
 		</div>
 		<div class="zona1">
