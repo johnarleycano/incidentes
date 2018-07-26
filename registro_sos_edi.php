@@ -156,7 +156,8 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 	$updHorRep
 	municipio1=?,
 	municipio2=?,
-	municipio_ocurrencia=?
+	municipio_ocurrencia=?,
+	coordenadas=POINT(".$_POST['longitud'].", ".$_POST['latitud'].")
 	WHERE
 	id=".$_POST['id_buscar']."";
 
@@ -1139,7 +1140,14 @@ else
 		i.municipio1 m4,
 		i.municipio1,
 		i.municipio2,
-		i.municipio_ocurrencia
+		i.municipio_ocurrencia,
+		i.coordenadas c1,
+		X ( i.coordenadas ) c2,
+		Y ( i.coordenadas ) c3,
+		i.coordenadas c4,
+		i.coordenadas,
+		X ( i.coordenadas ) longitud,
+		Y ( i.coordenadas ) latitud
 	FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_incidente as i
 		left outer join ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_referencia  as r on (i.referencia=r.id)
 	WHERE
@@ -1310,8 +1318,8 @@ else
 	$municipio1 =$inci->fields[56];
 	$municipio2 =$inci->fields[57];
 	$municipio_ocurrencia =$inci->fields[58];
-
-
+	$longitud =$inci->fields[65];
+	$latitud =$inci->fields[64];
 }// fin si hay busqueda
 
 ?>
@@ -1738,71 +1746,6 @@ if( isset($id_buscar) )
 							</select>
 						</td>
 					</tr>
-
-
-
-					<tr>
-						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Municipio 1</span></th>
-						<td class="style1">
-							<select name="municipio1" class="campos">
-								<option value=""></option>
-								<?php
-									$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_municipio ORDER BY nombre";
-									$rs=$_SESSION[APL]->bd->getRs($sql);
-
-									while (!$rs->EOF) {
-										echo "<option value='".$rs->fields[0]."' ";
-										if(isset($id_buscar) && $municipio1==$rs->fields[0])
-												echo "selected";
-										echo ">".$rs->fields[1]."</option>";
-										$rs->MoveNext();
-									}
-									$rs->close();
-								?>
-							</select>
-						</td>
-						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Municipio 2</span></th>
-						<td class="style1">
-							<select name="municipio2" class="campos">
-								<option value=""></option>
-								<?php
-									$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_municipio ORDER BY nombre";
-									$rs=$_SESSION[APL]->bd->getRs($sql);
-
-									while (!$rs->EOF) {
-										echo "<option value='".$rs->fields[0]."' ";
-										if(isset($id_buscar) && $municipio2==$rs->fields[0])
-												echo "selected";
-										echo ">".$rs->fields[1]."</option>";
-										$rs->MoveNext();
-									}
-									$rs->close();
-								?>
-							</select>
-						</td>
-						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Municipio de ocurrencia</span></th>
-						<td class="style1">
-							<select name="municipio_ocurrencia" class="campos">
-								<option value=""></option>
-								<?php
-									$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_municipio ORDER BY nombre";
-									$rs=$_SESSION[APL]->bd->getRs($sql);
-
-									while (!$rs->EOF) {
-										echo "<option value='".$rs->fields[0]."' ";
-										if(isset($id_buscar) && $municipio_ocurrencia==$rs->fields[0])
-												echo "selected";
-										echo ">".$rs->fields[1]."</option>";
-										$rs->MoveNext();
-									}
-									$rs->close();
-								?>
-							</select>
-						</td>
-					</tr>
-					
-
-
 					<tr>
 						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Tipo de Atencion (Comentario)</span></th>
 						<td class="style1">
@@ -1873,8 +1816,98 @@ if( isset($id_buscar) )
 				</table>
 			</td>
 		</tr>
+
 		<tr><th style="height:2px"></th></tr>
-		<tr><th class="LegendSt" style="background-color:#4CB877">APOYO EN ATENCION</th></tr>
+		<tr><th class="LegendSt" style="background-color:#4CB877">DATOS DE UBICACI&Oacute;N Y COORDENADAS</th></tr>
+		<tr>
+			<td>
+				<table width="100%" cellpadding="3">
+					<tr>
+						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Municipio 1</span></th>
+						<td class="style1">
+							<select name="municipio1" class="campos">
+								<option value=""></option>
+								<?php
+									$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_municipio ORDER BY nombre";
+									$rs=$_SESSION[APL]->bd->getRs($sql);
+
+									while (!$rs->EOF) {
+										echo "<option value='".$rs->fields[0]."' ";
+										if(isset($id_buscar) && $municipio1==$rs->fields[0])
+												echo "selected";
+										echo ">".$rs->fields[1]."</option>";
+										$rs->MoveNext();
+									}
+									$rs->close();
+								?>
+							</select>
+						</td>
+						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Municipio 2</span></th>
+						<td class="style1">
+							<select name="municipio2" class="campos">
+								<option value=""></option>
+								<?php
+									$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_municipio ORDER BY nombre";
+									$rs=$_SESSION[APL]->bd->getRs($sql);
+
+									while (!$rs->EOF) {
+										echo "<option value='".$rs->fields[0]."' ";
+										if(isset($id_buscar) && $municipio2==$rs->fields[0])
+												echo "selected";
+										echo ">".$rs->fields[1]."</option>";
+										$rs->MoveNext();
+									}
+									$rs->close();
+								?>
+							</select>
+						</td>
+						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Municipio de ocurrencia</span></th>
+						<td class="style1">
+							<select name="municipio_ocurrencia" class="campos">
+								<option value=""></option>
+								<?php
+									$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_municipio ORDER BY nombre";
+									$rs=$_SESSION[APL]->bd->getRs($sql);
+
+									while (!$rs->EOF) {
+										echo "<option value='".$rs->fields[0]."' ";
+										if(isset($id_buscar) && $municipio_ocurrencia==$rs->fields[0])
+												echo "selected";
+										echo ">".$rs->fields[1]."</option>";
+										$rs->MoveNext();
+									}
+									$rs->close();
+								?>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<table width="100%" cellpadding="3">
+					<tr>
+						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Latitud</span></th>
+						<td class="style1">
+							<input type="number" name="latitud" value="<?php if(isset($id_buscar)) echo $latitud; ?>" class="campos" />
+						</td>
+						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Longitud</span></th>
+						<td class="style1">
+							<input type="number" name="longitud" value="<?php if(isset($id_buscar)) echo $longitud; ?>" class="campos" />
+						</td>
+						<!-- <th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Latitud</span></th> -->
+						<!-- <td class="style1">
+							<input type="text" name="" value="<?php // if(isset($id_buscar)) echo $absicsa_salida_p1?>" class="campos" />
+						</td> -->
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr><th style="height:2px"></th></tr>
+		<tr><th class="LegendSt" style="background-color:#4CB877">APOYO EN ATENCI&Oacute;N</th></tr>
 		<tr>
 			<td align="center">
 				<table cellpadding="3">
