@@ -595,6 +595,16 @@ function guardar(tipo)
 		alert('Seleccione el municipio de ocurrencia')
 		document.incidente.municipio_ocurrencia.focus();
 	}
+	else if(document.incidente.latitud.value=='')
+	{
+		alert('Seleccione la latitud')
+		document.incidente.latitud.focus();
+	}
+	else if(document.incidente.longitud.value=='')
+	{
+		alert('Seleccione la longitud')
+		document.incidente.longitud.focus();
+	}
 	else if(document.incidente.tipo_atencion.value=='')
 	{
 		alert('Seleccione el Tipo de Atencion')
@@ -1891,11 +1901,11 @@ if( isset($id_buscar) )
 					<tr>
 						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Latitud</span></th>
 						<td class="style1">
-							<input type="number" name="latitud" value="<?php if(isset($id_buscar)) echo $latitud; ?>" class="campos" />
+							<input type="number" name="latitud" value="<?php echo (isset($id_buscar) && $latitud != "") ? $latitud : 0; ?>" class="campos" />
 						</td>
 						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Longitud</span></th>
 						<td class="style1">
-							<input type="number" name="longitud" value="<?php if(isset($id_buscar)) echo $longitud; ?>" class="campos" />
+							<input type="number" name="longitud" value="<?php echo (isset($id_buscar) && $longitud != "") ? $longitud : 0; ?>" class="campos" />
 						</td>
 						<!-- <th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Latitud</span></th> -->
 						<!-- <td class="style1">
