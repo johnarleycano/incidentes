@@ -73,6 +73,7 @@ $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(12); $col
 $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(12); $columna++; // Longitud
 $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Departamento
 $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Municipio
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(20); $columna++; // Punto de referencia 1
 
 
 
@@ -123,7 +124,10 @@ $sql =
 	v.codigo_via,
 	i.abscisa_real,
 	m3.nombre AS municipio_ocurrencia,
-	d.nombre AS departamento
+	d.nombre AS departamento,
+	X(i.coordenadas) longitud,
+	Y(i.coordenadas) latitud,
+	r.referencia
 FROM
 	dvm_incidente AS i
 	LEFT JOIN dvm_via AS v ON i.via = v.id
@@ -131,6 +135,7 @@ FROM
 	LEFT JOIN dvm_municipio AS m2 ON i.municipio2 = m2.id   
 	LEFT JOIN dvm_municipio AS m3 ON i.municipio_ocurrencia = m3.id
 	LEFT JOIN dvm_departamento AS d ON m3.id_departamento = d.id
+	LEFT JOIN dvm_referencia AS r ON i.referencia = r.id
 WHERE
 	i.fechaincidente BETWEEN '{$fecha_inicio}' 
 	AND '$fecha_final'
@@ -178,12 +183,11 @@ while (!$resultado->EOF){
 	$kilometro = substr($abscisa["0"], 1, 3);
 	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", utf8_encode($kilometro)); $columna++;
 	
-	// Coordenadas
-	$columna++;
-	$columna++;
-
+	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", utf8_encode($arreglo["latitud"])); $columna++;
+	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", utf8_encode($arreglo["longitud"])); $columna++;
 	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", utf8_encode($arreglo["departamento"])); $columna++;
 	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", utf8_encode($arreglo["municipio_ocurrencia"])); $columna++;
+	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", utf8_encode($arreglo["referencia"])); $columna++;
 
 	$resultado->MoveNext();
 	$fila++;
@@ -194,7 +198,7 @@ $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' .$objPHPE
 //Se modifican los encabezados del HTTP para indicar que se envia un archivo de Excel.
 header('Cache-Control: max-age=0');
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment; filename="Prueba.xlsx"');
+header('Content-Disposition: attachment; filename="Accidentalidad_Sectores_Criticos.xlsx"');
 
 //Se genera el excel
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
