@@ -47,14 +47,18 @@ if(isset($_POST['accion']) && $_POST['accion']=='A')
 {
 	if($tabla_rs=='dvm_referencia')
 	{
-		$parametro=array('via'=>$_POST['via_'.$_POST['id_editar']],
-		'abscisa'=>ucfirst($_POST['abscisa_'.$_POST['id_editar']]),
-		'margen'=>$_POST['margen_'.$_POST['id_editar']],
-		'referencia'=>$_POST['referencia_'.$_POST['id_editar']],
-		'tramo_ruta'=>$_POST['tramo_ruta_'.$_POST['id_editar']],
-		'adm'=>$_POST['adm_'.$_POST['id_editar']],
-		'mun'=>$_POST['mun_'.$_POST['id_editar']],
-		'id'=>$_POST['id_editar']);
+		$parametro=array(
+			'via'=>$_POST['via_'.$_POST['id_editar']],
+			'abscisa'=>ucfirst($_POST['abscisa_'.$_POST['id_editar']]),
+			'margen'=>$_POST['margen_'.$_POST['id_editar']],
+			'referencia'=>$_POST['referencia_'.$_POST['id_editar']],
+			'tramo_ruta'=>$_POST['tramo_ruta_'.$_POST['id_editar']],
+			'adm'=>$_POST['adm_'.$_POST['id_editar']],
+			'mun'=>$_POST['mun_'.$_POST['id_editar']],
+			'velocidad_senalizacion'=>$_POST['velocidad_'.$_POST['id_editar']],
+			'id'=>$_POST['id_editar'],
+		);
+		
 		$sql="UPDATE ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." SET
 			id_via=?,
 			abscisa=?,
@@ -62,9 +66,10 @@ if(isset($_POST['accion']) && $_POST['accion']=='A')
 			referencia=?,
 			tramo_ruta=?,
 			id_adm_vial_polca=?,
-			id_municipio=?
+			id_municipio=?,
+			velocidad_senalizacion=?
 			 WHERE
-			id=?";
+			id=?"; 
 	}
 	else if($tabla_rs=='dvm_sentido')
 	{
@@ -114,15 +119,16 @@ if(isset($_POST['accion']) && $_POST['accion']=='N')
 	if( $tabla_rs==='dvm_referencia')
 	{
 		$parametro=array('id'=>$max_id,
-		'via'=>$_POST['via_nuevo'],
-		'abscisa'=>ucfirst($_POST['abscisa_nuevo']),
-		'margen'=>$_POST['margen_nuevo'],
-		'referencia'=>$_POST['referencia_nuevo'],
-		'tramo_ruta'=>$_POST['tramo_ruta_nuevo'],
-		'adm'=>$_POST['adm_nuevo'],
-		'mun'=>$_POST['mun_nuevo']
+			'via'=>$_POST['via_nuevo'],
+			'abscisa'=>ucfirst($_POST['abscisa_nuevo']),
+			'margen'=>$_POST['margen_nuevo'],
+			'referencia'=>$_POST['referencia_nuevo'],
+			'tramo_ruta'=>$_POST['tramo_ruta_nuevo'],
+			'adm'=>$_POST['adm_nuevo'],
+			'mun'=>$_POST['mun_nuevo'],
+			'velocidad'=>$_POST['velocidad_nuevo'],
 		);
-		$sql="INSERT INTO  ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." VALUES (?,?,?,?,?,?,?,?)";
+		$sql="INSERT INTO  ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." VALUES (?,?,?,?,?,?,?,?,?)";
 	}
 	else if($tabla_rs==='dvm_sentido')
 	{
@@ -238,6 +244,12 @@ function eliminar(id)
 			document.getElementById('mun_'+id).focus();
 		}
 		else
+		if(document.getElementById('velocidad_'+id).value=='')
+		{
+			alert('Seleccione la velocidad de señalización para el id '+id);
+			document.getElementById('velocidad_'+id).focus();
+		}
+		else
 		{
 			if( validarAbscisa('abscisa_'+id)==true )
 			{
@@ -276,7 +288,7 @@ function eliminar(id)
 		else
 		if(document.tabla.tramo_ruta_nuevo.value=='')
 		{
-			alert('Ingrese lael Tramp de Ruta');
+			alert('Ingrese el Tramo de Ruta');
 			document.tabla.tramo_ruta_nuevo.focus();
 		}
 		else
@@ -296,6 +308,12 @@ function eliminar(id)
 		{
 			alert('Seleccione el Municipio');
 			document.tabla.mun_nuevo.focus();
+		}
+		else
+		if(document.tabla.velocidad_nuevo.value=='')
+		{
+			alert('Seleccione la velocidad señalizada');
+			document.tabla.velocidad_nuevo.focus();
 		}
 		else
 		{
@@ -538,7 +556,7 @@ if($tabla_rs=='dvm_referencia')
 ?>
 	<table>
 	<tr class="cab_grid">
-	<th colspan="9">Registros</th></tr>
+	<th colspan="10">Registros</th></tr>
 	<tr>
 
 	<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Id</span></th>
@@ -549,6 +567,7 @@ if($tabla_rs=='dvm_referencia')
 	<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Tramo Ruta</span></th>
 	<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Adm Vial Polca</span></th>
 	<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Municipio</span></th>
+	<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Velocidad señalizada</span></th>
 	<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Accion</span></th>
 	</tr>
 	<?php 
@@ -624,6 +643,11 @@ if($tabla_rs=='dvm_referencia')
 
 	   </td>
 
+	   	<!-- Velocidad señalizada -->
+		<td>
+			<input name="velocidad_<?php echo $rs->fields[0]?>" id="velocidad_<?php echo $rs->fields[0]?>" type="text" class="campos" value="<?php  echo $rs->fields[8]?>" size="10" />
+		</td>
+
 
 	   <td >
 		  <?php 
@@ -693,6 +717,12 @@ if($tabla_rs=='dvm_referencia')
 	   </select>
 
 	   </td>
+	   
+	   <!-- Velocidad señalizada -->
+	   <td>
+			<input name="velocidad_nuevo" id="velocidad_nuevo" type="text" class="campos" size="10" />
+		</td>
+
 	<td class="style2">
 	   <?php 
 	echo $_SESSION[APL]->getButtom('.','Nuevo', '100', 'onclick="nuevo()"','','middlered');
