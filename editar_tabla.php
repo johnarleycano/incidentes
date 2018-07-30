@@ -574,7 +574,7 @@ if($tabla_rs=='dvm_referencia')
 ?>
 	<table>
 	<tr class="cab_grid">
-	<th colspan="10">Registros</th></tr>
+	<th colspan="11">Registros</th></tr>
 	<tr>
 
 	<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Id</span></th>
@@ -612,7 +612,7 @@ if($tabla_rs=='dvm_referencia')
 	   <tr  >
 	   <td class="normalR"><?php echo $rs->fields[0]?></td>
 	   <td >
-	   <select name="via_<?php echo $rs->fields[0]?>" id="via_<?php echo $rs->fields[0]?>" class="campos">
+	   <select name="via_<?php echo $rs->fields[0]?>" id="via_<?php echo $rs->fields[0]?>" class="campos" style="width: 150px;">
 	   <?php
 	   while(!$rs_via->EOF)
 	   {
@@ -627,10 +627,10 @@ if($tabla_rs=='dvm_referencia')
 
 	   </td>
 
-	   <td ><input name="abscisa_<?php echo $rs->fields[0]?>" id="abscisa_<?php echo $rs->fields[0]?>" type="text" class="campos" value="<?php echo $rs->fields[2]?>" size="50" /></td>
-	   <td ><input name="margen_<?php echo $rs->fields[0]?>" id="margen_<?php echo $rs->fields[0]?>" type="text" class="campos" value="<?php echo $rs->fields[3]?>" size="50" /></td>
-	   <td ><input name="referencia_<?php echo $rs->fields[0]?>" id="referencia_<?php echo $rs->fields[0]?>" type="text" class="campos" value="<?php echo $rs->fields[4]?>" size="50" /></td>
-	   <td ><input name="tramo_ruta_<?php echo $rs->fields[0]?>" id="tramo_ruta_<?php echo $rs->fields[0]?>" type="text" class="campos" value="<?php echo $rs->fields[5]?>" size="50" /></td>
+	   <td ><input name="abscisa_<?php echo $rs->fields[0]?>" id="abscisa_<?php echo $rs->fields[0]?>" type="text" class="campos" value="<?php echo $rs->fields[2]?>" size="10" /></td>
+	   <td ><input name="margen_<?php echo $rs->fields[0]?>" id="margen_<?php echo $rs->fields[0]?>" type="text" class="campos" value="<?php echo $rs->fields[3]?>" size="10" /></td>
+	   <td ><input name="referencia_<?php echo $rs->fields[0]?>" id="referencia_<?php echo $rs->fields[0]?>" type="text" class="campos" value="<?php echo $rs->fields[4]?>" size="40" /></td>
+	   <td ><input name="tramo_ruta_<?php echo $rs->fields[0]?>" id="tramo_ruta_<?php echo $rs->fields[0]?>" type="text" class="campos" value="<?php echo $rs->fields[5]?>" size="10" /></td>
 	   <td >
 	   <select name="adm_<?php echo $rs->fields[0]?>" id="adm_<?php echo $rs->fields[0]?>" class="campos">
 	   <?php
@@ -706,7 +706,7 @@ if($tabla_rs=='dvm_referencia')
 	<tr>
 	<td class="normalR">Automatico</td>
 	<td >
-	   <select name="via_nuevo" class="campos">
+	   <select name="via_nuevo" class="campos" style="width: 150px;">
 	   <option value=""></option>
 	   <?php
 	   while(!$rs_via->EOF)
@@ -720,10 +720,10 @@ if($tabla_rs=='dvm_referencia')
 
 	   </td>
 
-	   <td ><input name="abscisa_nuevo" id="abscisa_nuevo" type="text" class="campos" value="" size="50" /></td>
-	   <td ><input name="margen_nuevo" type="text" class="campos" value="" size="50" /></td>
-	   <td ><input name="referencia_nuevo" type="text" class="campos" value="" size="50" /></td>
-	   <td ><input name="tramo_ruta_nuevo" type="text" class="campos" value="" size="50" /></td>
+	   <td ><input name="abscisa_nuevo" id="abscisa_nuevo" type="text" class="campos" value="" size="10" /></td>
+	   <td ><input name="margen_nuevo" type="text" class="campos" value="" size="10" /></td>
+	   <td ><input name="referencia_nuevo" type="text" class="campos" value="" size="40" /></td>
+	   <td ><input name="tramo_ruta_nuevo" type="text" class="campos" value="" size="10" /></td>
 	   <td >
 	   <select name="adm_nuevo" class="campos">
 	   <option value=""></option>
