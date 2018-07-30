@@ -56,6 +56,7 @@ if(isset($_POST['accion']) && $_POST['accion']=='A')
 			'adm'=>$_POST['adm_'.$_POST['id_editar']],
 			'mun'=>$_POST['mun_'.$_POST['id_editar']],
 			'velocidad_senalizacion'=>$_POST['velocidad_'.$_POST['id_editar']],
+			'tipo_calzada'=>$_POST['tipo_calzada_'.$_POST['id_editar']],
 			'id'=>$_POST['id_editar'],
 		);
 		
@@ -67,7 +68,8 @@ if(isset($_POST['accion']) && $_POST['accion']=='A')
 			tramo_ruta=?,
 			id_adm_vial_polca=?,
 			id_municipio=?,
-			velocidad_senalizacion=?
+			velocidad_senalizacion=?,
+			id_tipo_calzada=?
 			 WHERE
 			id=?"; 
 	}
@@ -118,7 +120,8 @@ if(isset($_POST['accion']) && $_POST['accion']=='N')
 
 	if( $tabla_rs==='dvm_referencia')
 	{
-		$parametro=array('id'=>$max_id,
+		$parametro=array(
+			'id'=>$max_id,
 			'via'=>$_POST['via_nuevo'],
 			'abscisa'=>ucfirst($_POST['abscisa_nuevo']),
 			'margen'=>$_POST['margen_nuevo'],
@@ -127,8 +130,11 @@ if(isset($_POST['accion']) && $_POST['accion']=='N')
 			'adm'=>$_POST['adm_nuevo'],
 			'mun'=>$_POST['mun_nuevo'],
 			'velocidad'=>$_POST['velocidad_nuevo'],
+			'id_tipo_calzada'=>$_POST['tipo_calzada_nuevo'],
+			'abscisa_numerica'=>null,
 		);
-		$sql="INSERT INTO  ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." VALUES (?,?,?,?,?,?,?,?,?)";
+		
+		$sql="INSERT INTO  ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	}
 	else if($tabla_rs==='dvm_sentido')
 	{
@@ -250,6 +256,12 @@ function eliminar(id)
 			document.getElementById('velocidad_'+id).focus();
 		}
 		else
+		if(document.getElementById('tipo_calzada_'+id).value=='')
+		{
+			alert('Seleccione el tipo de calzada para el id '+id);
+			document.getElementById('tipo_calzada_'+id).focus();
+		}
+		else
 		{
 			if( validarAbscisa('abscisa_'+id)==true )
 			{
@@ -314,6 +326,12 @@ function eliminar(id)
 		{
 			alert('Seleccione la velocidad señalizada');
 			document.tabla.velocidad_nuevo.focus();
+		}
+		else
+		if(document.tabla.tipo_calzada_nuevo.value=='')
+		{
+			alert('Seleccione el tipo de calzada');
+			document.tabla.tipo_calzada_nuevo.focus();
 		}
 		else
 		{
@@ -568,6 +586,7 @@ if($tabla_rs=='dvm_referencia')
 	<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Adm Vial Polca</span></th>
 	<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Municipio</span></th>
 	<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Velocidad señalizada</span></th>
+	<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Tipo de calzada</span></th>
 	<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Accion</span></th>
 	</tr>
 	<?php 
@@ -579,15 +598,15 @@ if($tabla_rs=='dvm_referencia')
 	$rs_adm=$_SESSION[APL]->bd->getRs($sql);
 	$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_municipio   ORDER by id";
 	$rs_mun=$_SESSION[APL]->bd->getRs($sql);
-
-
-
+	$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_tipos_calzadas ORDER by nombre";
+	$rs_tipos_calzadas=$_SESSION[APL]->bd->getRs($sql);
 
 	while (!$rs->EOF) {
 
 	$rs_via->MoveFirst();
 	$rs_adm->MoveFirst();
 	$rs_mun->MoveFirst();
+	$rs_tipos_calzadas->MoveFirst();
 
 	?>
 	   <tr  >
@@ -648,8 +667,23 @@ if($tabla_rs=='dvm_referencia')
 			<input name="velocidad_<?php echo $rs->fields[0]?>" id="velocidad_<?php echo $rs->fields[0]?>" type="text" class="campos" value="<?php  echo $rs->fields[8]?>" size="10" />
 		</td>
 
-
-	   <td >
+	   	<!-- Tipo de calzada -->
+		<td>
+			<select name="tipo_calzada_<?php echo $rs->fields[0]?>" id="tipo_calzada_<?php echo $rs->fields[0]?>" class="campos">
+				<option value=""></option>
+			   <?php
+			   while(!$rs_tipos_calzadas->EOF)
+			   {
+					echo "<option value='".$rs_tipos_calzadas->fields[0]."'";
+					if($rs_tipos_calzadas->fields[0]==$rs->fields[9])
+						echo "selected";
+					echo ">".$rs_tipos_calzadas->fields[1]."</option>";
+				   $rs_tipos_calzadas->MoveNext();
+			   }
+			   ?>
+		   </select>
+		</td>
+	   	<td>
 		  <?php 
 	echo $_SESSION[APL]->getButtom('.','Modificar', '100', 'onclick="editar('.$rs->fields[0].')"');
 	echo $_SESSION[APL]->getButtom('.','Eliminar', '100', 'onclick="eliminar('.$rs->fields[0].')"','','middlered');
@@ -667,6 +701,7 @@ if($tabla_rs=='dvm_referencia')
 	$rs_via->MoveFirst();
 	$rs_adm->MoveFirst();
 	$rs_mun->MoveFirst();
+	$rs_tipos_calzadas->MoveFirst();
 	?>
 	<tr>
 	<td class="normalR">Automatico</td>
@@ -718,9 +753,24 @@ if($tabla_rs=='dvm_referencia')
 
 	   </td>
 	   
-	   <!-- Velocidad señalizada -->
-	   <td>
+	   	<!-- Velocidad señalizada -->
+	   	<td>
 			<input name="velocidad_nuevo" id="velocidad_nuevo" type="text" class="campos" size="10" />
+		</td>
+
+		<!-- Tipos de calzadas -->
+	   	<td>
+			<select name="tipo_calzada_nuevo" class="campos">
+			   <option value=""></option>
+			   <?php
+			   while(!$rs_tipos_calzadas->EOF)
+			   {
+					echo "<option value='".$rs_tipos_calzadas->fields[0]."'";
+					echo ">".$rs_tipos_calzadas->fields[1]."</option>";
+				   $rs_tipos_calzadas->MoveNext();
+			   }
+			   ?>
+		   </select>
 		</td>
 
 	<td class="style2">
