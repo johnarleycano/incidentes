@@ -575,9 +575,19 @@ else
 									<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Tipo de calzada</span></th>
 									<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Accion</span></th>
 								</tr>
-
+								
 								<?php 
-								$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." ORDER BY id";
+								$sql__="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." ORDER BY id";
+								$sql = 
+								"SELECT
+									dvm_referencia.* 
+								FROM
+									{$_SESSION[APL]->bd->nombre_bd[0]}.{$tabla_rs}
+									INNER JOIN dvm_via ON dvm_referencia.id_via = dvm_via.id 
+								ORDER BY
+									dvm_via.nombre ASC,
+									{$_SESSION[APL]->bd->nombre_bd[0]}.{$tabla_rs}.abscisa ASC,
+									{$_SESSION[APL]->bd->nombre_bd[0]}.{$tabla_rs}.referencia ASC";
 								$rs=$_SESSION[APL]->bd->getRs($sql);
 								$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_via ORDER by id";
 								$rs_via=$_SESSION[APL]->bd->getRs($sql);
@@ -587,7 +597,83 @@ else
 								$rs_mun=$_SESSION[APL]->bd->getRs($sql);
 								$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_tipos_calzadas ORDER by nombre";
 								$rs_tipos_calzadas=$_SESSION[APL]->bd->getRs($sql);
+								?>
+								<tr><td>&nbsp;</td></tr>
+								<tr>
+									<td class="normalR">Automatico</td>
+									<td>
+									   	<select name="via_nuevo" class="campos" style="width: 150px;">
+									   		<option value=""></option>
+										   <?php
+										   while(!$rs_via->EOF)
+										   {
+												echo "<option value='".$rs_via->fields[0]."'";
+												echo ">".$rs_via->fields[1]."</option>";
+											   $rs_via->MoveNext();
+										   }
+										   ?>
+									    </select>
+							   		</td>
+							   		<td><input name="abscisa_nuevo" id="abscisa_nuevo" type="text" class="campos" value="" size="10" /></td>
+							   		<td><input name="margen_nuevo" type="text" class="campos" value="" size="10" /></td>
+							   		<td><input name="referencia_nuevo" type="text" class="campos" value="" size="40" /></td>
+							   		<td><input name="tramo_ruta_nuevo" type="text" class="campos" value="" size="10" /></td>
+							   		<td>
+							   			<select name="adm_nuevo" class="campos">
+							   				<option value=""></option>
+										   	<?php
+										   	while(!$rs_adm->EOF)
+										   	{
+												echo "<option value='".$rs_adm->fields[0]."'";
+												echo ">".$rs_adm->fields[1]."</option>";
+											   $rs_adm->MoveNext();
+										   	}
+										   	?>
+							   			</select>
+							   		</td>
+							   		<td>
+							   			<select name="mun_nuevo" class="campos">
+							   				<option value=""></option>
+										   <?php
+										   while(!$rs_mun->EOF)
+										   {
+												echo "<option value='".$rs_mun->fields[0]."'";
+												echo ">".$rs_mun->fields[1]."</option>";
+											   $rs_mun->MoveNext();
+										   }
+										   ?>
+							   			</select>
+							   		</td>
+							   
+								   	<!-- Velocidad señalizada -->
+								   	<td>
+										<input name="velocidad_nuevo" id="velocidad_nuevo" type="text" class="campos" size="10" />
+									</td>
 
+									<!-- Tipos de calzadas -->
+								   	<td>
+										<select name="tipo_calzada_nuevo" class="campos">
+										   <option value=""></option>
+										   <?php
+										   while(!$rs_tipos_calzadas->EOF)
+										   {
+												echo "<option value='".$rs_tipos_calzadas->fields[0]."'";
+												echo ">".$rs_tipos_calzadas->fields[1]."</option>";
+											   $rs_tipos_calzadas->MoveNext();
+										   }
+										   ?>
+									   </select>
+									</td>
+
+									<td class="style2">
+									   	<?php 
+										echo $_SESSION[APL]->getButtom('.','Nuevo', '100', 'onclick="nuevo()"','','middlered');
+										echo $_SESSION[APL]->getButtom('.','Act. Masiva', '120', 'onclick="abrirActMas()"','');
+										?>
+									</td>
+								</tr>
+								
+								<?php
 								while (!$rs->EOF) {
 									$rs_via->MoveFirst();
 									$rs_adm->MoveFirst();
@@ -681,80 +767,6 @@ else
 							$rs_mun->MoveFirst();
 							$rs_tipos_calzadas->MoveFirst();
 							?>
-
-							<tr>
-								<td class="normalR">Automatico</td>
-								<td>
-								   	<select name="via_nuevo" class="campos" style="width: 150px;">
-								   		<option value=""></option>
-									   <?php
-									   while(!$rs_via->EOF)
-									   {
-											echo "<option value='".$rs_via->fields[0]."'";
-											echo ">".$rs_via->fields[1]."</option>";
-										   $rs_via->MoveNext();
-									   }
-									   ?>
-								    </select>
-						   		</td>
-						   		<td><input name="abscisa_nuevo" id="abscisa_nuevo" type="text" class="campos" value="" size="10" /></td>
-						   		<td><input name="margen_nuevo" type="text" class="campos" value="" size="10" /></td>
-						   		<td><input name="referencia_nuevo" type="text" class="campos" value="" size="40" /></td>
-						   		<td><input name="tramo_ruta_nuevo" type="text" class="campos" value="" size="10" /></td>
-						   		<td>
-						   			<select name="adm_nuevo" class="campos">
-						   				<option value=""></option>
-									   	<?php
-									   	while(!$rs_adm->EOF)
-									   	{
-											echo "<option value='".$rs_adm->fields[0]."'";
-											echo ">".$rs_adm->fields[1]."</option>";
-										   $rs_adm->MoveNext();
-									   	}
-									   	?>
-						   			</select>
-						   		</td>
-						   		<td>
-						   			<select name="mun_nuevo" class="campos">
-						   				<option value=""></option>
-									   <?php
-									   while(!$rs_mun->EOF)
-									   {
-											echo "<option value='".$rs_mun->fields[0]."'";
-											echo ">".$rs_mun->fields[1]."</option>";
-										   $rs_mun->MoveNext();
-									   }
-									   ?>
-						   			</select>
-						   		</td>
-						   
-							   	<!-- Velocidad señalizada -->
-							   	<td>
-									<input name="velocidad_nuevo" id="velocidad_nuevo" type="text" class="campos" size="10" />
-								</td>
-
-								<!-- Tipos de calzadas -->
-							   	<td>
-									<select name="tipo_calzada_nuevo" class="campos">
-									   <option value=""></option>
-									   <?php
-									   while(!$rs_tipos_calzadas->EOF)
-									   {
-											echo "<option value='".$rs_tipos_calzadas->fields[0]."'";
-											echo ">".$rs_tipos_calzadas->fields[1]."</option>";
-										   $rs_tipos_calzadas->MoveNext();
-									   }
-									   ?>
-								   </select>
-								</td>
-
-								<td class="style2">
-								   	<?php 
-									echo $_SESSION[APL]->getButtom('.','Nuevo', '100', 'onclick="nuevo()"','','middlered');
-									echo $_SESSION[APL]->getButtom('.','Act. Masiva', '120', 'onclick="abrirActMas()"','');
-									?>
-								</td>
-							</tr>
 						</table>
 
 						<div id="venActMas" style="display:none">
@@ -912,8 +924,16 @@ else
 								<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Valor</span></th>
 								<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Accion</span></th>
 							</tr>
+							<tr>
+								<td class="normalR">Automatico</td>
+								<td class="style2"><input name="descripcion_nuevo" type="text" class="campos" value="" size="25" /></td>
+								<td class="style2"><input name="valor_nuevo" type="text" class="campos" value="" size="25" /></td>
+								<td class="style2">
+				   					<?php echo $_SESSION[APL]->getButtom('.','Nuevo', '100', 'onclick="nuevo()"','','middlered'); ?>
+				   				</td>
+							</tr>
 							<?php 
-							$sql="SELECT id,descripcion,valor FROM ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." ORDER BY id";
+							$sql="SELECT id,descripcion,valor FROM ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." ORDER BY descripcion";
 							$rs=$_SESSION[APL]->bd->getRs($sql);
 							while (!$rs->EOF) {
 							?>
@@ -933,15 +953,6 @@ else
 							}
 							$rs->close();
 							?>
-							
-							<tr>
-								<td class="normalR">Automatico</td>
-								<td class="style2"><input name="descripcion_nuevo" type="text" class="campos" value="" size="25" /></td>
-								<td class="style2"><input name="valor_nuevo" type="text" class="campos" value="" size="25" /></td>
-								<td class="style2">
-				   					<?php echo $_SESSION[APL]->getButtom('.','Nuevo', '100', 'onclick="nuevo()"','','middlered'); ?>
-				   				</td>
-							</tr>
 						</table>
 
 					<?php
@@ -1091,8 +1102,16 @@ else
 									<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Nombre</span></th>
 									<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Accion</span></th>
 								</tr>
+								<tr><td>&nbsp;</td></tr>
+								<tr>
+									<td class="normalR">Automatico</td>
+									<td class="style2"><input name="nombre_nuevo" type="text" class="campos" value="" size="50" /></td>
+									<td class="style2">
+									   <?php  echo $_SESSION[APL]->getButtom('.','Nuevo', '100', 'onclick="nuevo()"','','middlered'); ?>
+									</td>
+								</tr>
 								<?php 
-								$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." ORDER BY id";
+								$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." ORDER BY nombre";
 								$rs=$_SESSION[APL]->bd->getRs($sql);
 								while (!$rs->EOF) {
 								?>
@@ -1111,13 +1130,6 @@ else
 								}
 								$rs->close();
 								?>
-								<tr>
-									<td class="normalR">Automatico</td>
-									<td class="style2"><input name="nombre_nuevo" type="text" class="campos" value="" size="50" /></td>
-									<td class="style2">
-									   <?php  echo $_SESSION[APL]->getButtom('.','Nuevo', '100', 'onclick="nuevo()"','','middlered'); ?>
-									</td>
-								</tr>
 							</table>
 						<?php
 						}
