@@ -74,6 +74,21 @@ $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(12); $col
 $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Departamento
 $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Municipio
 $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(20); $columna++; // Punto de referencia 1
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(20); $columna++; // Zona
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(20); $columna++; // Tipo de calzada
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(20); $columna++; // Número IPAT
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(10); $columna++; // Velocidad señalizada
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(20); $columna++; // Condición del servicio (operación)
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(25); $columna++; // Fase de ejecución contractual
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(25); $columna++; // Nombre de la vecindad
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Nro. vehículos de carga
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Nro. buses involucrados
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Nro. microbuses involucrados
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Nro. automóviles involucrados
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Nro. motos involucradas
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Nro. bicicletas
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Nro. peatones
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Nro. otros
 
 
 
@@ -112,10 +127,24 @@ $objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "17.2 Municipio"); $
 $objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "18. Denominación del punto común"); $columna++;
 $objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "19. Zona"); $columna++;
 $objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "20. Tipo de calzada"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "21. Número de IPAT"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "22. Velocidad señalizada"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "23. Condición del servicio (operación)"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "24. Fase de ejecución contractual"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "25. Nombre de la vecindad (instituciones, empresas, comercios)"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "26.1 Nro. vehículos de carga"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "26.2 Nro. buses involucrados"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "26.3 Nro. microbuses involucrados"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "26.4 Nro. automóviles involucrados"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "26.5 Nro. motos involucrados"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "26.6 Nro. bicicletas involucradas"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "27. Nro. peatones"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "28. Otros"); $columna++;
 
 // Consulta
 $sql = 
 "SELECT
+	i.id,
 	i.fechaincidente,
 	i.horaincidente,
 	v.nombre AS tramo,
@@ -127,7 +156,9 @@ $sql =
 	d.nombre AS departamento,
 	X(i.coordenadas) longitud,
 	Y(i.coordenadas) latitud,
-	r.referencia
+	r.referencia,
+	r.velocidad_senalizacion,
+	tc.nombre AS tipo_calzada
 FROM
 	dvm_incidente AS i
 	LEFT JOIN dvm_via AS v ON i.via = v.id
@@ -136,6 +167,7 @@ FROM
 	LEFT JOIN dvm_municipio AS m3 ON i.municipio_ocurrencia = m3.id
 	LEFT JOIN dvm_departamento AS d ON m3.id_departamento = d.id
 	LEFT JOIN dvm_referencia AS r ON i.referencia = r.id
+	LEFT JOIN dvm_tipos_calzadas AS tc ON tc.id = r.id_tipo_calzada
 WHERE
 	i.fechaincidente BETWEEN '{$fecha_inicio}' 
 	AND '$fecha_final'
@@ -189,9 +221,41 @@ while (!$resultado->EOF){
 	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", utf8_encode($arreglo["municipio_ocurrencia"])); $columna++;
 	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", utf8_encode($arreglo["referencia"])); $columna++;
 
+	$columna++; // Zona
+	
+	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", utf8_encode($arreglo["tipo_calzada"])); $columna++; // Tipo de calzada
+
+	$columna++; // Número IPAT
+
+	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", utf8_encode($arreglo["velocidad_senalizacion"])); $columna++;
+	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", "Mantenimiento"); $columna++;
+	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", "Operación y mantenimiento"); $columna++;
+
+	$columna++; // Nombre vecindad
+
+	// Recorrido de las categorías de vehículos y peatones involucrados
+	for ($i=1; $i <= 8; $i++) { 
+		// Consulta de involucrados
+		$sql_involucrados = 
+		"SELECT
+			Count( inc.id_vehiculo ) cantidad 
+		FROM
+			dvm_vehiculo_incidente AS inc
+			INNER JOIN dvm_vehiculo_involucrado AS inv ON inv.id = inc.id_tipo_vehiculo 
+		WHERE
+			inc.id_incidente = {$arreglo['id']}
+			AND inv.id_categoria = {$i}";
+
+		// Se ejecuta la consulta
+		$resultado_involucrados = $_SESSION[APL]->bd->getRs($sql_involucrados);
+
+		$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", $resultado_involucrados->fields["cantidad"]); $columna++;
+	}
+
 	$resultado->MoveNext();
 	$fila++;
 }
+
 // Pie de página
 $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' .$objPHPExcel->getProperties()->getTitle() . '&RPágina &P de &N');
 
