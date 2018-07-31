@@ -90,6 +90,19 @@ else
 				$sql = "UPDATE ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." SET
 						nombre=?, finauto=?
 						WHERE id=?";
+			// Vehículo involucrado
+			} else if($tabla_rs=='dvm_vehiculo_involucrado') {
+				$parametro=array(
+					'nombre'=>$_POST['nombre_'.$_POST['id_editar']],
+					'categoria'=>$_POST['categoria_'.$_POST['id_editar']],
+					'id'=>$_POST['id_editar']
+				);
+				
+				$sql="UPDATE ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." SET
+						nombre=?,
+						id_categoria=?
+					WHERE
+						id=?";
 			} else {
 				$parametro=array('nombre'=>$_POST['nombre_'.$_POST['id_editar']],'id'=>$_POST['id_editar']);
 				$sql = "UPDATE ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." 
@@ -134,6 +147,10 @@ else
 					$finAuto = "SI";
 
 				$parametro=array('id'=>$max_id,'nombre'=>$_POST['nombre_nuevo'],'finauto'=>$finAuto);
+				$sql="INSERT INTO  ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." VALUES
+				(?,?,?)";
+			} else if ($tabla_rs==='dvm_vehiculo_involucrado') {
+				$parametro=array('id'=>$max_id,'nombre'=>$_POST['nombre_nuevo'], 'categoria' => $_POST['categoria_nueva']);
 				$sql="INSERT INTO  ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." VALUES
 				(?,?,?)";
 			} else {
@@ -975,11 +992,99 @@ else
 						</table>
 						
 						<?php
+						} else if ($tabla_rs=='dvm_vehiculo_involucrado') {
+						?>
+							<table>
+								<tr class="cab_grid">
+									<th colspan="4">TIPOS DE VEH&Iacute;CULOS</th>
+								</tr>
+								<tr>
+									<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Id</span></th>
+									<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Nombre</span></th>
+									<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Categor&iacute;a</span></th>
+									<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Accion</span></th>
+								</tr>
+								<?php 
+								$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." ORDER BY id";
+								$rs=$_SESSION[APL]->bd->getRs($sql);
+								
+								while (!$rs->EOF) {
+								?>
+								   	<tr>
+									   	<td class="normalR">
+									   		<?php echo $rs->fields[0]?>
+								   		</td>
+									   	<td class="style1">
+									   		<input name="nombre_<?php echo $rs->fields[0]?>" id="nombre_<?php echo $rs->fields[0]?>" type="text" class="campos" value="<?php echo $rs->fields[1]?>" size="30" maxlength="100" />
+									   	</td>
+									   	<td>
+									   		<select name="categoria_<?php echo $rs->fields[0]?>" id="categoria_<?php echo $rs->fields[0]?>" class="campos">
+												<option value=""></option>
+											   	<?php
+											   	$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_vehiculo_involucrado_categorias ORDER by nombre";
+												$rs_tipos_categorias=$_SESSION[APL]->bd->getRs($sql);
+												
+												$rs_tipos_categorias->MoveFirst();
+
+											   	while(!$rs_tipos_categorias->EOF)
+											   	{
+													echo "<option value='".$rs_tipos_categorias->fields[0]."'";
+													if($rs_tipos_categorias->fields[0]==$rs->fields[2])
+														echo "selected";
+													echo ">".$rs_tipos_categorias->fields[1]."</option>";
+												   $rs_tipos_categorias->MoveNext();
+											   	}
+											   ?>
+										   </select>
+									   	</td>
+									   	<td class="style1">
+										   	<?php 
+											echo $_SESSION[APL]->getButtom('.','Modificar', '100', 'onclick="editar('.$rs->fields[0].')"');
+											echo $_SESSION[APL]->getButtom('.','Eliminar', '100', 'onclick="eliminar('.$rs->fields[0].')"','','middlered');
+											?>
+								   		</td>
+								   	</tr>
+								  	<?php 
+								    $rs->MoveNext();
+								}
+								$rs->close();
+								?>
+								<tr>
+									<td class="normalR">Automatico</td>
+									<td class="style2"><input name="nombre_nuevo" type="text" class="campos" value="" size="30" /></td>
+									<td>
+										<select name="categoria_nueva" id="categoria_nueva" class="campos">
+												<option value=""></option>
+											   	<?php
+											   	$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_vehiculo_involucrado_categorias ORDER by nombre";
+											   	
+												$rs_tipos_categorias=$_SESSION[APL]->bd->getRs($sql);
+												
+												$rs_tipos_categorias->MoveFirst();
+
+											   	while(!$rs_tipos_categorias->EOF)
+											   	{
+													echo "<option value='".$rs_tipos_categorias->fields[0]."'";
+													if($rs_tipos_categorias->fields[0]==$rs->fields[2])
+														echo "selected";
+													echo ">".$rs_tipos_categorias->fields[1]."</option>";
+												   $rs_tipos_categorias->MoveNext();
+											   	}
+											   ?>
+										   </select>
+									</td>
+									<td class="style2">
+									   <?php  echo $_SESSION[APL]->getButtom('.','Nuevo', '100', 'onclick="nuevo()"','','middlered'); ?>
+									</td>
+								</tr>
+							</table>
+						<?php
+						// Fin vehículo involucrado
 						} else {
 						?>
 							<table>
 								<tr class="cab_grid">
-									<th colspan="3"   >Registros</th>
+									<th colspan="3">Registros</th>
 								</tr>
 								<tr>
 									<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Id</span></th>
