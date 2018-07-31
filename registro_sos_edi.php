@@ -1765,7 +1765,7 @@ if( isset($id_buscar) )
 										<select name="tipo_atencion" class="campos" style="width:190px">
 											<option value=""></option>
 											<?php
-												$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_tipo_atencion ORDER BY id";
+												$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_tipo_atencion ORDER BY nombre";
 												$rs=$_SESSION[APL]->bd->getRs($sql);
 
 												while (!$rs->EOF) {
@@ -1817,8 +1817,8 @@ if( isset($id_buscar) )
 									<option value="GRANIZADA" <?php if(isset($id_buscar) && $condicion=='GRANIZADA') echo "selected"?>>GRANIZADA</option>
 									<option value="LLUVIA" <?php if(isset($id_buscar) && $condicion=='LLUVIA') echo "selected"?>>LLUVIA</option>
 									<option value="NIEBLA" <?php if(isset($id_buscar) && $condicion=='NIEBLA') echo "selected"?>>NIEBLA</option>
-									<option value="VIENTO" <?php if(isset($id_buscar) && $condicion=='VIENTO') echo "selected"?>>VIENTO</option>
 									<option value="NORMALES" <?php if(isset($id_buscar) && $condicion=='NORMALES') echo "selected"?>>NORMALES</option>
+									<option value="VIENTO" <?php if(isset($id_buscar) && $condicion=='VIENTO') echo "selected"?>>VIENTO</option>
 
 							</select>
 							</td>
@@ -1938,13 +1938,13 @@ if( isset($id_buscar) )
 					<?php
 						$sql = "SELECT id,nombre
 								FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_apoyo
-								ORDER BY id";
+								ORDER BY nombre";
 						$apo=$_SESSION[APL]->bd->getRs($sql);
 
 						$sql = "SELECT id, id_entidad,funcionario,hora_salida_base,hora_llegada_sitio,hora_salida_sitio,hora_llegada_base
 								FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_apoyo_entidad
 								WHERE id_incidente=".$id_buscar."
-								ORDER BY id ASC";
+								ORDER BY funcionario ASC";
 						$apo_enti=$_SESSION[APL]->bd->getRs($sql);
 
 					$visi_l=0;

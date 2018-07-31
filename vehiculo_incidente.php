@@ -683,40 +683,40 @@ $visi = 0;
 				$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_vehiculo_incidente WHERE id_incidente=".$id_buscar." ORDER BY id_vehiculo";
 				$veh=$_SESSION[APL]->bd->getRs($sql);
 
-				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_vehiculo_involucrado ORDER BY id";
+				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_vehiculo_involucrado ORDER BY nombre";
 				$tveh=$_SESSION[APL]->bd->getRs($sql);
 
-				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_aseguradora ORDER BY id";
+				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_aseguradora ORDER BY nombre";
 				$aseg=$_SESSION[APL]->bd->getRs($sql);
 
-				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_parqueadero ORDER BY id";
+				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_parqueadero ORDER BY nombre";
 				$par=$_SESSION[APL]->bd->getRs($sql);
 
-				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_transito ORDER BY id";
+				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_transito ORDER BY nombre";
 				$tra=$_SESSION[APL]->bd->getRs($sql);
 
-				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_taller ORDER BY id";
+				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_taller ORDER BY nombre";
 				$tal=$_SESSION[APL]->bd->getRs($sql);
 
-				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_grua ORDER BY id";
+				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_grua ORDER BY nombre";
 				$gru=$_SESSION[APL]->bd->getRs($sql);
 
-				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_otro_traslado_vehiculo ORDER BY id";
+				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_otro_traslado_vehiculo ORDER BY nombre";
 				$otr=$_SESSION[APL]->bd->getRs($sql);
 
-				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_ambulancia ORDER BY id";
+				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_ambulancia ORDER BY nombre";
 				$tra_p=$_SESSION[APL]->bd->getRs($sql);
 
-				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_hospital ORDER BY id";
+				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_hospital ORDER BY nombre";
 				$hos=$_SESSION[APL]->bd->getRs($sql);
 
-				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_centro_salud ORDER BY id";
+				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_centro_salud ORDER BY nombre";
 				$censa=$_SESSION[APL]->bd->getRs($sql);
 
-				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_clinica ORDER BY id";
+				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_clinica ORDER BY nombre";
 				$cli=$_SESSION[APL]->bd->getRs($sql);
 
-				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_otro_traslado_lesionado ORDER BY id";
+				$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_otro_traslado_lesionado ORDER BY nombre";
 				$otrl=$_SESSION[APL]->bd->getRs($sql);
 				
 				

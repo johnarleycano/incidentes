@@ -232,7 +232,7 @@ function guardar()
 				<select name="asunto" class="campos" style="width:325px">
 					<option value=""></option>
 						<?php
-							$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_tipo_atencion ORDER BY id";
+							$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_tipo_atencion ORDER BY nombre";
 							$rs=$_SESSION[APL]->bd->getRs($sql);
 							while (!$rs->EOF) {
 								echo "<option value='".$rs->fields[0]."' ";
@@ -313,7 +313,7 @@ function guardar()
 					<select name="info_por" class="campos"  style="width:325px">
 						<option value=""></option>
 							<?php
-								$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_informado ORDER BY id";
+								$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_informado ORDER BY nombre";
 
 									$rs=$_SESSION[APL]->bd->getRs($sql);
 

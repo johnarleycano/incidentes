@@ -230,7 +230,7 @@ if(isset($_GET["msg"]))
 							<?php
 								$sql = "SELECT id,nombres,apellidos 
 										FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_usuarios 
-										where id_perfil in (0,1)ORDER BY id";
+										where id_perfil in (0,1)ORDER BY nombres,apellidos ";
 								$usu_reg = $_SESSION[APL]->bd->getRs($sql);
 
 								$usu_reg->MoveFirst();
@@ -270,7 +270,7 @@ if(isset($_GET["msg"]))
 							<?php
 								$sql = "SELECT id,nombres,apellidos 
 										FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_usuarios 
-										where id_perfil in (0,3)ORDER BY id";
+										where id_perfil in (0,3)ORDER BY nombres,apellidos";
 								$usu_adm=$_SESSION[APL]->bd->getRs($sql);
 
 								$usu_adm->MoveFirst();
@@ -316,7 +316,7 @@ if(isset($_GET["msg"]))
 							<?php
 								$sql = "SELECT id,nombre 
 										FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_vehiculo_involucrado 
-										ORDER BY id";
+										ORDER BY nombre";
 								$tveh=$_SESSION[APL]->bd->getRs($sql);
 
 								while (!$tveh->EOF)
@@ -341,7 +341,7 @@ if(isset($_GET["msg"]))
 							<?php
 								$sql = "SELECT id,nombre 
 										FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_aseguradora 
-										ORDER BY id";
+										ORDER BY nombre";
 								$aseg=$_SESSION[APL]->bd->getRs($sql);
 
 								while (!$aseg->EOF)
@@ -360,7 +360,7 @@ if(isset($_GET["msg"]))
 							<?php
 								$sql = "SELECT * 
 										FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_via 
-										ORDER BY id";
+										ORDER BY nombre";
 								$rs=$_SESSION[APL]->bd->getRs($sql);
 
 								while (!$rs->EOF)
@@ -434,8 +434,8 @@ if(isset($_GET["msg"]))
 							<option value="GRANIZADA">GRANIZADA</option>
 							<option value="LLUVIA">LLUVIA</option>
 							<option value="NIEBLA">NIEBLA</option>
-							<option value="VIENTO">VIENTO</option>
 							<option value="NORMALES">NORMALES</option>
+							<option value="VIENTO">VIENTO</option>
 							</select>
 					</td>
 				</tr>
@@ -449,7 +449,7 @@ if(isset($_GET["msg"]))
 							<?php
 								$sql = "SELECT id,nombre 
 										FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_parqueadero 
-										ORDER BY id";
+										ORDER BY nombre";
 								$par=$_SESSION[APL]->bd->getRs($sql);
 								while (!$par->EOF)
 								{
@@ -466,7 +466,7 @@ if(isset($_GET["msg"]))
 							<?php
 							$sql = "SELECT id,nombre 
 									FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_transito 
-									ORDER BY id";
+									ORDER BY nombre";
 							$tra=$_SESSION[APL]->bd->getRs($sql);
 
 							while (!$tra->EOF)
@@ -484,7 +484,7 @@ if(isset($_GET["msg"]))
 							<?php
 								$sql = "SELECT id,nombre 
 										FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_taller 
-										ORDER BY id";
+										ORDER BY nombre";
 								$tal=$_SESSION[APL]->bd->getRs($sql);
 
 								while (!$tal->EOF)
@@ -504,7 +504,7 @@ if(isset($_GET["msg"]))
 							<?php
 								$sql = "SELECT id,nombre 
 										FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_otro_traslado_vehiculo 
-										ORDER BY id";
+										ORDER BY nombre";
 								$otr=$_SESSION[APL]->bd->getRs($sql);
 
 								while (!$otr->EOF)
@@ -527,7 +527,7 @@ if(isset($_GET["msg"]))
 							<?php
 								$sql = "SELECT id,nombre 
 										FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_hospital 
-										ORDER BY id";
+										ORDER BY nombre";
 								$hos=$_SESSION[APL]->bd->getRs($sql);
 
 								while (!$hos->EOF)
@@ -543,7 +543,7 @@ if(isset($_GET["msg"]))
 						<select name="id_clinica" class="campos">
 							<option value=""></option>
 							<?php
-								$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_clinica ORDER BY id";
+								$sql="SELECT id,nombre FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_clinica ORDER BY nombre";
 								$cli=$_SESSION[APL]->bd->getRs($sql);
 
 								while (!$cli->EOF)
@@ -580,7 +580,7 @@ if(isset($_GET["msg"]))
 							<?php
 								$sql = "SELECT id,nombre 
 										FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_otro_traslado_lesionado 
-										ORDER BY id";
+										ORDER BY nombre";
 								$otrl=$_SESSION[APL]->bd->getRs($sql);
 
 								while (!$otrl->EOF)
@@ -595,9 +595,9 @@ if(isset($_GET["msg"]))
 					<td>
 						<select id="autoridad" name="autoridad" class="campos">
 							<option value=""></option>
+							<option value="I">Inspector</option>
 							<option value="P">Policia Transito y Transporte</option>
 							<option value="T">Transito</option>
-							<option value="I">Inspector</option>
 						</select>
 					</td>
 					<th class="resaltar">Placa Aut</th>
@@ -640,7 +640,7 @@ if(isset($_GET["msg"]))
 							<?php
 								$sql = "SELECT * 
 										FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_tipo_atencion 
-										ORDER BY id";
+										ORDER BY nombre";
 								$rs=$_SESSION[APL]->bd->getRs($sql);
 
 								while (!$rs->EOF)
@@ -659,7 +659,7 @@ if(isset($_GET["msg"]))
 							<?php
 								$sql = "SELECT id,nombre 
 										FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_informado 
-										ORDER BY id";
+										ORDER BY nombre";
 								$aseg = $_SESSION[APL]->bd->getRs($sql);
 
 								while (!$aseg->EOF)
@@ -702,7 +702,7 @@ if(isset($_GET["msg"]))
 							<?php
 								$sql = "SELECT id,nombre 
 										FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_ambulancia 
-										ORDER BY id";
+										ORDER BY nombre";
 								$amb=$_SESSION[APL]->bd->getRs($sql);
 
 								while (!$amb->EOF)
@@ -720,7 +720,7 @@ if(isset($_GET["msg"]))
 							<?php
 								$sql = "SELECT id,nombre 
 										FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_grua 
-										ORDER BY id";
+										ORDER BY nombre";
 								$amb=$_SESSION[APL]->bd->getRs($sql);
 
 								while (!$amb->EOF)
