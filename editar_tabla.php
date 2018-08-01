@@ -146,9 +146,17 @@ else
 				if( isset($_POST['finauto_nuevo']) and $_POST['finauto_nuevo']=="SI" )
 					$finAuto = "SI";
 
-				$parametro=array('id'=>$max_id,'nombre'=>$_POST['nombre_nuevo'],'finauto'=>$finAuto);
-				$sql="INSERT INTO  ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." VALUES
-				(?,?,?)";
+				$parametro=array(
+					'id'=>$max_id,
+					'nombre'=>$_POST['nombre_nuevo'],
+					'finauto'=>$finAuto,
+					'tipo_accidente'=>null,
+					'clasificacion'=>null,
+				);
+
+				echo $sql="INSERT INTO  ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." VALUES
+				(?,?,?,?,?)";
+
 			} else if ($tabla_rs==='dvm_vehiculo_involucrado') {
 				$parametro=array('id'=>$max_id,'nombre'=>$_POST['nombre_nuevo'], 'categoria' => $_POST['categoria_nueva']);
 				$sql="INSERT INTO  ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." VALUES
