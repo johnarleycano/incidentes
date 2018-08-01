@@ -154,9 +154,8 @@ else
 					'clasificacion'=>null,
 				);
 
-				echo $sql="INSERT INTO  ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." VALUES
+				$sql="INSERT INTO  ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." VALUES
 				(?,?,?,?,?)";
-
 			} else if ($tabla_rs==='dvm_vehiculo_involucrado') {
 				$parametro=array('id'=>$max_id,'nombre'=>$_POST['nombre_nuevo'], 'categoria' => $_POST['categoria_nueva']);
 				$sql="INSERT INTO  ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." VALUES
@@ -976,8 +975,17 @@ else
 								<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Fin. Automat.</span></th>
 								<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Accion</span></th>
 							</tr>
+							<tr><td>&nbsp;</td></tr>
+							<tr>
+								<td class="normalR">Automatico</td>
+								<td class="style2"><input name="nombre_nuevo"  type="text" class="campos" value="" size="50" /></td>
+								<td class="style2"><input name="finauto_nuevo" type="checkbox" class="campos" value="SI" size="50"/></td>
+								<td class="style2">
+						   			<?php echo $_SESSION[APL]->getButtom('.','Nuevo', '100', 'onclick="nuevo()"','','middlered'); ?>
+						   		</td>
+							</tr>
 							<?php
-							$sql="SELECT id,nombre,finauto FROM ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." ORDER BY id";
+							$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." ORDER BY nombre";
 							$rs=$_SESSION[APL]->bd->getRs($sql);
 							while (!$rs->EOF)
 							{
@@ -1000,14 +1008,6 @@ else
 								}
 								$rs->close();
 							?>
-							<tr>
-								<td class="normalR">Automatico</td>
-								<td class="style2"><input name="nombre_nuevo"  type="text" class="campos" value="" size="50" /></td>
-								<td class="style2"><input name="finauto_nuevo" type="checkbox" class="campos" value="SI" size="50"/></td>
-								<td class="style2">
-						   			<?php echo $_SESSION[APL]->getButtom('.','Nuevo', '100', 'onclick="nuevo()"','','middlered'); ?>
-						   		</td>
-							</tr>
 						</table>
 						
 						<?php
