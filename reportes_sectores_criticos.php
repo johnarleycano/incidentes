@@ -92,8 +92,9 @@ $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $col
 $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Nro. víctimas fatales
 $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Nro. heridos
 $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Gravedad
-
-
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Categoría causa probable
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(50); $columna++; // Descripción
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(20); $columna++; // Tipo de accidente
 
 /**
  * Definición de altura de las filas
@@ -146,6 +147,9 @@ $objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "28. Otros"); $colum
 $objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "29.1 Nro víctimas fatales"); $columna++;
 $objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "29.2 Nro heridos"); $columna++;
 $objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "30. Gravedad"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "31. Categoría causa probable"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "32. Descripción de causa"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "33. Tipo de accidente"); $columna++;
 
 // Consulta
 $sql = 
@@ -164,19 +168,24 @@ $sql =
 	Y(i.coordenadas) latitud,
 	r.referencia,
 	r.velocidad_senalizacion,
-	tc.nombre AS tipo_calzada
+	tc.nombre AS tipo_calzada,
+	i.observaciones,
+	tac.nombre AS tipo_accidente 
 FROM
 	dvm_incidente AS i
 	LEFT JOIN dvm_via AS v ON i.via = v.id
 	LEFT JOIN dvm_municipio AS m1 ON i.municipio1 = m1.id
-	LEFT JOIN dvm_municipio AS m2 ON i.municipio2 = m2.id   
+	LEFT JOIN dvm_municipio AS m2 ON i.municipio2 = m2.id
 	LEFT JOIN dvm_municipio AS m3 ON i.municipio_ocurrencia = m3.id
 	LEFT JOIN dvm_departamento AS d ON m3.id_departamento = d.id
 	LEFT JOIN dvm_referencia AS r ON i.referencia = r.id
 	LEFT JOIN dvm_tipos_calzadas AS tc ON tc.id = r.id_tipo_calzada
+	LEFT JOIN dvm_tipo_atencion AS tat ON tat.id = i.tipo_atencion
+	LEFT JOIN dvm_tipo_accidente AS tac ON tat.id_tipo_accidente = tac.id 
 WHERE
-	i.fechaincidente BETWEEN '{$fecha_inicio}' 
-	AND '$fecha_final'
+	tat.id_clasificacion = 1
+	AND (i.fechaincidente BETWEEN '{$fecha_inicio}' 
+		AND '$fecha_final')
 ORDER BY
 	i.fechaincidente ASC,
 	i.horaincidente ASC";
@@ -229,7 +238,7 @@ while (!$resultado->EOF){
 
 	$columna++; // Zona
 	
-	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", utf8_encode($arreglo["tipo_calzada"])); $columna++; // Tipo de calzada
+	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", utf8_encode($arreglo["tipo_calzada"])); $columna++;
 
 	$columna++; // Número IPAT
 
@@ -284,10 +293,9 @@ while (!$resultado->EOF){
 	}
 	
 	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", $gravedad); $columna++;
-
-
-
-
+	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", ""); $columna++;
+	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}",utf8_encode($arreglo["observaciones"])); $columna++;
+	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}",utf8_encode($arreglo["tipo_accidente"])); $columna++;
 
 	$resultado->MoveNext();
 	$fila++;
