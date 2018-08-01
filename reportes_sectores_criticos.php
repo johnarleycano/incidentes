@@ -89,6 +89,9 @@ $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $col
 $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Nro. bicicletas
 $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Nro. peatones
 $objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Nro. otros
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Nro. víctimas fatales
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Nro. heridos
+$objPHPExcel->getActiveSheet()->getColumnDimension($columna)->setWidth(15); $columna++; // Gravedad
 
 
 
@@ -140,6 +143,9 @@ $objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "26.5 Nro. motos inv
 $objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "26.6 Nro. bicicletas involucradas"); $columna++;
 $objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "27. Nro. peatones"); $columna++;
 $objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "28. Otros"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "29.1 Nro víctimas fatales"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "29.2 Nro heridos"); $columna++;
+$objPHPExcel->getActiveSheet()->setCellValue("{$columna}1", "30. Gravedad"); $columna++;
 
 // Consulta
 $sql = 
@@ -251,6 +257,37 @@ while (!$resultado->EOF){
 
 		$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", $resultado_involucrados->fields["cantidad"]); $columna++;
 	}
+
+	$lesionados = array('muerto', 'lesionado');
+	$gravedad = "Baja";
+
+	for ($i=0; $i < count($lesionados); $i++) { 
+		// Consulta de lesionados
+		$sql_lesionados =
+		"SELECT
+			Count( lv.lesionado ) cantidad
+		FROM
+			dvm_vehiculo_incidente AS vi
+			INNER JOIN dvm_lesionado_vehiculo AS lv ON lv.id_vehiculo = vi.id_vehiculo 
+		WHERE
+			vi.id_incidente = {$arreglo['id']} 
+			AND lv.{$lesionados[$i]} = 'SI'";
+
+		// Se ejecuta la consulta
+		$resultado_lesionados = $_SESSION[APL]->bd->getRs($sql_lesionados);
+
+		// Se establece la gravedad
+		if($lesionados[$i] == "muerto" && $resultado_lesionados->fields["cantidad"] > 0) $gravedad = "Alta";
+		if($lesionados[$i] == "lesionado" && $resultado_lesionados->fields["cantidad"] > 0 && $gravedad == "Baja") $gravedad = "Media";
+
+		$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", $resultado_lesionados->fields["cantidad"]); $columna++;
+	}
+	
+	$objPHPExcel->getActiveSheet()->setCellValue("{$columna}{$fila}", $gravedad); $columna++;
+
+
+
+
 
 	$resultado->MoveNext();
 	$fila++;
