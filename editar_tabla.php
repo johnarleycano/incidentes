@@ -86,9 +86,19 @@ else
 				if( isset($_POST['finauto_'.$_POST['id_editar']]) and $_POST['finauto_'.$_POST['id_editar']]=="SI" )
 					$finAuto = "SI";
 
-				$parametro=array('nombre'=>$_POST['nombre_'.$_POST['id_editar']],'finauto'=>$finAuto,'id'=>$_POST['id_editar']);
+				$parametro=array(
+					'nombre'=>$_POST['nombre_'.$_POST['id_editar']],
+					'finauto'=>$finAuto,
+					'tipo_accidente'=>$_POST['tipo_accidente_'.$_POST['id_editar']],
+					'clasificacion'=>$_POST['clasificacion_'.$_POST['id_editar']],
+					'id'=>$_POST['id_editar'],
+				);
+
 				$sql = "UPDATE ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." SET
-						nombre=?, finauto=?
+						nombre=?,
+						finauto=?,
+						id_tipo_accidente=?,
+						id_clasificacion=?
 						WHERE id=?";
 			// Vehículo involucrado
 			} else if($tabla_rs=='dvm_vehiculo_involucrado') {
@@ -150,8 +160,8 @@ else
 					'id'=>$max_id,
 					'nombre'=>$_POST['nombre_nuevo'],
 					'finauto'=>$finAuto,
-					'tipo_accidente'=>null,
-					'clasificacion'=>null,
+					'tipo_accidente'=>$_POST['tipo_accidente_nuevo'],
+					'clasificacion'=>$_POST['clasificacion_nuevo'],
 				);
 
 				$sql="INSERT INTO  ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." VALUES
@@ -611,14 +621,14 @@ else
 									<td>
 									   	<select name="via_nuevo" class="campos" style="width: 150px;">
 									   		<option value=""></option>
-										   <?php
-										   while(!$rs_via->EOF)
-										   {
+										  	<?php
+										   	while(!$rs_via->EOF)
+										   	{
 												echo "<option value='".$rs_via->fields[0]."'";
 												echo ">".$rs_via->fields[1]."</option>";
 											   $rs_via->MoveNext();
-										   }
-										   ?>
+										   	}
+										   	?>
 									    </select>
 							   		</td>
 							   		<td><input name="abscisa_nuevo" id="abscisa_nuevo" type="text" class="campos" value="" size="10" /></td>
@@ -942,6 +952,7 @@ else
 							<?php 
 							$sql="SELECT id,descripcion,valor FROM ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." ORDER BY descripcion";
 							$rs=$_SESSION[APL]->bd->getRs($sql);
+
 							while (!$rs->EOF) {
 							?>
 				   				<tr>
@@ -968,44 +979,125 @@ else
 					{
 					?>
 						<table>
-							<tr class="cab_grid"><th colspan="4">Registros</th></tr>
+							<tr class="cab_grid"><th colspan="6">Registros</th></tr>
 							<tr>
 								<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Id</span></th>
 								<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Nombre</span></th>
+								<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Clasificación</span></th>
+								<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Tipo de accidente</span></th>
 								<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Fin. Automat.</span></th>
 								<th bgcolor="#CCCCCC" class="LegendSt"><span class="style1">Accion</span></th>
 							</tr>
 							<tr><td>&nbsp;</td></tr>
+							<?php 
+							$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." ORDER BY nombre";
+							$rs=$_SESSION[APL]->bd->getRs($sql);
+
+							$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_clasificacion_atencion ORDER by id";
+							$rs_clasificacion=$_SESSION[APL]->bd->getRs($sql);
+
+							$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_tipo_accidente ORDER by id";
+							$rs_tipo_accidente=$_SESSION[APL]->bd->getRs($sql);
+							?>
 							<tr>
 								<td class="normalR">Automatico</td>
 								<td class="style2"><input name="nombre_nuevo"  type="text" class="campos" value="" size="50" /></td>
+								
+								<!-- Clasificación de atención -->
+								<td class="style2">
+									<select name="clasificacion_nuevo" class="campos">
+								   		<option value=""></option>
+									  	<?php
+									   	while(!$rs_clasificacion->EOF)
+									   	{
+											echo "<option value='".$rs_clasificacion->fields[0]."'";
+											echo ">".$rs_clasificacion->fields[1]."</option>";
+										   	$rs_clasificacion->MoveNext();
+									   	}
+									   	?>
+								    </select>
+								</td>
+
+								<!-- Tipo de accidente -->
+								<td class="style2">
+									<select name="tipo_accidente_nuevo" class="campos">
+								   		<option value=""></option>
+									  	<?php
+									   	while(!$rs_tipo_accidente->EOF)
+									   	{
+											echo "<option value='".$rs_tipo_accidente->fields[0]."'";
+											echo ">".$rs_tipo_accidente->fields[1]."</option>";
+										   	$rs_tipo_accidente->MoveNext();
+									   	}
+									   	?>
+								    </select>
+								</td>
+								
 								<td class="style2"><input name="finauto_nuevo" type="checkbox" class="campos" value="SI" size="50"/></td>
 								<td class="style2">
 						   			<?php echo $_SESSION[APL]->getButtom('.','Nuevo', '100', 'onclick="nuevo()"','','middlered'); ?>
 						   		</td>
 							</tr>
 							<?php
-							$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." ORDER BY nombre";
-							$rs=$_SESSION[APL]->bd->getRs($sql);
+							// Recorrido de los tipos de atención
 							while (!$rs->EOF)
 							{
+								$rs_clasificacion->MoveFirst();
+								$rs_tipo_accidente->MoveFirst();
+
 								$vFinAuto = '';
 								if( $rs->fields[2]=="SI" )
 									$vFinAuto = 'checked';
 							?>
-						   <tr>
-								<td class="normalR"><?php echo $rs->fields[0]?></td>
-								<td class="style1"><input name="nombre_<?php echo $rs->fields[0]?>" id="nombre_<?php echo $rs->fields[0]?>" type="text" class="campos" value="<?php echo $rs->fields[1]?>" size="50" maxlength="100" /></td>
-								<td class="style1"><input name="finauto_<?php echo $rs->fields[0]?>" id="finauto_<?php echo $rs->fields[0]?>" type="checkbox" class="campos" value="SI" <?php echo $vFinAuto; ?>/></td>
-								<td class="style1">
-								<?php
-									echo $_SESSION[APL]->getButtom('.','Modificar', '100', 'onclick="editar('.$rs->fields[0].')"');
-									echo $_SESSION[APL]->getButtom('.','Eliminar', '100', 'onclick="eliminar('.$rs->fields[0].')"','','middlered');
-								?>
-						   	</tr>
+							   <tr>
+									<td class="normalR"><?php echo $rs->fields[0]?></td>
+									<td class="style1"><input name="nombre_<?php echo $rs->fields[0]?>" id="nombre_<?php echo $rs->fields[0]?>" type="text" class="campos" value="<?php echo $rs->fields[1]?>" size="50" maxlength="100" /></td>
+									
+									<!-- Clasificación de atención -->
+									<td class="style2">
+										<select name="clasificacion_<?php echo $rs->fields[0]?>" id="clasificacion_<?php echo $rs->fields[0]?>" class="campos">
+											<option value=""></option>
+											<?php
+											while(!$rs_clasificacion->EOF)
+											{
+												echo "<option value='".$rs_clasificacion->fields[0]."'";
+												if($rs_clasificacion->fields[0]==$rs->fields[4])
+													echo "selected";
+												echo ">".$rs_clasificacion->fields[1]."</option>";
+												$rs_clasificacion->MoveNext();
+											}
+											?>
+										</select>
+									</td>
+
+									<!-- Tipo de accidente -->
+									<td class="style2">
+										<select name="tipo_accidente_<?php echo $rs->fields[0]?>" id="tipo_accidente_<?php echo $rs->fields[0]?>" class="campos">
+											<option value=""></option>
+											<?php
+											while(!$rs_tipo_accidente->EOF)
+											{
+												echo "<option value='".$rs_tipo_accidente->fields[0]."'";
+												if($rs_tipo_accidente->fields[0]==$rs->fields[3])
+													echo "selected";
+												echo ">".$rs_tipo_accidente->fields[1]."</option>";
+												$rs_tipo_accidente->MoveNext();
+											}
+											?>
+										</select>
+									</td>
+
+									<td class="style1"><input name="finauto_<?php echo $rs->fields[0]?>" id="finauto_<?php echo $rs->fields[0]?>" type="checkbox" class="campos" value="SI" <?php echo $vFinAuto; ?>/></td>
+									<td class="style1">
+									<?php
+										echo $_SESSION[APL]->getButtom('.','Modificar', '100', 'onclick="editar('.$rs->fields[0].')"');
+										echo $_SESSION[APL]->getButtom('.','Eliminar', '100', 'onclick="eliminar('.$rs->fields[0].')"','','middlered');
+									?>
+							   	</tr>
 						   	<?php
-								$rs->MoveNext();
+									$rs->MoveNext();
 								}
+
 								$rs->close();
 							?>
 						</table>
