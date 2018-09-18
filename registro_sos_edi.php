@@ -83,6 +83,7 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 		'municipio1'=>$_POST['municipio1'],
 		'municipio2'=>$_POST['municipio2'],
 		'municipio_ocurrencia'=>$_POST['municipio_ocurrencia'],
+		'abscisa' => $_POST['absicsa_evento_p1'].$_POST['absicsa_evento_p2']
 	);
 
 	$sql="SELECT codigo,periodo
@@ -157,6 +158,7 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 	municipio1=?,
 	municipio2=?,
 	municipio_ocurrencia=?,
+	abscisa=?,
 	coordenadas=POINT(".$_POST['longitud'].", ".$_POST['latitud'].")
 	WHERE
 	id=".$_POST['id_buscar']."";

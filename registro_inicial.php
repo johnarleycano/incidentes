@@ -89,7 +89,8 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 		'id_usuario'=>$_SESSION[APL]->usuario->id,
 		'abscisa_real'=>$_POST['abscisa_real'],
 		'fechaincidente'=>$fecInc,
-		'horaincidente'=>$horInc
+		'horaincidente'=>$horInc,
+		'abscisa'=>str_replace(array("K", "+"), "", $_POST['abscisa_real']),
 	);
 
 	$sql="INSERT INTO ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_incidente
@@ -113,6 +114,7 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 		abscisa_real,
 		fechaincidente,
 		horaincidente,
+		abscisa,
 		finalizado_adm_vial
 		)
 	VALUES
@@ -126,6 +128,7 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 		?,
 		?,
 		CURRENT_TIMESTAMP,
+		?,
 		?,
 		?,
 		?,
