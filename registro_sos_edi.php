@@ -1159,9 +1159,15 @@ else
 		i.coordenadas c4,
 		i.coordenadas,
 		X ( i.coordenadas ) longitud,
-		Y ( i.coordenadas ) latitud
+		Y ( i.coordenadas ) latitud,
+		v.id_via_configuracion id_via_configuracion1,
+		v.id_via_configuracion id_via_configuracion2,
+		v.id_via_configuracion id_via_configuracion3,
+		v.id_via_configuracion id_via_configuracion4,
+		v.id_via_configuracion
 	FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_incidente as i
 		left outer join ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_referencia  as r on (i.referencia=r.id)
+		INNER JOIN dvm_via AS v ON i.via = v.id
 	WHERE
 		i.id=?";
 
@@ -1332,10 +1338,12 @@ else
 	$municipio_ocurrencia =$inci->fields[58];
 	$longitud =$inci->fields[65];
 	$latitud =$inci->fields[64];
+	$id_via_configuracion =$inci->fields[69];
 }// fin si hay busqueda
 
+// URL de la aplicación de Mapas que cargará el punto espacializado
+$url = strtolower("https://mapas.devimed.com.co/index.php/operaciones/incidente/".$id_buscar);
 ?>
-
 
 <!-- form name="listar_incidente" method="post" action="registro_sos_edi.php" -->
 <form name="incidente" method="post" action="registro_sos_edi.php" enctype="multipart/form-data">
@@ -1831,6 +1839,15 @@ if( isset($id_buscar) )
 
 		<tr><th style="height:2px"></th></tr>
 		<tr><th class="LegendSt" style="background-color:#4CB877">DATOS DE UBICACI&Oacute;N Y COORDENADAS</th></tr>
+
+		<!-- Mapa -->
+		<?php if( isset($id_buscar) ){ ?>
+			<tr>
+				<td>
+					<iframe src="<?php echo $url; ?>" width="100%" height="360"></iframe>
+				</td>
+			</tr>
+		<?php } ?>
 		<tr>
 			<td>
 				<table width="100%" cellpadding="3">
