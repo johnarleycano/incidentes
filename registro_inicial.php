@@ -386,265 +386,149 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 <link type="text/css" href="libs/jq/ui/css/custom-theme/jquery-ui-1.10.3.custom.css" rel="stylesheet"/>
 <link href="css/tabla.css" rel="stylesheet" type="text/css">
 <form name="incidente" method="post" action="registro_inicial.php" enctype="multipart/form-data">
-<center>
-<table class="tabEdi" cellpadding="3" border="0"  width="70%">
-
-<!-- style="background-color:#4CB877" por class="cab_grid"-->
-<tr><th colspan="8" style="background-color:#4CB877" class="LegendSt">Datos Basicos Nuevo Incidente</th>
-
-<tr><th colspan="8"  height="20">&nbsp;</th></tr>
-<tr>
-
-	<th >FECHA DEL INCIDENTE</th>
-
-	<td align="left"><input type='text' id='fechaincidente' name='fechaincidente' class="campos" readonly="true"></td>
-
-	<th>HORA</th>
-
-	<td align="left">
-
-		<select id="horaincidente_h" name='horaincidente_h' class="campos" style="width:45px">
-
-			<option value="">--</option>
-
-			<?php
-
-				for($i=0; $i<=23; $i++)
-
-					echo '<option value="'.str_pad($i,2,'0',STR_PAD_LEFT).'">'.str_pad($i,2,'0',STR_PAD_LEFT).'</option>';
-
-			?>
-
-		</select>:
-
-		<select id="horaincidente_m" name='horaincidente_m' class="campos" style="width:45px">
-
-			<option value="">--</option>
-
-			<?php
-
-				for($i=0; $i<=59; $i++)
-
-					echo '<option value="'.str_pad($i,2,'0',STR_PAD_LEFT).'">'.str_pad($i,2,'0',STR_PAD_LEFT).'</option>';
-
-			?>
-
-		</select>
-
-	</td>
-
-</tr>
-
-
-
-<tr>
-
-<th>TIPO DE ATENCIÓN</th>
-
-<td align="left" colspan="3">
-
-<select name="tipo_atencion" class="campos" style="width:400px">
-
-<option value=""></option>
-
-<?php
-
-$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_tipo_atencion ORDER BY nombre";
-
-$rs=$_SESSION[APL]->bd->getRs($sql);
-
-
-
-while (!$rs->EOF) {
-
-   	echo "<option value='".$rs->fields[0]."' ";
-
-	if(isset($_GET['id_buscar']) && $tipo_atencion==$rs->fields[0])
-
-			echo "selected";
-
-	echo ">".$rs->fields[1]."</option>";
-
-    $rs->MoveNext();
-
-}
-
-$rs->close();
-
-?>
-
-</select>
-
-</td>
-
-
-
-		
-
-</tr>
-
-<tr><th>VIA</th>
-
-<td align="left" colspan="3">
-
-<select name="via" class="campos" onchange="cargar_referencias(this.value)" style="width:400px">
-
-<option value=""></option>
-
-<?php
-
-$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_via ORDER BY nombre";
-
-$rs=$_SESSION[APL]->bd->getRs($sql);
-
-
-
-while (!$rs->EOF) {
-
-   	echo "<option value='".$rs->fields[0]."' ";
-
-	if(isset($_GET['id_buscar']) && $via==$rs->fields[0])
-
-			echo "selected";
-
-	echo ">".$rs->fields[1]."</option>";
-
-    $rs->MoveNext();
-
-}
-
-$rs->close();
-
-?>
-
-</select></td></tr>
-
-<tr>
-
-<th>REFERENCIA</th>
-
-<td align="left" colspan="3">
-
-<select name="referencia" class="campos" onchange="colocar_datos_referencia(this.value)" style="width:400px">
-
-<option value=""></option>
-
-<?php
-
-if(isset($_GET['id_buscar']))
-
-{
-
-	$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_referencia WHERE id_via=".$via." ORDER BY referencia";
-
-	$refe=$_SESSION[APL]->bd->getRs($sql);
-
-	while (!$refe->EOF) 
-
-	{
-
-	
-
-		echo "<option value='".$refe->fields[0]."|".$refe->fields[2]."|".$refe->fields[5]."' ";
-
-		if(isset($_GET['id_buscar']) && $referencia==$refe->fields[0])
-
-				echo "selected";
-
-		echo ">".$refe->fields[4]."</option>";
-
-		$refe->MoveNext();
-
-	}
-
-	$rs->close();
-
-	
-
-}
-
-?>
-
-
-
-</select></td>
-
-
-
-
-
-</tr>
-
-<tr>
-
-<th>ABSCISA ESTIMADA</th>
-
-<td align="left">
-
-<input type="text" name="abcisa" class="campos" value="<?php if(isset($_GET['id_buscar'])) echo $abscisa?>" disabled="false"/></td>
-
-
-
-<th>TRAMO-RUTA</th>
-
-<td align="left">
-
-<input type="text" name="tramo_ruta" class="campos" value="<?php if(isset($_GET['id_buscar'])) echo $tramo_ruta?>" disabled="false"/></td>
-
-</tr>
-
-<tr>
-
-<th>ABSCISA REAL</th>
-
-<td align="left">
-
-<input type='text' name='abscisa_real' class="campos" >
-
-<input type='hidden' name='emergente' value='<?php echo $emergente?>'>
-
-</td>
-
-</tr>
-
-<tr><td colspan="8" align="center" height="40px" valign="middle">
-
-<?php if(!isset($_GET['id_buscar']))
-
-{?>
-
-<input type="button" value="Guardar" onclick="guardar()" class="vbotones" />
-
-
-
-<?php }
-
-echo "<br><br>";
-
-echo date_default_timezone_get()." ".date('d-m-Y H:i');
-
-
-
-?>
-
-
-
-
-
-</td></tr>
-
-</table>
-
-</center>
-
+	<center>
+		<table class="tabEdi" cellpadding="3" border="0"  width="70%">
+			<tr>
+				<th colspan="8" style="background-color:#4CB877" class="LegendSt">Datos Basicos Nuevo Incidente</th>
+				<tr>
+					<th colspan="8"  height="20">&nbsp;</th>
+				</tr>
+				<tr>
+					<th >FECHA DEL INCIDENTE</th>
+					<td align="left">
+						<input type='text' id='fechaincidente' name='fechaincidente' class="campos" readonly="true" value="<?php echo date("Y-m-d"); ?>">
+					</td>
+
+					<th>HORA</th>
+					<td align="left">
+						<select id="horaincidente_h" name='horaincidente_h' class="campos" style="width:45px">
+							<option value="">--</option>
+							<?php
+							for($i=0; $i<=23; $i++){
+								$seleccionado = ($i == date("H")) ? "selected" : "" ;
+
+								echo '<option value="'.str_pad($i,2,'0',STR_PAD_LEFT).'"'.$seleccionado.'>'.str_pad($i,2,'0',STR_PAD_LEFT).'</option>';
+							}
+							?>
+						</select>:
+
+						<select id="horaincidente_m" name='horaincidente_m' class="campos" style="width:45px">
+							<option value="">--</option>
+							<?php
+							for($i=0; $i<=59; $i++)
+								echo '<option value="'.str_pad($i,2,'0',STR_PAD_LEFT).'">'.str_pad($i,2,'0',STR_PAD_LEFT).'</option>';
+							?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>TIPO DE ATENCIÓN</th>
+					<td align="left" colspan="3">
+						<select name="tipo_atencion" class="campos" style="width:400px">
+							<option value=""></option>
+
+							<?php
+							$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_tipo_atencion ORDER BY nombre";
+							$rs=$_SESSION[APL]->bd->getRs($sql);
+							while (!$rs->EOF) {
+							   	echo "<option value='".$rs->fields[0]."' ";
+								if(isset($_GET['id_buscar']) && $tipo_atencion==$rs->fields[0])
+										echo "selected";
+
+								echo ">".$rs->fields[1]."</option>";
+							    $rs->MoveNext();
+							}
+							$rs->close();
+							?>
+						</select>
+					</td>
+
+				</tr>
+				<tr>
+					<th>VIA</th>
+					<td align="left" colspan="3">
+						<select name="via" class="campos" onchange="cargar_referencias(this.value)" style="width:400px">
+							<option value=""></option>
+							<?php
+							$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_via ORDER BY nombre";
+							$rs=$_SESSION[APL]->bd->getRs($sql);
+							while (!$rs->EOF) {
+							   	echo "<option value='".$rs->fields[0]."' ";
+								if(isset($_GET['id_buscar']) && $via==$rs->fields[0])
+										echo "selected";
+
+								echo ">".$rs->fields[1]."</option>";
+							    $rs->MoveNext();
+							}
+
+							$rs->close();
+							?>
+
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>REFERENCIA</th>
+					<td align="left" colspan="3">
+						<select name="referencia" class="campos" onchange="colocar_datos_referencia(this.value)" style="width:400px">
+							<option value=""></option>
+							<?php
+							if(isset($_GET['id_buscar']))
+							{
+								$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_referencia WHERE id_via=".$via." ORDER BY referencia";
+								$refe=$_SESSION[APL]->bd->getRs($sql);
+
+								while (!$refe->EOF) 
+								{
+									echo "<option value='".$refe->fields[0]."|".$refe->fields[2]."|".$refe->fields[5]."' ";
+									if(isset($_GET['id_buscar']) && $referencia==$refe->fields[0])
+											echo "selected";
+
+									echo ">".$refe->fields[4]."</option>";
+									$refe->MoveNext();
+								}
+
+								$rs->close();
+							}
+							?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>ABSCISA ESTIMADA</th>
+					<td align="left">
+						<input type="text" name="abcisa" class="campos" value="<?php if(isset($_GET['id_buscar'])) echo $abscisa?>" disabled="false"/>
+					</td>
+					
+					<th>TRAMO-RUTA</th>
+					<td align="left">
+						<input type="text" name="tramo_ruta" class="campos" value="<?php if(isset($_GET['id_buscar'])) echo $tramo_ruta?>" disabled="false"/>
+					</td>
+				</tr>
+				<tr>
+					<th>ABSCISA REAL</th>
+					<td align="left">
+						<input type='text' name='abscisa_real' class="campos" >
+						<input type='hidden' name='emergente' value='<?php echo $emergente?>'>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="8" align="center" height="40px" valign="middle">
+						<?php if(!isset($_GET['id_buscar']))
+						{?>
+							<input type="button" value="Guardar" onclick="guardar()" class="vbotones" />
+						<?php }
+						echo "<br><br>";
+						echo date_default_timezone_get()." ".date('d-m-Y H:i');
+						?>
+					</td>
+				</tr>
+			</tr>
+		</table>
+	</center>
 </form>
-
 </body>
-
 <script>
-
 	vis_ponCampoFecha("#fechaincidente");
-
 </script>
-
 </html>
