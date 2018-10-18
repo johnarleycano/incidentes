@@ -114,7 +114,10 @@ else
 					WHERE
 						id=?";
 			} else {
+				// Arreglo con los datos de la tabla
 				$parametro=array('nombre'=>$_POST['nombre_'.$_POST['id_editar']],'id'=>$_POST['id_editar']);
+
+				// Se actualiza los valores
 				$sql = "UPDATE ".$_SESSION[APL]->bd->nombre_bd[0].".".$tabla_rs." 
 						SET nombre=?
 						WHERE id=?";

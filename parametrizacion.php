@@ -196,6 +196,9 @@ function cerrarIframe()
 						echo $_SESSION[APL]->getButtom('.','Sentido', $size, 'onclick=editar_tabla("dvm_sentido")');
 						?>
 					</td>
+					<td align="center">
+						<?php echo $_SESSION[APL]->getButtom('.','Gr&uacute;a', $size, 'onclick=editar_tabla("dvm_grua")'); ?>
+					</td>
 				</tr>
 			</table>
 		</center>
