@@ -86,6 +86,10 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 
 	$sql_coordenadas = "SELECT X ( c.coordenadas ) AS latitud, Y ( c.coordenadas ) AS longitud  FROM tmp_coordenadas AS c WHERE c.id_via = {$_POST['id_via_configuracion']} AND c.abscisa = {$_POST['abscisa_real']}  ORDER BY c.fecha_creacion DESC  LIMIT 0, 1";
 	$resultado_coordenadas = $_SESSION[APL]->bd->getRs($sql_coordenadas);
+	
+	// Almacenamiento de coordenadas, si fueron detectadas
+	$coordenadas = ($resultado_coordenadas->fields[0]) ? "coordenadas = POINT({$resultado_coordenadas->fields[0]}, {$resultado_coordenadas->fields[1]})," : "" ;
+	
 	// echo $_POST['via']."<br>";
 	// echo $_POST['abscisa_real']."<br>";
 
@@ -132,8 +136,8 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 		abscisa_real = ?,
 		fechaincidente = ?,
 		horaincidente = ?,
-		abscisa = ?,
-		coordenadas = POINT({$resultado_coordenadas->fields[0]}, {$resultado_coordenadas->fields[1]})
+		$coordenadas
+		abscisa = ?
 	";
 	
 	if(!$_SESSION[APL]->bd->ejecutarO($sql,$parametros))
