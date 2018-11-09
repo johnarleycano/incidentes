@@ -22,16 +22,25 @@ else
 
 echo $_SESSION[APL]->cabeceras();
 
+// URL de la aplicaci贸n de Mapas que cargar谩 el punto espacializado
+if(strpos($_SERVER["REQUEST_URI"], "desarrollo")){
+	// Desarrollo
+	$url = strtolower("http://localhost/devimed/mapas/index.php/operaciones/dibujar_punto/inicial");
+} else {
+	// Producci贸n
+	$url = strtolower("https://mapas.devimed.com.co/index.php/operaciones/dibujar_punto/inicial");
+}
+
 $_SESSION[APL]->pagina_menu='registro_inicial.php';
 
 if($emergente==0)
 
 echo $_SESSION[APL]->interfas->pestana(3);
 
+$id=$_SESSION[APL]->getSecuencia('dvm_incidente','id');
+
 if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 {
-	$id=$_SESSION[APL]->getSecuencia('dvm_incidente','id');
-
 	$sql = "select valor from ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_constante WHERE id=1";
 
 	$periodo = $_SESSION[APL]->bd->dato($sql);
@@ -70,7 +79,16 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 	$finAdmVial = 0;
 	if( $esTipAteFinAut=="SI" )
 		$finAdmVial = 1;
-	
+
+	// Formatear abscisa
+	$km = floor($_POST["abscisa_real"] / 1000);
+	$ms = substr($_POST["abscisa_real"], -3);
+
+	$sql_coordenadas = "SELECT X ( c.coordenadas ) AS latitud, Y ( c.coordenadas ) AS longitud  FROM tmp_coordenadas AS c WHERE c.id_via = {$_POST['id_via_configuracion']} AND c.abscisa = {$_POST['abscisa_real']}  ORDER BY c.fecha_creacion DESC  LIMIT 0, 1";
+	$resultado_coordenadas = $_SESSION[APL]->bd->getRs($sql_coordenadas);
+	// echo $_POST['via']."<br>";
+	// echo $_POST['abscisa_real']."<br>";
+
 	$parametros=array(
 		'id'=>$id,
 		'codigo'=>$codigo,
@@ -87,60 +105,36 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 		'nombre_usuario'=>$_SESSION[APL]->usuario->nombres." ".$_SESSION[APL]->usuario->apellidos,
 		'identificacion_usuario'=>$_SESSION[APL]->usuario->cedula,
 		'id_usuario'=>$_SESSION[APL]->usuario->id,
-		'abscisa_real'=>$_POST['abscisa_real'],
+		'abscisa_real'=>"K$km+$ms",
 		'fechaincidente'=>$fecInc,
 		'horaincidente'=>$horInc,
-		'abscisa'=>str_replace(array("K", "+"), "", $_POST['abscisa_real']),
+		'abscisa'=> $_POST['abscisa_real'],
 	);
 
-	$sql="INSERT INTO ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_incidente
-		(
-		id,
-		codigo,
-		fecha,
-		hora_reporte,
-		referencia,
-		via,
-		tipo_atencion,
-		estado,
-		fecha_creacion,
-		periodo,
-		visualizar_web,
-		observaciones,
-		tipo_incidente,
-		nombre_usuario,
-		identificacion_usuario,
-		id_usuario,
-		abscisa_real,
-		fechaincidente,
-		horaincidente,
-		abscisa,
-		finalizado_adm_vial
-		)
-	VALUES
-		(
-		?,
-		?,
-		?,
-		?,
-		?,
-		?,
-		?,
-		?,
-		CURRENT_TIMESTAMP,
-		?,
-		?,
-		?,
-		?,
-		?,
-		?,
-		?,
-		?,
-		?,
-		?,
-		?,
-		$finAdmVial
-	)";
+	$sql="INSERT INTO ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_incidente 
+		SET
+		id = ?,
+		codigo = ?,
+		fecha = ?,
+		hora_reporte = ?,
+		referencia = ?,
+		via = ?,
+		tipo_atencion = ?,
+		estado = ?,
+		fecha_creacion = CURRENT_TIMESTAMP,
+		periodo = ?,
+		visualizar_web = ?,
+		observaciones = ?,
+		tipo_incidente = ?,
+		nombre_usuario = ?,
+		identificacion_usuario = ?,
+		id_usuario = ?,
+		abscisa_real = ?,
+		fechaincidente = ?,
+		horaincidente = ?,
+		abscisa = ?,
+		coordenadas = POINT({$resultado_coordenadas->fields[0]}, {$resultado_coordenadas->fields[1]})
+	";
 	
 	if(!$_SESSION[APL]->bd->ejecutarO($sql,$parametros))
 		echo "<script>alert('Error al crear Incidente')</script>";
@@ -168,10 +162,10 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 			$mensaje.="Hora: ".date('H:i')."<br>";
 
 			if($_POST['tipo_incidente']=='v')
-				$t_i="Via sin ning鷑 tipo de problema en su recorrido";
+				$t_i="Via sin ning煤n tipo de problema en su recorrido";
 			else
 				if($_POST['tipo_incidente']=='a')
-					$t_i="Via con alguna restricci髇 en su recorrido";
+					$t_i="Via con alguna restricci贸n en su recorrido";
 			else
 
 			if($_POST['tipo_incidente']=='r')
@@ -227,64 +221,59 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 	}
 }
 ?>
-<script>
-	function cargar_referencias(via)
+
+<script type="text/javascript" src="js/funciones.js?<?php echo date('Ymdhis'); ?>"></script>
+<script type="text/javascript" src="libs/jq/jquery.min.js"></script>
+<script type="text/javascript" src="libs/jq/ui/js/jquery-ui-1.10.3.custom.min.js"></script>
+<link type="text/css" href="libs/jq/ui/css/custom-theme/jquery-ui-1.10.3.custom.css" rel="stylesheet"/>
+
+<script type="text/javascript">
+	function cargar_referencias()
 	{
-		document.incidente.referencia.length=0;
-		document.incidente.abcisa.value='';
-		document.incidente.tramo_ruta.value='';
-		
-		switch(via)
-		{
-			<?php
-				$sql="SELECT * FROM 
-				".$_SESSION[APL]->bd->nombre_bd[0].".dvm_referencia
-				order by id_via,referencia";
-				$refe=$_SESSION[APL]->bd->getRs($sql);
-				$refe_tmp=0;
-				$refe_i=-1;
+		// Variables
+		var via = parseInt(document.getElementById('via').value)
+		var via_configuracion = parseInt($("#via option:selected").attr("data-id-via-configuracion"))
+		var	abscisa = parseInt(document.getElementById('abscisa').value)
 
-				while (!$refe->EOF) 
-				{
-					if($refe_tmp!=$refe->fields[1])
-					{
-						if($refe_i!=-1)
-							echo "break;
-							";
-						echo "case '".$refe->fields[1]."':
-						";
+		// Si no se ha seleccionado la v铆a
+		if(via == "" || !via){
+			alert('Seleccione la v铆a')
+			document.incidente.via.focus()
 
-						echo "document.incidente.referencia.options[0]=new Option(' ','');
-						";
-
-						$refe_tmp=$refe->fields[1];
-						$refe_i=1;
-					}	
-
-					echo "document.incidente.referencia.options[".$refe_i."]=new Option('".$refe->fields[4]."','".$refe->fields[0]."|".$refe->fields[2]."|".$refe->fields[5]."');
-					";
-
-					$refe_i++;
-					$refe->MoveNext();
-				}
-
-			?>break;
-
-			default:
-
-			alert('Via no encontrada');
-
-			break;
-
+			return false;
 		}
 
+		// Si tiene abscisa, dibuja el punto en el mapa
+		dibujar_punto(via_configuracion, abscisa)
+
+		// Se limpia la lista
+		$("select[name='referencia']").html('')
+
+		// Mediante Ajax se consultan los sitios de referencia
+		var registros = ajax(`cargar_referencias.php?via=${via}&abscisa=${abscisa}`, null, 'JSON')
+
+		// Si no trae registros
+		if(registros.length == 0){
+			$("select[name='referencia']").append(`<option value="">Ning&uacute;n sitio encontrado</option>`)
+
+			return false			
+		}
+
+		// Se recorren los resultados
+		$.each(registros, function(key, val){
+			// Se agrega al select el sitio de referencia
+			$("select[name='referencia']").append(`<option data-abscisa="${val.abscisa_numerica}" value="${val.id}">${val.abscisa} - ${val.referencia}</option>`)
+		})
+
+	 	// Selecciona por defecto el valor de la abscisa que encontr贸
+	 	$(`select[name='referencia'] option[data-abscisa="${abscisa}"]`).attr("selected", true)
 	}
 
-	function colocar_datos_referencia(valor)
+	function dibujar_punto(via, abscisa)
 	{
-		texto=valor.split('|');
-		document.incidente.abcisa.value=texto[1];
-		document.incidente.tramo_ruta.value=texto[2];
+		$("input[name='id_via_configuracion']").val(via)
+
+		$("iframe").attr('src', `<?php echo $url; ?>/${via}/${abscisa}/${"<?php echo $id; ?>"}`)
 	}
 
 	function guardar()
@@ -380,10 +369,7 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 	}
 ?>
 
-<script type="text/javascript" src="libs/jq/jquery.min.js"></script>
 <script type="text/javascript" src="libs/js/vista.js"></script>
-<script type="text/javascript" src="libs/jq/ui/js/jquery-ui-1.10.3.custom.min.js"></script>
-<link type="text/css" href="libs/jq/ui/css/custom-theme/jquery-ui-1.10.3.custom.css" rel="stylesheet"/>
 <link href="css/tabla.css" rel="stylesheet" type="text/css">
 <form name="incidente" method="post" action="registro_inicial.php" enctype="multipart/form-data">
 	<center>
@@ -415,14 +401,16 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 						<select id="horaincidente_m" name='horaincidente_m' class="campos" style="width:45px">
 							<option value="">--</option>
 							<?php
-							for($i=0; $i<=59; $i++)
-								echo '<option value="'.str_pad($i,2,'0',STR_PAD_LEFT).'">'.str_pad($i,2,'0',STR_PAD_LEFT).'</option>';
+							for($i=0; $i<=59; $i++){
+								$seleccionado = ($i == date("i")) ? "selected" : "" ;
+								echo '<option value="'.str_pad($i,2,'0',STR_PAD_LEFT).'" '.$seleccionado.'>'.str_pad($i,2,'0',STR_PAD_LEFT).'</option>';
+							}
 							?>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<th>TIPO DE ATENCI覰</th>
+					<th>TIPO DE ATENCION</th>
 					<td align="left" colspan="3">
 						<select name="tipo_atencion" class="campos" style="width:400px">
 							<option value=""></option>
@@ -447,13 +435,13 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 				<tr>
 					<th>VIA</th>
 					<td align="left" colspan="3">
-						<select name="via" class="campos" onchange="cargar_referencias(this.value)" style="width:400px">
+						<select name="via" id="via"class="campos" style="width:400px" onchange="cargar_referencias()">
 							<option value=""></option>
 							<?php
 							$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_via ORDER BY nombre";
 							$rs=$_SESSION[APL]->bd->getRs($sql);
 							while (!$rs->EOF) {
-							   	echo "<option value='".$rs->fields[0]."' ";
+							   	echo "<option value='".$rs->fields[0]."' data-id-via-configuracion='".$rs->fields[3]."' ";
 								if(isset($_GET['id_buscar']) && $via==$rs->fields[0])
 										echo "selected";
 
@@ -463,16 +451,24 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 
 							$rs->close();
 							?>
-
 						</select>
+						<input type="hidden" name="id_via_configuracion">
+					</td>
+				</tr>
+				<tr>
+					<th>ABSCISA REAL</th>
+					<td align="left">
+						<input type='number' id="abscisa" name='abscisa_real' class="campos" onfocusout="cargar_referencias()" autocomplete="off" value="0">
+						<input type='hidden' name='emergente' value='<?php echo $emergente?>'>
 					</td>
 				</tr>
 				<tr>
 					<th>REFERENCIA</th>
 					<td align="left" colspan="3">
-						<select name="referencia" class="campos" onchange="colocar_datos_referencia(this.value)" style="width:400px">
+						<select name="referencia" class="campos" style="width:400px">
 							<option value=""></option>
 							<?php
+							
 							if(isset($_GET['id_buscar']))
 							{
 								$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_referencia WHERE id_via=".$via." ORDER BY referencia";
@@ -495,34 +491,22 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 					</td>
 				</tr>
 				<tr>
-					<th>ABSCISA ESTIMADA</th>
-					<td align="left">
-						<input type="text" name="abcisa" class="campos" value="<?php if(isset($_GET['id_buscar'])) echo $abscisa?>" disabled="false"/>
-					</td>
-					
-					<th>TRAMO-RUTA</th>
-					<td align="left">
-						<input type="text" name="tramo_ruta" class="campos" value="<?php if(isset($_GET['id_buscar'])) echo $tramo_ruta?>" disabled="false"/>
-					</td>
-				</tr>
-				<tr>
-					<th>ABSCISA REAL</th>
-					<td align="left">
-						<input type='text' name='abscisa_real' class="campos" >
-						<input type='hidden' name='emergente' value='<?php echo $emergente?>'>
-					</td>
-				</tr>
-				<tr>
 					<td colspan="8" align="center" height="40px" valign="middle">
 						<?php if(!isset($_GET['id_buscar']))
 						{?>
 							<input type="button" value="Guardar" onclick="guardar()" class="vbotones" />
 						<?php }
 						echo "<br><br>";
-						echo date_default_timezone_get()." ".date('d-m-Y H:i');
 						?>
 					</td>
 				</tr>
+			</tr>
+			<tr>
+				<td colspan="8" align="center" height="40px" valign="middle">
+					<iframe src="<?php echo $url; ?>" width="100%" height="360"></iframe>
+						
+					<?php echo date_default_timezone_get()." ".date('d-m-Y H:i'); ?>
+				</td>
 			</tr>
 		</table>
 	</center>

@@ -158,8 +158,7 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 	municipio1=?,
 	municipio2=?,
 	municipio_ocurrencia=?,
-	abscisa=?,
-	coordenadas=POINT(".$_POST['longitud'].", ".$_POST['latitud'].")
+	abscisa=?
 	WHERE
 	id=".$_POST['id_buscar']."";
 
@@ -406,8 +405,7 @@ if(isset($_POST['informado_por']) && isset($_POST['informado_por_nombre']))
 		width:50px !important;
 	}
 </style>
-<script>
-
+<script type="text/javascript">
 function filtrar()
 {
 
@@ -596,16 +594,6 @@ function guardar(tipo)
 	{
 		alert('Seleccione el municipio de ocurrencia')
 		document.incidente.municipio_ocurrencia.focus();
-	}
-	else if(document.incidente.latitud.value=='')
-	{
-		alert('Seleccione la latitud')
-		document.incidente.latitud.focus();
-	}
-	else if(document.incidente.longitud.value=='')
-	{
-		alert('Seleccione la longitud')
-		document.incidente.longitud.focus();
 	}
 	else if(document.incidente.tipo_atencion.value=='')
 	{
@@ -1342,7 +1330,13 @@ else
 }// fin si hay busqueda
 
 // URL de la aplicación de Mapas que cargará el punto espacializado
-$url = strtolower("https://mapas.devimed.com.co/index.php/operaciones/incidente/".$id_buscar);
+if(strpos($_SERVER["REQUEST_URI"], "desarrollo")){
+	// Desarrollo
+	$url = strtolower("http://localhost/devimed/mapas/index.php/operaciones/dibujar_punto/registro_sos");
+} else {
+	// Producción
+	$url = strtolower("https://mapas.devimed.com.co/index.php/operaciones/dibujar_punto/registro_sos");
+}
 ?>
 
 <!-- form name="listar_incidente" method="post" action="registro_sos_edi.php" -->
@@ -1702,14 +1696,14 @@ if( isset($id_buscar) )
 					<tr>
 						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Tramo</span></th>
 						<td class="style1">
-							<select name="via" class="campos" onchange="cargar_referencias(this.value);">
+							<select name="via" id='via' class="campos" onchange="cargar_referencias(this.value);">
 								<option value=""></option>
 								<?php
 									$sql="SELECT * FROM ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_via ORDER BY nombre";
 									$rs=$_SESSION[APL]->bd->getRs($sql);
 
 									while (!$rs->EOF) {
-										echo "<option value='".$rs->fields[0]."' ";
+										echo "<option value='".$rs->fields[0]."' data-id-via-configuracion='".$rs->fields[3]."'";
 										if(isset($id_buscar) && $via==$rs->fields[0])
 												echo "selected";
 										echo ">".$rs->fields[1]."</option>";
@@ -1798,8 +1792,6 @@ if( isset($id_buscar) )
 									<td>Finaliza</td>
 								</tr>
 							</table>
-
-
 						</td>
 						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Abscisa de Salida</span></th>
 						<td class="style1">
@@ -1808,8 +1800,8 @@ if( isset($id_buscar) )
 						</td>
 						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Abscisa del Evento</span></th>
 						<td class="style1">
-							<input type="text" name="absicsa_evento_p1" value="<?php if(isset($id_buscar)) echo $absicsa_evento_p1?>" class="campos cmpPeq" size="3" /><!--onblur="calcular_hora_estimada_llegada()"-->
-							<input type="text" name="absicsa_evento_p2" value="<?php if(isset($id_buscar)) echo $absicsa_evento_p2?>" class="campos cmpPeq" size="3"/>
+							<input type="text" name="absicsa_evento_p1" value="<?php if(isset($id_buscar)) echo $absicsa_evento_p1?>" class="campos cmpPeq" onfocusout="dibujar_punto()" size="3" /><!--onblur="calcular_hora_estimada_llegada()"-->
+							<input type="text" name="absicsa_evento_p2" value="<?php if(isset($id_buscar)) echo $absicsa_evento_p2?>" class="campos cmpPeq" onfocusout="dibujar_punto()" size="3"/>
 						</td>
 					</tr>
 					<tr>
@@ -1920,16 +1912,12 @@ if( isset($id_buscar) )
 					<tr>
 						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Latitud</span></th>
 						<td class="style1">
-							<input type="number" name="latitud" value="<?php echo (isset($id_buscar) && $latitud != "") ? $latitud : 0; ?>" class="campos" />
+							<input type="number" name="latitud" value="<?php echo (isset($id_buscar) && $latitud != "") ? $latitud : 0; ?>" class="campos" disabled />
 						</td>
 						<th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Longitud</span></th>
 						<td class="style1">
-							<input type="number" name="longitud" value="<?php echo (isset($id_buscar) && $longitud != "") ? $longitud : 0; ?>" class="campos" />
+							<input type="number" name="longitud" value="<?php echo (isset($id_buscar) && $longitud != "") ? $longitud : 0; ?>" class="campos" disabled />
 						</td>
-						<!-- <th bgcolor="#CCCCCC" class="resaltar"><span class="style1">Latitud</span></th> -->
-						<!-- <td class="style1">
-							<input type="text" name="" value="<?php // if(isset($id_buscar)) echo $absicsa_salida_p1?>" class="campos" />
-						</td> -->
 					</tr>
 				</table>
 			</td>
@@ -2394,6 +2382,19 @@ if( isset($id_buscar) )
 </div>
 </body>
 <script>
+	function dibujar_punto()
+	{
+		var via_configuracion = parseInt($("#via option:selected").attr("data-id-via-configuracion"))
+		let abscisa = (parseInt($("input[name='absicsa_evento_p1']").val()) * 1000) + parseInt($("input[name='absicsa_evento_p2']").val())
+
+		$("iframe").attr('src', `<?php echo $url; ?>/${via_configuracion}/${abscisa}/${"<?php echo $id_buscar; ?>"}`)
+	}
+
+	$(document).ready(function(){
+		dibujar_punto()
+
+		$("select[name='via'], select[name='referencia']").on("change", dibujar_punto)
+	})
 	<?php
 	if( isset($_GET["esEdi"]) and $_GET["esEdi"]=="SI" )
 	{
