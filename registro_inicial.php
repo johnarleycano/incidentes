@@ -113,6 +113,7 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 		'fechaincidente'=>$fecInc,
 		'horaincidente'=>$horInc,
 		'abscisa'=> $_POST['abscisa_real'],
+		'pesv'=> $_POST['pesv'],
 	);
 
 	$sql="INSERT INTO ".$_SESSION[APL]->bd->nombre_bd[0].".dvm_incidente 
@@ -137,7 +138,8 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 		fechaincidente = ?,
 		horaincidente = ?,
 		$coordenadas
-		abscisa = ?
+		abscisa = ?,
+		pesv = ?
 	";
 	
 	if(!$_SESSION[APL]->bd->ejecutarO($sql,$parametros))
@@ -464,6 +466,13 @@ if(isset($_POST['via']) && isset($_POST['tipo_atencion']))
 					<td align="left">
 						<input type='number' id="abscisa" name='abscisa_real' class="campos" onfocusout="cargar_referencias()" autocomplete="off" value="0">
 						<input type='hidden' name='emergente' value='<?php echo $emergente?>'>
+						
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<label><strong>Accidente PESV</strong></label>
+						<select name='pesv' class="campos" style="width: 50px;">
+							<option value="0">No</option>
+							<option value="1">Si</option>
+						</select>
 					</td>
 				</tr>
 				<tr>
