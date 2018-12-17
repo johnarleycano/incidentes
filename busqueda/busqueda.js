@@ -16,10 +16,10 @@ function IniciarGrid()
 	var pAlto = $(document).height()-240;
 	var vIdGri = 'griBuscar';
 	var vUrl   = 'busqueda.grid.php';
-	var vTitulo = 'Motor de Busquedas SOS';
+	var vTitulo = 'Motor de Busquedas SOS1';
 	var vColNam = [ 'ID','DOCS','FECHA','DIA','HORA<br/>REPORTE','HORA<br/>LLEGADA','TIEMPO<br/>(HH:MM)','DURACION<br/>EVENTO','ABSCISA','REFERENCIA','VIA','CONDICIONES','SENTIDO','INFORMADO POR',
 					'TIPO ATENCION','NRO MUERTOS','NRO HERIDOS','AMBULANCIA','GRUA','VEHICULO INVOLUCRADO','PLACAS','CILINDRAJE','NOMBRE USUARIO',
-					'IDENTIFICACION USUARIO','TIPO LESIONADO','EDAD','SITIO TRASLADO VEHICULO','SITIO TRASLADO USUARIO','OBSERVACIONES' ];
+					'IDENTIFICACION USUARIO','TIPO LESIONADO','EDAD','SITIO TRASLADO VEHICULO','SITIO TRASLADO USUARIO', 'PESV', 'OBSERVACIONES' ];
 	var vColMod = [	
 					{name:'id',				index:'id',				width:80,	sortable:false},
 					{name:'docs',			index:'docs',			width:65,	sortable:false, align:"center"}, 
@@ -49,7 +49,8 @@ function IniciarGrid()
 					{name:'edad',			index:'edad',			width:50,	sortable:false},
 					{name:'sit_tras_vehi',	index:'sit_tras_vehi',	width:180,	sortable:false},
 					{name:'sit_tras_usua',	index:'sit_tras_usua',	width:180,	sortable:false},
-					{name:'observaciones',	index:'observaciones',	width:250,	sortable:false}
+					{name:'pesv',			index:'pesv',			width:50,	sortable:false},
+					{name:'observaciones',	index:'observaciones',	width:250,	sortable:false},
 				 ];
 
 	var vFunGridCom = function(){ gridCompleto($("#griBuscar").getGridParam('userData')); };
@@ -98,6 +99,7 @@ function Buscar(pCompleto)
 	$("#griBuscar").showCol("edad");
 	$("#griBuscar").showCol("sit_tras_vehi");
 	$("#griBuscar").showCol("sit_tras_usua");
+	$("#griBuscar").showCol("pesv");
 	
 	if( pCompleto=="0" || pCompleto==0 )
 	{

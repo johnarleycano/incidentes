@@ -15,23 +15,79 @@ if( isset($_POST["buscar"]) and $_POST["buscar"]=="NO" )
 $json = new Services_JSON();
 $completo = $_POST['completo'];
 
-$select = "i.id,i.codigo,i.periodo,i.fechaincidente,i.horaincidente,i.hora_llegada,i.tiempo,
-			 case when i.abscisa_real!='' then i.abscisa_real else r.abscisa end abscisa,
-			 r.referencia referencia,v.nombre via,inf.nombre nomInf,ta.nombre tipo_atencion,i.nro_muertos,i.nro_heridos,
-			 i.hora_llegada_sitio,i.hora_salida_base,i.hora_llegada_base,inf.nombre,i.observaciones,sv.descripcion dessenvia,i.fecha";
+$select = "
+	i.id,
+	i.codigo,
+	i.periodo,
+	i.fechaincidente,
+	i.horaincidente,
+	i.hora_llegada,
+	i.tiempo,
+	case when i.abscisa_real!='' then i.abscisa_real else r.abscisa end abscisa,
+	r.referencia referencia,
+	v.nombre via,
+	inf.nombre nomInf,
+	ta.nombre tipo_atencion,
+	i.nro_muertos,
+	i.nro_heridos,
+	i.hora_llegada_sitio,
+	i.hora_salida_base,
+	i.hora_llegada_base,
+	inf.nombre,
+	i.observaciones,
+	sv.descripcion dessenvia,
+	i.fecha, 
+	case when i.pesv = 0 then 'NO' else 'SI' end pesv";
 $group = "group by i.id,i.codigo,i.periodo,i.fecha,i.horaincidente,i.hora_llegada,i.tiempo,r.abscisa,r.referencia,
 			v.nombre,inf.nombre,ta.nombre,i.nro_muertos,i.nro_heridos,i.hora_llegada_sitio,i.hora_salida_base,
 			i.hora_llegada_base,inf.nombre,i.observaciones,sv.descripcion,i.fecha";
 
 if( $_POST['completo']==1 )
 {
-	$select = "i.id,i.codigo,i.periodo,i.fechaincidente,horaincidente,i.hora_llegada,i.tiempo,
-				case when i.abscisa_real!='' then i.abscisa_real else r.abscisa end abscisa,
-				r.referencia referencia, v.nombre via, i.informado_por, ta.nombre tipo_atencion, i.nro_muertos, i.nro_heridos, 
-				tv.nombre vehiculo_involucrado, vi.placa_vehiculo,  lv.nombre nomLv, lv.cedula, par.nombre nomPar, tra.nombre nomTra, tal.nombre nomTal,
-				otv.nombre nomOtv, hos.nombre nomHos, csa.nombre nomCsa, cli.nombre nomCli, otl.nombre nomCtl, lv.observaciones, i.hora_llegada_sitio, 
-				i.hora_salida_base,i.hora_llegada_base, inf.nombre nomInf, amb.nombre nomAmb, gr.nombre nomGr, lv.edad edadlv, lv.conducia, 
-				lv.lesionado, lv.muerto, lv.tipo_lesion,sv.descripcion dessenvia,i.fecha,i.condiciones_climaticas,vi.cilindraje_vehiculo";
+	$select =
+		"i.id,
+		i.codigo,
+		i.periodo,
+		i.fechaincidente,
+		horaincidente,
+		i.hora_llegada,
+		i.tiempo,
+		case when i.abscisa_real!='' then i.abscisa_real else r.abscisa end abscisa,
+		r.referencia referencia,
+		v.nombre via, 
+		i.informado_por,
+		ta.nombre tipo_atencion, 
+		i.nro_muertos, 
+		i.nro_heridos, 
+		tv.nombre vehiculo_involucrado, 
+		vi.placa_vehiculo,  
+		lv.nombre nomLv, 
+		lv.cedula, 
+		par.nombre nomPar, 
+		tra.nombre nomTra, 
+		tal.nombre nomTal,
+		otv.nombre nomOtv, 
+		hos.nombre nomHos, 
+		csa.nombre nomCsa, 
+		cli.nombre nomCli, 
+		otl.nombre nomCtl, 
+		lv.observaciones,
+		i.hora_llegada_sitio, 
+		i.hora_salida_base,
+		i.hora_llegada_base, 
+		inf.nombre nomInf, 
+		amb.nombre nomAmb, 
+		gr.nombre nomGr, 
+		lv.edad edadlv, 
+		lv.conducia, 
+		lv.lesionado, 
+		lv.muerto, 
+		lv.tipo_lesion,
+		sv.descripcion dessenvia,
+		i.fecha,
+		i.condiciones_climaticas,
+		vi.cilindraje_vehiculo, 
+		case when i.pesv = 0 then 'NO' else 'SI' end pesv";
 	$group = "";
 }
 
@@ -233,6 +289,8 @@ if(isset($_POST['condiciones']) && $_POST['condiciones']!='')
 if(isset($_POST['cilindraje']) && $_POST['cilindraje']!='')
 	$where .= " and vi.cilindraje_vehiculo='".$_POST['cilindraje']."' ";
 
+if(isset($_POST['pesv']) && $_POST['pesv']!='')
+	$where .= " and i.pesv='".$_POST['pesv']."' ";
 
 // FIn where
 
@@ -320,10 +378,10 @@ $arrDiaSem["Sabado"]	= 0;
 if( $completo==1 )
 	$dato		= 'ID;FECHA;DIA;HORA REPORTE;HORA LLEGADA;TIEMPO;DURACION EVENTO;ABSCISA;REFERENCIA;VIA;CONDICIONES CLIMATICAS;SENTIDO;INFORMADO POR;TIPO ATENCION;NRO MUERTOS;'.
 				  'NRO HERIDOS;AMBULANCIA;GRUA;VEHICULO INVOLUCRADO;PLACAS;CILINDRAJE;NOMBRE USUARIO;IDENTIFICACION USUARIO;TIPO LESIONADO;EDAD;'.
-				  'SITIO TRASLADO VEHICULO;SITIO TRASLADO USUARIO;OBSERVACIONES'.chr(10);
+				  'SITIO TRASLADO VEHICULO;SITIO TRASLADO USUARIO;PESV;OBSERVACIONES'.chr(10);
 else
 	$dato		= 'ID;FECHA;DIA;HORA REPORTE;HORA LLEGADA;TIEMPO;DURACION EVENTO;ABSCISA;REFERENCIA;VIA;SENTIDO;INFORMADO POR;TIPO ATENCION;NRO MUERTOS;'.
-				  'NRO HERIDOS;OBSERVACIONES'.chr(10);
+				  'NRO HERIDOS;PESV;OBSERVACIONES'.chr(10);
 
 while( !$rs->EOF )
 {
@@ -360,6 +418,7 @@ while( !$rs->EOF )
 	$colFecR = '';
 	$colCond = '';
 	$colCili = '';	
+	$colPesv = '';	
 
 	$hora_salida_base  = "";
 	$hora_llegada_base = "";
@@ -472,6 +531,7 @@ while( !$rs->EOF )
 		$colFecR = $rs->fields[39];
 		$colCond = $rs->fields[40];
 		$colCili = $rs->fields[41];
+		$colPesv = $rs->fields[42];
 
 		//$colTipLes = 
 		if( $conducia=='SI' )
@@ -527,7 +587,7 @@ while( !$rs->EOF )
 		$colSenVia = $rs->fields[19];
 		$colFecR = $rs->fields[20];
 		$colCond = $rs->fields[21];
-		
+		$colPesv = $rs->fields[22];
 	}
 	
 	$arrDatos  = array();
@@ -560,9 +620,9 @@ while( !$rs->EOF )
 		}
 		
 		$arrDatos  = array($colId,$colDoc,$colFec,$colDia,$colHorRep,$colHorLle,$colTiempo,$colDurEve,$colAbs,$colRef,$colVia,$colCond,$colSenVia,$colInfPor,$colTipAte,
-						   $colNumMue,$colNumHer,$colAmb,$colGru,$colVehInv,$colPla,$colCili,$colNomUsu,$colIdeUsu,$colTipLes,$colEdad,utf8_encode($colTraVeh),$colTraUsu,$colObs);
+						   $colNumMue,$colNumHer,$colAmb,$colGru,$colVehInv,$colPla,$colCili,$colNomUsu,$colIdeUsu,$colTipLes,$colEdad,utf8_encode($colTraVeh),$colTraUsu,$colPesv,$colObs);
 		$arrDatExc = array($colId,$colFec,$colDia,$colHorRep,$colHorLle,$colTiempo,$colDurEve,$colAbs,$colRef,$colVia,$colCond,$colSenVia,$colInfPor,$colTipAte,
-						   $colNumMue,$colNumHer,$colAmb,$colGru,$colVehInv,$colPla,$colCili,$colNomUsu,$colIdeUsu,$colTipLes,$colEdad,$colTraVeh,$colTraUsu,$colObs);
+						   $colNumMue,$colNumHer,$colAmb,$colGru,$colVehInv,$colPla,$colCili,$colNomUsu,$colIdeUsu,$colTipLes,$colEdad,$colTraVeh,$colTraUsu,$colPesv,$colObs);
 	}
 	else
 	{
@@ -581,9 +641,9 @@ while( !$rs->EOF )
 	
 		
 		$arrDatos = array($colId,$colDoc,$colFec,$colDia,$colHorRep,$colHorLle,$colTiempo,$colDurEve,$colAbs,$colRef,
-						  $colVia,$colCond,$colSenVia,$colInfPor,$colTipAte,$colNumMue,$colNumHer,"","","","","","","","","",$colObs);
+						  $colVia,$colCond,$colSenVia,$colInfPor,$colTipAte,$colNumMue,$colNumHer,"","","","","","","","","",$colPesv,$colObs);
 		$arrDatExc = array($colId,$colFec,$colDia,$colHorRep,$colHorLle,$colTiempo,$colDurEve,$colAbs,$colRef,
-						   $colVia,$colSenVia,$colInfPor,$colTipAte,$colNumMue,$colNumHer,$colObs);
+						   $colVia,$colSenVia,$colInfPor,$colTipAte,$colNumMue,$colNumHer,$colPesv,$colObs);
 	}
 	
 	if( ($completo==1 and $datos_linea==1) or $completo!=1 )
@@ -683,11 +743,6 @@ $responce->userdata["totSab"] = $arrDiaSem["Sabado"];
 $responce->userdata["totDom"] = $arrDiaSem["Domingo"];
 
 $responce->userdata["totReg"] = $i;
-
-//$responce->userdata["totMue"] = $totMue;
-//$responce->userdata["totHer"] = $totHer;
-//$responce->userdata["medAri"] = $medAri;
-//$responce->userdata["totInc"] = $totInc;
 
 echo json_encode($responce);
 

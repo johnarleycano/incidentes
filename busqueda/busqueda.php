@@ -438,6 +438,14 @@ if(isset($_GET["msg"]))
 							<option value="VIENTO">VIENTO</option>
 						</select>
 					</td>
+					<th class="resaltar">Hace parte del PESV</th>
+					<td>
+						<select name="pesv" class="campos" id="pesv" style="width:200px">
+							<option value="">TODOS</option>
+							<option value="0">NO</option>
+							<option value="1">SI</option>
+						</select>
+					</td>
 				</tr>
 				<tr><th colspan="6" height="10"></th></tr>
 				<tr><th class="LegendSt" colspan="6" style="background-color:#4CB877">Sitio Traslado Vehiculo</th></tr>
