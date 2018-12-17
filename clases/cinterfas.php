@@ -32,7 +32,7 @@ class cinterfas{
 		$dias=$rs->fields[0];
 		
 		$rutImg = "";
-		if( !file_exists($rutImg.'img/logo.jpg') )
+		if( !file_exists($rutImg.'img/logo_nuevo.jpg') )
 			$rutImg = "../";
 		if($dias==-1 || $dias>1000)
 		{
@@ -180,7 +180,7 @@ class cinterfas{
 			}
 		}
 		
-		$dumy  = '<center><table  cellpadding="5" cellspacing="3" ><tr height="20"><th><img src="'.$rutImg.'img/logo.jpg"></th>';
+		$dumy  = '<center><table  cellpadding="5" cellspacing="3" ><tr height="20"><th><img src="'.$rutImg.'img/logo_nuevo.jpg"></th>';
 		$colsp=1;
 		for($i=0; $i < 9 ; $i++)
 		{
