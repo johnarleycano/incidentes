@@ -207,7 +207,7 @@ if(isset($_GET["msg"]))
 			<table width="100%" class="tabEdi" cellpadding="3" border="0">
 				<tr><th colspan="6" style="height:2px"></th></tr>
 				<tr>
-					<th class="resaltar">Codigo</th>
+					<th class="resaltar">C&oacute;digo</th>
 					<td><input type="text" name="codigo" value="" class="campos"/></td>
 					<th class="resaltar">Fecha Reporte Inicial</th>
 					<td>
@@ -221,7 +221,7 @@ if(isset($_GET["msg"]))
 					</td>
 				</tr>
 				<tr>
-					<th class="resaltar">Cedula Lesionado</th>
+					<th class="resaltar">C&eacute;dula Lesionado</th>
 					<td><input type="text" name="cedula" value="" class="campos"/></td>
 					<th class="resaltar">Usuario Registra</th>
 					<td>
@@ -309,7 +309,7 @@ if(isset($_GET["msg"]))
 					</td>
 				</tr>
 			<tr>
-					<th class="resaltar">Tipo Vehiculo</th>
+					<th class="resaltar">Tipo Veh&iacute;culo</th>
 					<td>
 						<select id="id_tipo_vehiculo" name="id_tipo_vehiculo" class="campos">
 							<option value=""></option>
@@ -353,7 +353,7 @@ if(isset($_GET["msg"]))
 							?>
 						</select>
 					</td>
-					<th class="resaltar">Via</th>
+					<th class="resaltar">V&iacute;a</th>
 					<td>
 						<select id="via" name="via" class="campos" onchange="cargar_referencias(this.value)">
 							<option value=""></option>
@@ -426,7 +426,7 @@ if(isset($_GET["msg"]))
 					<th colspan="2">&nbsp;</th>
 				</tr>
 				<tr>
-					<th class="resaltar">Conndiciones Climaticas</th>
+					<th class="resaltar">Condiciones Clim&aacute;ticas</th>
 					<td>
 						<select name="condiciones" class="campos" id="condiciones" style="width:200px">
 
@@ -436,7 +436,7 @@ if(isset($_GET["msg"]))
 							<option value="NIEBLA">NIEBLA</option>
 							<option value="NORMALES">NORMALES</option>
 							<option value="VIENTO">VIENTO</option>
-							</select>
+						</select>
 					</td>
 				</tr>
 				<tr><th colspan="6" height="10"></th></tr>
@@ -459,7 +459,7 @@ if(isset($_GET["msg"]))
 							?>
 						</select>
 					</td>
-					<th class="resaltar">Transito</th>
+					<th class="resaltar">Tr&aacute;nsito</th>
 					<td>
 						<select id="id_transito" name="id_transito" class="campos">
 							<option value=""></option>
@@ -538,7 +538,7 @@ if(isset($_GET["msg"]))
 							?>
 						</select>
 					</td>
-					<th class="resaltar">Clinica</th>
+					<th class="resaltar">Cl&iacute;nica</th>
 					<td>
 						<select name="id_clinica" class="campos">
 							<option value=""></option>
@@ -606,7 +606,7 @@ if(isset($_GET["msg"]))
 				<tr>
 					<th class="resaltar">Apellido Aut</th>
 					<td><input type="text" name="apellido_a" value="<?php if(isset($_POST['apellido_a'])) echo $_POST['apellido_a']?>" /></td>
-					<th class="resaltar">Caracteristicas Sitio</th>
+					<th class="resaltar">Caracter&iacute;sticas Sitio</th>
 					<td>
 						<select name="caracteristicas" class="campos">
 							<option value=""></option>
@@ -633,7 +633,7 @@ if(isset($_GET["msg"]))
 					</td>
 				</tr>
 				<tr>
-					<th class="resaltar">Tipo de Atencion</th>
+					<th class="resaltar">Tipo de Atenci&oacute;n</th>
 					<td>
 						<select id="tipo_atencion" name="tipo_atencion" class="campos">
 							<option value="">*</option>
@@ -713,7 +713,7 @@ if(isset($_GET["msg"]))
 							?>
 						</select>
 					</td>
-					<th>Grua</th>
+					<th>Gr&uacute;a</th>
 					<td>
 						<select id="id_grua" name="id_grua" class="campos">
 							<option value="">Todas</option>
